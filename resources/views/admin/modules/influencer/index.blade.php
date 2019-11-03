@@ -43,9 +43,9 @@
                 @foreach($influencers as $key=>$inf)
                     <tr>
                         <td>{{++$key}}</td>
-                        <td>{{$inf->first_name}}</td>
-                        <td>{{$inf->last_name}}</td>
-                        <td>{{$inf->email}}</td>
+                        <td>{{$inf->user->first_name}}</td>
+                        <td>{{$inf->user->last_name}}</td>
+                        <td>{{$inf->user->email}}</td>
                         <td>{{$inf->birthday}}</td>
                         <td>{{$inf->city}} | {{$inf->street}} </td>
                         <td>{{Carbon\Carbon::parse($inf->created_at)->diffForHumans()}}</td>

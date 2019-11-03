@@ -15,11 +15,11 @@ class CreateInfluencersTable extends Migration
     {
         Schema::create('influencers', function (Blueprint $table) {
             $table->increments('id');
-//            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id');
 
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('email')->nullable();
+//            $table->string('first_name')->nullable();
+//            $table->string('last_name')->nullable();
+//            $table->string('email')->nullable();
             $table->string('birthday')->nullable();
             $table->string('facebook_url')->nullable();
             $table->string('facebook_followers')->nullable();

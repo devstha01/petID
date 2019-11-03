@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Influencer;
+use App\Cloudsa9\Entities\Models\User\Influencer;
+use App\Cloudsa9\Entities\Models\User\User;
+use App\Cloudsa9\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -20,15 +22,16 @@ class InfluencersController extends Controller
         return view('admin.modules.influencer.edit', compact('inf'));
     }
 
-    function update($id, Request $request)
+    function update($id, Request $request, UserRepository $userRepository)
     {
-        $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:influencers,email,'.$id ,
-        ]);
         $inf = Influencer::find($id);
-        $input = $request->except('_token');
+        $valid = $this->validate($request, [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $inf->user_id,
+        ]);
+        $userRepository->find($inf->user_id)->update($valid);
+        $input = $request->except('_token', 'first_name', 'last_name', 'email');
         $inf->update($input);
         return redirect()->back()->with('success', 'Influencer updated successfully');
     }

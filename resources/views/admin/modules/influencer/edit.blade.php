@@ -45,7 +45,7 @@
                             <label>First name</label>
 
                             <input type="text" class="form-control" name="first_name"
-                                   value="{{ $inf->first_name }}"
+                                   value="{{ $inf->user->first_name }}"
 
                                    placeholder="First Name*" required>
 
@@ -63,7 +63,7 @@
                             <label>Last name</label>
 
                             <input type="text" class="form-control" name="last_name"
-                                   value="{{ $inf->last_name }}"
+                                   value="{{ $inf->user->last_name }}"
 
                                    placeholder="Last Name*" required>
 
@@ -82,7 +82,7 @@
                             <label>Email</label>
 
                             <input type="text" class="form-control" name="email"
-                                   value="{{ $inf->email }}"
+                                   value="{{ $inf->user->email }}"
 
                                    placeholder="Email*" required>
 
