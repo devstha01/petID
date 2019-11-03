@@ -1,0 +1,21 @@
+.m-brand .m-brand__logo .m-brand__logo-wrapper {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fb8122;
+}
+
+.m-brand .m-brand__logo .m-brand__logo-wrapper:hover {
+    text-decoration: none;
+}
+
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item.m-menu__item--active > .m-menu__heading, .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item.m-menu__item--active > .m-menu__link {
+    background-color: #fb8122;
+}
+
+.m-form .m-form__group {
+    margin-bottom: 25px;
+}
+
+.m-portlet .alert {
+    margin-bottom: 0;
+}
