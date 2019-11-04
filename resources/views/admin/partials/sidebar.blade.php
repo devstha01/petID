@@ -59,6 +59,13 @@
                     <span class="m-menu__link-text">Transactions</span>
                 </a>
             </li>
+    <li class="m-menu__item{{ $route == 'admin.influencer.index'  ? ' m-menu__item--active': null }}" aria-haspopup="true" m-menu-link-redirect="1">
+                <a href="{{ route('admin.influencer.index') }}" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon"><i class="fa fa-user-circle"></i></i>
+                    <span class="m-menu__link-text">Influencer</span>
+                </a>
+            </li>
 
             <!--<li class="m-menu__item" aria-haspopup="true" m-menu-link-redirect="1">
                 <a href="#" class="m-menu__link">

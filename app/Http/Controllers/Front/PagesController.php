@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Cloudsa9\Entities\Models\User\Influencer;
+use App\Cloudsa9\Repositories\User\UserRepository;
 use App\Domain\Front\Requests\ContactRequest;
 use App\Domain\Front\Services\User\ContactInfoService;
 use App\Domain\Front\Services\User\UserService;
@@ -95,13 +97,36 @@ class PagesController extends Controller
     {
         return view('front.modules.faq');
     }
-    
-    public function getCommunity(){
+
+    public function getCommunity()
+    {
         return view('front.modules.community');
     }
-    
-    public function getInfluencers(){
+
+    public function getInfluencers()
+    {
         return view('front.modules.influencers');
+    }
+
+    function postInfluencers(Request $request, UserRepository $userRepository)
+    {
+        $valid = $this->validate($request, [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+        ]);
+        $input = $request->except('_token', 'first_name', 'last_name', 'email');
+        $valid['password'] = bcrypt('secret' . rand(1000, 9999));
+        $valid['phone'] = "0";
+        $valid['phone_code'] = rand(100000, 999999);
+        $user = $userRepository->create($valid);
+        if (!$user)
+            return redirect()->back()->with('success', 'Failed to create new Influencer');
+        $input['user_id'] = $user->id;
+        $inf = Influencer::create($input);
+        if (!$inf)
+            return redirect()->back()->with('success', 'Failed to create new Influencer');
+        return redirect()->back()->with('success', 'Influencer created successfully');
     }
 
     /**
@@ -155,7 +180,7 @@ class PagesController extends Controller
     {
         return view('front.modules.privacy-policy');
     }
-    
+
     public function redirectToStore()
     {
         // Detect special conditions devices

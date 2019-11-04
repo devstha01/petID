@@ -64,9 +64,12 @@
                     {{--<h3>Fill out the form below to get started</h3>--}}
 
                     @include('flash::message')
+                    @if(session('success'))
+                    <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{session('success')}}</div>
+                    @endif
 
 
-                    <form method="POST" action="#" id="form-contact">
+                    <form method="POST" action="{{route('influencer.post')}}">
 
                         @csrf
 
@@ -96,7 +99,7 @@
 
                                     <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
 
-                                        <input type="text" class="form-control" name="first_name"
+                                        <input type="text" class="form-control" name="last_name"
                                                value="{{ old('last_name') }}"
 
                                                placeholder="Last Name*" required>
@@ -133,7 +136,8 @@
 
                                     <div class="form-group">
 
-                                        <input type="text" class="form-control date" name="birthday" id='datetimepicker1'
+                                        <input type="text" class="form-control date" name="birthday"
+                                               id='datetimepicker1'
                                                value="{{ old('birthday') }}"
 
                                                placeholder="Birthday"
@@ -172,7 +176,7 @@
 
                                     <div class="form-group">
 
-                                        <input type="text" class="form-control" name="street"
+                                        <input type="text" class="form-control" name="zip_code"
                                                value="{{ old('zip_code') }}"
 
                                                placeholder="Zip Code"
@@ -199,7 +203,7 @@
 
                                     <div class="form-group">
 
-                                        <input type="text" class="form-control" name="facebook_url"
+                                        <input type="text" class="form-control" name="facebook_followers"
                                                value="{{ old('facebook_followers') }}"
 
                                                placeholder="Facebook Followers"
@@ -313,7 +317,6 @@
                                 </div>
 
 
-
                             </div>
 
                             <div class="col col-sm-12 text-center">
@@ -325,7 +328,6 @@
                             </div>
 
                         </div>
-
                     </form>
 
                 </div>

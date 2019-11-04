@@ -27,6 +27,7 @@ Route::post('/contact', 'Front\PagesController@postContact')->name('contact.stor
 Route::get('/faq', 'Front\PagesController@getFAQ')->name('faq');
 Route::get('/community', 'Front\PagesController@getCommunity')->name('community');
 Route::get('/influencer', 'Front\PagesController@getInfluencers')->name('influencer');
+Route::post('/influencer', 'Front\PagesController@postInfluencers')->name('influencer.post');
 Route::get('/tos', 'Front\PagesController@getTOS')->name('tos');
 Route::get('/privacy-policy', 'Front\PagesController@getPrivacyPolicy')->name('privacy-policy');
 Route::post('/subscribe', 'Front\NewsletterController@postNewsletter')->name('newsletter-subscribe');
@@ -49,6 +50,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('/subscribers', 'SubscribersController');
 
         Route::get('/transactions', 'TransactionsController@index')->name('transactions.index');
+        Route::get('/influencer', 'InfluencersController@index')->name('influencer.index');
+        Route::get('/influencer/{id}', 'InfluencersController@edit')->name('influencer.edit');
+        Route::post('/influencer/{id}', 'InfluencersController@update')->name('influencer.update');
     });
 
     // Subscriber routes
