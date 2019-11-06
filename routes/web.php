@@ -31,6 +31,9 @@ Route::post('/influencer', 'Front\PagesController@postInfluencers')->name('influ
 Route::get('/tos', 'Front\PagesController@getTOS')->name('tos');
 Route::get('/privacy-policy', 'Front\PagesController@getPrivacyPolicy')->name('privacy-policy');
 Route::post('/subscribe', 'Front\NewsletterController@postNewsletter')->name('newsletter-subscribe');
+Route::get('/about-us', 'Front\PagesController@getAboutUs')->name('about-us');
+Route::get('/returns-and-shipping', 'Front\PagesController@getReturnsAndShipping')->name('returns-and-shipping');
+Route::get('/lost-pet-checklist', 'Front\PagesController@getLostPetChecklist')->name('lost-pet-checklist');
 
 Route::get('/d', 'Front\PagesController@redirectToStore');
 

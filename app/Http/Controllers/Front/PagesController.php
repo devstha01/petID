@@ -103,6 +103,21 @@ class PagesController extends Controller
         return view('front.modules.community');
     }
 
+    public function getAboutUs()
+    {
+        return view('front.modules.about-us');
+    }
+
+    public function getReturnsAndShipping()
+    {
+        return view('front.modules.returns-and-shipping');
+    }
+
+    public function getLostPetChecklist()
+    {
+        return view('front.modules.lost-pet-checklist');
+    }
+
     public function getInfluencers()
     {
         return view('front.modules.influencers');
