@@ -30,7 +30,7 @@ function generateQRCode($content, $fileName, $backgroundColor): void
  * @param $backgroundColor
  * @return string
  */
-function generateLockscreen($phoneCode, $qrCode, $device, $reward, $backgroundColor): string
+function generateLockscreen($phoneCode, $qrCode, $device, $reward, $backgroundColor,$user): string
 {
 
 //    $bgColor = $backgroundColor == 'black' ? '#000000' : '#ffffff';
@@ -43,6 +43,11 @@ function generateLockscreen($phoneCode, $qrCode, $device, $reward, $backgroundCo
         $textColor = '#ffffff';
     }
 
+    /*
+    phone = 1" size
+    tablet = 1.25" size
+    */
+
     // Create a new empty image resource with $bgColor background
     if ($device == 'phone') {
         $img = Image::canvas(192, 192);
@@ -53,7 +58,7 @@ function generateLockscreen($phoneCode, $qrCode, $device, $reward, $backgroundCo
         $img1->circle(192, 96, 96, function ($draw) use ($bgColor) {
             $draw->background($bgColor);
         });
-        $customPaper = array(0, 0, 192, 192);
+//        $customPaper = array(0, 0, 192, 192);
     } elseif ($device == 'tablet') {
         $img = Image::canvas(240, 240);
         $img->circle(240, 120, 120, function ($draw) use ($bgColor) {
@@ -63,7 +68,7 @@ function generateLockscreen($phoneCode, $qrCode, $device, $reward, $backgroundCo
         $img1->circle(240, 120, 120, function ($draw) use ($bgColor) {
             $draw->background($bgColor);
         });
-        $customPaper = array(0, 0, 240, 240);
+//        $customPaper = array(0, 0, 240, 240);
     }
 
 //    if ($backgroundColor == 'image') {
@@ -147,6 +152,7 @@ function generateLockscreen($phoneCode, $qrCode, $device, $reward, $backgroundCo
 
     $fileName = uniqid('', true);
     $fileName1 = uniqid('', true);
+    $fileName2 = uniqid('', true);
 
     $saveimg = storage_path('app/public/wallpaper/image/' . $fileName . '.jpg');
     $saveimg1 = storage_path('app/public/wallpaper/image/' . $fileName1 . '.jpg');
@@ -157,12 +163,35 @@ function generateLockscreen($phoneCode, $qrCode, $device, $reward, $backgroundCo
     $savepdf = storage_path('app/public/wallpaper/' . $fileName . '.pdf');
     $savepdf1 = storage_path('app/public/wallpaper/' . $fileName1 . '.pdf');
 
-    PDF::loadHTML("<img src='" . url('/storage/wallpaper/image/' . $fileName . '.jpg') . "'>")->setPaper($customPaper)->save($savepdf);
-    PDF::loadHTML("<img src='" . url('/storage/wallpaper/image/' . $fileName1 . '.jpg') . "'>")->setPaper($customPaper)->save($savepdf1);
+    PDF::loadHTML("<img src='" . $saveimg . "'>")->save($savepdf);
+    PDF::loadHTML("<img src='" . $saveimg1 . "'>")->save($savepdf1);
+
+//    CSV of user info
+    $savecsv = storage_path('app/public/wallpaper/' . $fileName2 . '.csv');
+    $results = [
+        0 => ['name',$user->name],
+        1 => ['email',$user->email],
+        2 => ['phone1',$user->phone1],
+        3 => ['phone2',$user->phone2],
+        4 => ['phone3',$user->phone3],
+        5 => ['phone4',$user->phone4],
+        6 => ['address1',$user->address1],
+        7 => ['address2',$user->address2],
+        8 => ['city',$user->city],
+        9 => ['state',$user->state],
+        10 => ['zip',$user->zip],
+    ];
+    $csvfilename = $fileName2 . '.csv';
+    $fd = fopen($savecsv, "w");
+    foreach ($results as $row) {
+        fputcsv($fd, $row);
+    }
+    fclose($fd);
 
     return serialize([
-        'back' => "wallpaper/" . $fileName . ".pdf",
-        'front' => "wallpaper/" . $fileName1 . ".pdf",
+        'back' => $fileName . ".pdf",
+        'front' => $fileName1 . ".pdf",
+        'info' => $csvfilename
     ]);
 }
 

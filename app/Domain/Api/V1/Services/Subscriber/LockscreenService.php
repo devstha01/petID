@@ -98,7 +98,8 @@ class LockscreenService
     {
         return [
             'id' => isset($inputs['id']) ? $inputs['id'] : null,
-            'user_id' => currentUser()->id,
+//            'user_id' => currentUser()->id,
+            'user_id' => array_get($inputs, 'user_id'),
             'device' => array_get($inputs, 'device'),
             'lockscreen_color' => array_get($inputs, 'lockscreen_color'),
         ];

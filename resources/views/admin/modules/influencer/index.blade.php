@@ -37,6 +37,7 @@
                     <th>Birthday</th>
                     <th>Address</th>
                     <th>Created At</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +50,16 @@
                         <td>{{$inf->birthday}}</td>
                         <td>{{$inf->city}} | {{$inf->street}} </td>
                         <td>{{Carbon\Carbon::parse($inf->created_at)->diffForHumans()}}</td>
+                        <td rowspan="2">
+                            <form action="{{route('admin.influencer.status',$inf->id)}}" method="post">
+                                {{csrf_field()}}
+                                @if($inf->user->status ==='active')
+                                    <button class="btn btn-sm btn-success"><i class="fa fa-check"></i> active</button>
+                                @else
+                                    <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i> inactive</button>
+                                @endif
+                            </form>
+                        </td>
                     </tr>
                     <tr>
                         <td></td>
@@ -57,7 +68,8 @@
                         <td>{{$inf->instagram_url}} | {{$inf->instagram_followers}}</td>
                         <td>{{$inf->tiktok_url}} | {{$inf->tiktok_followers}}</td>
                         <td>{{$inf->website_url}} | {{$inf->website_visitors}}</td>
-                        <td><a href="{{route('admin.influencer.edit',$inf->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</a></td>
+                        <td><a href="{{route('admin.influencer.edit',$inf->id)}}" class="btn btn-info btn-sm"><i
+                                        class="fa fa-edit"></i> Edit</a></td>
                     </tr>
                 @endforeach
                 </tbody>

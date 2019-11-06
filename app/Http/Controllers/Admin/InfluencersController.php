@@ -33,6 +33,19 @@ class InfluencersController extends Controller
         $userRepository->find($inf->user_id)->update($valid);
         $input = $request->except('_token', 'first_name', 'last_name', 'email');
         $inf->update($input);
-        return redirect()->back()->with('success', 'Influencer updated successfully');
+        return redirect()->back()->with('success', 'Information updated successfully');
+    }
+
+    function status($id, Request $request, UserRepository $userRepository)
+    {
+        $inf = Influencer::find($id);
+
+        if ($inf->user->status === 'active')
+            $status = 'inactive';
+        else
+            $status = 'active';
+
+        $userRepository->find($inf->user_id)->update(['status' => $status]);
+
     }
 }

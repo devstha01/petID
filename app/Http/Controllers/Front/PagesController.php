@@ -121,12 +121,12 @@ class PagesController extends Controller
         $valid['phone_code'] = rand(100000, 999999);
         $user = $userRepository->create($valid);
         if (!$user)
-            return redirect()->back()->with('success', 'Failed to create new Influencer');
+            return redirect()->back()->with('success', 'Failed to submit information');
         $input['user_id'] = $user->id;
         $inf = Influencer::create($input);
         if (!$inf)
-            return redirect()->back()->with('success', 'Failed to create new Influencer');
-        return redirect()->back()->with('success', 'Influencer created successfully');
+            return redirect()->back()->with('success', 'Failed to submit information');
+        return redirect()->back()->with('success', 'Your information has been submitted');
     }
 
     /**
