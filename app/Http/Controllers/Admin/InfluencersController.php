@@ -48,4 +48,22 @@ class InfluencersController extends Controller
         $userRepository->find($inf->user_id)->update(['status' => $status]);
 
     }
+
+    public function editPass($id)
+    {
+        $inf = Influencer::find($id);
+        return view('admin.modules.influencer.editpass', compact('inf'));
+    }
+
+    function updatePass($id, Request $request, UserRepository $userRepository)
+    {
+        $inf = Influencer::find($id);
+        $this->validate($request, [
+            'password' => 'required|string|min:6|same:confirm_password',
+            'confirm_password' => 'required|string|min:6',
+        ]);
+        $userRepository->find($inf->user_id)->update(['password'=>bcrypt($request->password)]);
+        return redirect()->back()->with('success', 'Password updated successfully');
+    }
+
 }

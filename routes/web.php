@@ -53,6 +53,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/influencer', 'InfluencersController@index')->name('influencer.index');
         Route::get('/influencer/{id}', 'InfluencersController@edit')->name('influencer.edit');
         Route::post('/influencer/{id}', 'InfluencersController@update')->name('influencer.update');
+        Route::get('/influencer/{id}/pass', 'InfluencersController@editPass')->name('influencer.editpass');
+        Route::post('/influencer/{id}/pass', 'InfluencersController@updatePass')->name('influencer.updatepass');
         Route::post('/influencer/{id}/status', 'InfluencersController@status')->name('influencer.status');
     });
 
