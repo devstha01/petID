@@ -68,7 +68,7 @@ class NewPETiD extends Command
                     $lockscreenInfo = $this->lockscreenService->findBySubscriber($new_user->id);
 
                     // Send mail
-                    Mail::to('bijen.smartcode@gmail.com')->send(new NewUserPETiD($lockscreenInfo));
+                    Mail::to('anand.smartcode@gmail.com')->send(new NewUserPETiD($lockscreenInfo));
                     \Log::warning($new_user->email . ' - Success! new PETiD Mail sent');
                 } else {
                     \Log::warning($new_user->email . 'Please update the recovery information.');
