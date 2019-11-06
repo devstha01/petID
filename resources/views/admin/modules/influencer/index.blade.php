@@ -37,18 +37,29 @@
                     <th>Birthday</th>
                     <th>Address</th>
                     <th>Created At</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($influencers as $key=>$inf)
                     <tr>
                         <td>{{++$key}}</td>
-                        <td>{{$inf->user->first_name}}</td>
-                        <td>{{$inf->user->last_name}}</td>
-                        <td>{{$inf->user->email}}</td>
+                        <td>{{$inf->user->first_name??''}}</td>
+                        <td>{{$inf->user->last_name??''}}</td>
+                        <td>{{$inf->user->email??''}}</td>
                         <td>{{$inf->birthday}}</td>
                         <td>{{$inf->city}} | {{$inf->street}} </td>
                         <td>{{Carbon\Carbon::parse($inf->created_at)->diffForHumans()}}</td>
+                        <td>
+                            <form action="{{route('admin.influencer.status',$inf->id)}}" method="post">
+                                {{csrf_field()}}
+                                @if($inf->user->status??'' ==='active')
+                                    <button class="btn btn-sm btn-success"><i class="fa fa-check"></i> active</button>
+                                @else
+                                    <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i> inactive</button>
+                                @endif
+                            </form>
+                        </td>
                     </tr>
                     <tr>
                         <td></td>
@@ -57,7 +68,10 @@
                         <td>{{$inf->instagram_url}} | {{$inf->instagram_followers}}</td>
                         <td>{{$inf->tiktok_url}} | {{$inf->tiktok_followers}}</td>
                         <td>{{$inf->website_url}} | {{$inf->website_visitors}}</td>
-                        <td><a href="{{route('admin.influencer.edit',$inf->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</a></td>
+                        <td colspan="2">
+                            <a href="{{route('admin.influencer.edit',$inf->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="{{route('admin.influencer.editpass',$inf->id)}}" class="btn btn-info btn-sm"> Password</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

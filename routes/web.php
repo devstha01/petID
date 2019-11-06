@@ -21,7 +21,7 @@ Route::get('change-password',function(){
 Route::get('/', 'Front\PagesController@index')->name('home');
 Route::get('/return-found-pet', 'Front\PagesController@getReturnFoundPet')->name('return-found-pet');
 Route::get('/rfp/{any}', 'Front\PagesController@getReturnFoundPet')->name('rfp');
-Route::get('/how-to-set-lock-screen', 'Front\PagesController@getHowToSetLockScreen')->name('how-to-set-lock-screen');
+//Route::get('/how-to-set-lock-screen', 'Front\PagesController@getHowToSetLockScreen')->name('how-to-set-lock-screen');
 Route::get('/contact', 'Front\PagesController@getContact')->name('contact');
 Route::post('/contact', 'Front\PagesController@postContact')->name('contact.store');
 Route::get('/faq', 'Front\PagesController@getFAQ')->name('faq');
@@ -53,6 +53,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/influencer', 'InfluencersController@index')->name('influencer.index');
         Route::get('/influencer/{id}', 'InfluencersController@edit')->name('influencer.edit');
         Route::post('/influencer/{id}', 'InfluencersController@update')->name('influencer.update');
+        Route::get('/influencer/{id}/pass', 'InfluencersController@editPass')->name('influencer.editpass');
+        Route::post('/influencer/{id}/pass', 'InfluencersController@updatePass')->name('influencer.updatepass');
+        Route::post('/influencer/{id}/status', 'InfluencersController@status')->name('influencer.status');
     });
 
     // Subscriber routes

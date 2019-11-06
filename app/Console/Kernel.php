@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\NewPETiD;
 use App\Console\Commands\NotifyUnverifiedUsers;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -15,18 +16,20 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         NotifyUnverifiedUsers::class,
+        NewPETiD::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('notify:unverified-users')
-                  ->daily();
+        $schedule->command('notify:unverified-users')
+            ->daily();
+        $schedule->command('newuser:petid')->dailyAt('00:00');
     }
 
     /**
@@ -36,7 +39,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
