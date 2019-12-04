@@ -7,9 +7,16 @@ use App\Cloudsa9\Entities\Models\User\User;
  *
  * @return string
  */
-function uniquePhoneCode()
+function uniquePetCode()
 {
     $uniqueId = substr(uniqid(), 0, 6);
+
+    return str_shuffle($uniqueId);
+}
+
+function uniqueQRCode()
+{
+    $uniqueId = substr(uniqid(), 0, 10);
 
     return str_shuffle($uniqueId);
 }

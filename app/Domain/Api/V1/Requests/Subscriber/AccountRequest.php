@@ -31,10 +31,8 @@ class AccountRequest extends FormRequest implements IFormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255', Rule::unique(DBTable::USERS)->ignore(currentUser()->id),
-            'phone' => 'required',
         ];
     }
 }

@@ -19,16 +19,17 @@ class CreateContactInfosTable extends Migration
             $table->string('name');
             $table->string('email');
 
-            $table->string('phone1');
+            $table->string('phone1')->nullable();
             $table->string('phone2')->nullable();
-            $table->string('phone3')->nullable();
-            $table->string('phone4')->nullable();
+            // $table->string('phone3')->nullable();
+            // $table->string('phone4')->nullable();
 
             $table->string('address1')->nullable();
             $table->string('address2')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('zip')->nullable();
+            $table->string('country')->nullable();
 
 //            $table->enum('device', DeviceType::all())->default(DeviceType::PHONE);
 //            $table->enum('lockscreen_color', LockScreenColor::all())->default(LockScreenColor::BLACK);

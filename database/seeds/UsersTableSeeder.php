@@ -4,6 +4,7 @@ use App\Cloudsa9\Constants\AccountType;
 use App\Cloudsa9\Constants\StatusType;
 use App\Cloudsa9\Entities\Models\User\Role;
 use App\Cloudsa9\Entities\Models\User\User;
+use App\Cloudsa9\Entities\Models\User\ContactInfo;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
@@ -24,17 +25,17 @@ class UsersTableSeeder extends Seeder
         DB::table('permission_role')->delete();
 
         $faker = Faker::create('en_US');
-        $limit = 0;
+        $limit = 2;
 
         // Admin
         $admin = User::create([
-            'first_name' => 'John',
-            'last_name' => 'Doe',
+            'name' => 'John Doe',
             'email' => 'johndoe@fowndapp.com',
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt('secret'),
             'phone' => '+16237553141',
-            'phone_code' => uniquePhoneCode(),
+            'pet_code' => uniquePetCode(),
+            'qr_code'=> uniqueQrCode(),
             'account_type' => AccountType::FREE,
             'status' => StatusType::ACTIVE,
             'created_at' => Carbon::now(),
@@ -81,18 +82,34 @@ class UsersTableSeeder extends Seeder
          */
         for ($i = 0; $i < $limit; $i++) {
             $subscriber = User::create([
-                'first_name' => $faker->firstName,
-                'last_name' => $faker->lastName,
+                'name' => $faker->name,
                 'email' => $faker->unique()->email,
                 'password' => bcrypt('secret'),
                 'phone' => $faker->phoneNumber,
-                'phone_code' => uniquePhoneCode(),
+                'pet_code' => uniquePetCode(),
+                'qr_code'=> uniqueQRCode(),
                 'status' => StatusType::ACTIVE,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
 
             $subscriber->attachRole($subscriberRole);
+
+            $contactInfo = ContactInfo::create([
+                'user_id' => $subscriber->id,
+                'name' => $subscriber->name,
+                'email' => $subscriber->email,
+                'phone1' => $subscriber->phone,
+                'phone2' => '',
+                // 'phone3' => '',
+                // 'phone4' => '',
+                'reward' => 0,
+                'message' => '',
+            ]);
+
+            $qrCode = storage_path('app/public/qrcode/' . $subscriber->qr_code . '.png');
+            // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
+            generateQRCode('petid.app/rfp/' . $subscriber->pet_code, $qrCode);
         }
     }
 }

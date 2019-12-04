@@ -45,10 +45,9 @@ class AccountService
     protected function setUpdateData(array $inputs): array
     {
         return [
-            'first_name' => array_get($inputs, 'first_name'),
-            'last_name' => array_get($inputs, 'last_name'),
+            'name' => array_get($inputs, 'name'),
             'email' => array_get($inputs, 'email'),
-            'phone' => array_get($inputs, 'full_phone') ? array_get($inputs, 'full_phone') : array_get($inputs, 'phone'),
+            // 'phone' => array_get($inputs, 'full_phone') ? array_get($inputs, 'full_phone') : array_get($inputs, 'phone'),
         ];
     }
 

@@ -20,7 +20,9 @@ $api->version('v1', function (Router $api) {
         // Auth routes
         $api->group(['namespace' => 'Auth', 'prefix' => 'auth'], function (Router $api) {
             $api->post('register', 'RegisterController@register');
+            $api->post('signup/fb','RegisterController@registerViaFb');
             $api->post('login', 'LoginController@login');
+            $api->post('user-log','LoginController@userLog');
             $api->post('login/fb', 'LoginController@loginFacebook');
 
             $api->post('password/email', 'ForgotPasswordController@sendResetEmail');
@@ -43,12 +45,12 @@ $api->version('v1', function (Router $api) {
 
                 $api->post('/my-account/change-password', 'AccountController@postChangePassword');
 
-                $api->get('/recovery-info', 'ContactInfoController@getContactInfo');
-                $api->post('/recovery-info', 'ContactInfoController@postContactInfo');
+                $api->get('/contact-info', 'ContactInfoController@getContactInfo');
+                $api->post('/contact-info', 'ContactInfoController@postContactInfo');
 
-                $api->get('/lockscreen', 'LockscreenController@getLockscreen');
-                $api->post('/lockscreen', 'LockscreenController@postLockscreen');
-                $api->post('/lockscreen/email', 'LockscreenController@emailLockscreen');
+                // $api->get('/lockscreen', 'LockscreenController@getLockscreen');
+                // $api->post('/lockscreen', 'LockscreenController@postLockscreen');
+                // $api->post('/lockscreen/email', 'LockscreenController@emailLockscreen');
             });
         });
     });

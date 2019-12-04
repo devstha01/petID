@@ -11,15 +11,20 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
  * @param $backgroundColor
  * @return void
  */
-function generateQRCode($content, $fileName, $backgroundColor): void
+// function generateQRCode($content, $fileName, $backgroundColor): void
+// {
+//     if ($backgroundColor == 'black') {
+//         QrCode::format('png')->size(200)->generate($content, $fileName);
+// //    } elseif ($backgroundColor == 'image') {
+// //        QrCode::format('png')->size(200)->generate($content, $fileName);
+//     } else {
+//         QrCode::format('png')->size(200)->generate($content, $fileName);
+//     }
+// }
+
+function generateQRCode($content, $fileName): void
 {
-    if ($backgroundColor == 'black') {
-        QrCode::format('png')->size(200)->generate($content, $fileName);
-//    } elseif ($backgroundColor == 'image') {
-//        QrCode::format('png')->size(200)->generate($content, $fileName);
-    } else {
-        QrCode::format('png')->size(200)->generate($content, $fileName);
-    }
+    QrCode::format('png')->size(200)->generate($content, $fileName);
 }
 
 /**
@@ -114,6 +119,7 @@ function generateLockscreen($phoneCode, $qrCode, $device, $reward, $backgroundCo
             $font->color($textColor);
             $font->align('center');
         });
+      
 
         // Insert QR Code
         $insertQr = Image::make($qrCode)->resize(122, 122);
@@ -145,6 +151,8 @@ function generateLockscreen($phoneCode, $qrCode, $device, $reward, $backgroundCo
             $font->color($textColor);
             $font->align('center');
         });
+
+    
         // Insert QR Code
         $insertQr = Image::make($qrCode)->resize(150, 150);
         $img->insert($insertQr, 'center');

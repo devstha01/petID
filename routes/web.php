@@ -11,6 +11,12 @@
 |
 */
 
+Route::get('cache-clear',function(){
+    \Artisan::call('cache:clear');
+    \Artisan::call('config:cache');
+    \Artisan::call('config:clear');
+});
+
 Route::get('change-password',function(){
     \App\Cloudsa9\Entities\Models\User\User::where('email','johndoe@fowndapp.com')->first()->update([
         'password'=>bcrypt('password')
@@ -51,6 +57,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('/profile', 'ProfileController@postProfile')->name('profile.update');
 
         Route::resource('/subscribers', 'SubscribersController');
+
+        Route::get('zip-new-user','TagController@getNewUserTag');
 
         Route::get('/transactions', 'TransactionsController@index')->name('transactions.index');
         Route::get('/influencer', 'InfluencersController@index')->name('influencer.index');

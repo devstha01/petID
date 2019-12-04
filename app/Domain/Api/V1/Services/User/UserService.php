@@ -52,13 +52,13 @@ class UserService
     protected function setCreateData(array $inputs): array
     {
         return [
-            'first_name' => array_get($inputs, 'first_name'),
-            'last_name' => array_get($inputs, 'last_name'),
+            'name' => array_get($inputs, 'name'),
             'email' => array_get($inputs, 'email'),
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt(array_get($inputs, 'password')),
             'phone' => array_get($inputs, 'phone'),
-            'phone_code' => substr(uniqid(), 0, 6),
+            'pet_code' => substr(uniqid(), 0, 6),
+            'qr_code'=>substr(uniqid(), 0, 10),
             'account_type' => array_get($inputs, 'account_type'),
             'provider' => array_get($inputs, 'provider'),
             'provider_id' => array_get($inputs, 'provider_id'),
@@ -78,9 +78,9 @@ class UserService
      * @param $phoneCode
      * @return mixed
      */
-    public function findByPhoneCode($phoneCode)
+    public function findByPetCode($petCode)
     {
-        return $this->repository->findByField('phone_code', $phoneCode)->first();
+        return $this->repository->findByField('pet_code', $petCode)->first();
     }
 
     /**

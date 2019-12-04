@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Cloudsa9\Entities\Models\User\User;
+use App\Cloudsa9\Entities\Models\User\UserLog;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -15,7 +17,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'loginFacebook']]);
+        $this->middleware('auth:api', ['except' => ['login', 'loginFacebook','userLog']]);
     }
 
     /**
@@ -89,6 +91,17 @@ class LoginController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60
+        ]);
+    }
+
+    public function userLog(Request $request){
+        $log = UserLog::create([
+            'user_id'=>$request->user_id,
+            'logs'=>$request->logs
+        ]);
+
+        return response()->json([
+            'log'=>$log->logs
         ]);
     }
 }

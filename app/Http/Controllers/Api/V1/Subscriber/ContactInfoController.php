@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Subscriber;
 
 use App\Domain\Api\V1\Requests\Subscriber\ContactInfoRequest;
 use App\Domain\Api\V1\Services\Subscriber\ContactInfoService;
-use App\Domain\Api\V1\Services\Subscriber\LockscreenService;
+// use App\Domain\Api\V1\Services\Subscriber\LockscreenService;
 use App\Http\Controllers\Controller;
 use Exception;
 use Twilio;
@@ -26,10 +26,10 @@ class ContactInfoController extends Controller
      * @param ContactInfoService $contactInfoService
      * @param LockscreenService $lockscreenService
      */
-    public function __construct(ContactInfoService $contactInfoService, LockscreenService $lockscreenService)
+    public function __construct(ContactInfoService $contactInfoService)
     {
         $this->contactInfoService = $contactInfoService;
-        $this->lockscreenService = $lockscreenService;
+        // $this->lockscreenService = $lockscreenService;
     }
 
     /**
@@ -66,26 +66,26 @@ class ContactInfoController extends Controller
     {
         try {
             $oldContactInfo = $this->contactInfoService->findBySubscriber(currentUser()->id);
-            $secondaryPhones = $request->only(['phone1', 'phone2', 'phone3', 'phone4']);
+            $secondaryPhones = $request->only(['phone1', 'phone2']);
 
             $contactInfo = $this->contactInfoService->updateOrCreate($request->all());
 
             // Send text to secondary phone numbers
 //            $this->notifySecondaryPhoneNumber($oldContactInfo, $secondaryPhones);
 
-            $lockscreenInfo = $this->lockscreenService->findBySubscriber(currentUser()->id);
+            // $lockscreenInfo = $this->lockscreenService->findBySubscriber(currentUser()->id);
 
-            if ($lockscreenInfo) {
-                // Generate QR code
-                $qrCode = storage_path('app/public/qrcode/' . uniqid('', true) . '.png');
-                generateQRCode('fowndapp.com/rfp/' . currentUser()->phone_code, $qrCode, $lockscreenInfo->lockscreen_color);
+            // if ($lockscreenInfo) {
+            //     // Generate QR code
+            //     $qrCode = storage_path('app/public/qrcode/' . uniqid('', true) . '.png');
+            //     generateQRCode('fowndapp.com/rfp/' . currentUser()->phone_code, $qrCode, $lockscreenInfo->lockscreen_color);
 
-                // Generate wallpaper
-                $lockscreen = generateLockscreen(currentUser()->phone_code, $qrCode, $lockscreenInfo->device, $contactInfo->reward, $lockscreenInfo->lockscreen_color);
+            //     // Generate wallpaper
+            //     $lockscreen = generateLockscreen(currentUser()->phone_code, $qrCode, $lockscreenInfo->device, $contactInfo->reward, $lockscreenInfo->lockscreen_color);
 
-                // Save lockscreen to database
-                $this->lockscreenService->update(['lockscreen' => $lockscreen], $lockscreenInfo->id);
-            }
+            //     // Save lockscreen to database
+            //     $this->lockscreenService->update(['lockscreen' => $lockscreen], $lockscreenInfo->id);
+            // }
 
             $response = [
                 'error' => false,
