@@ -107,4 +107,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasOne(Lockscreen::class);
     }
+
+    public function pets()
+    {
+        return $this->hasMany(UserPet::class);
+    }
 }

@@ -52,6 +52,11 @@ $api->version('v1', function (Router $api) {
                 // $api->post('/lockscreen', 'LockscreenController@postLockscreen');
                 // $api->post('/lockscreen/email', 'LockscreenController@emailLockscreen');
             });
+
+            $api->group(['namespace' => 'Pet'], function (Router $api) {
+                $api->get('my-pets', 'PetController@getPets');
+                $api->post('my-pet', 'PetController@postPet');
+            });
         });
     });
 });
