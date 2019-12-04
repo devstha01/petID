@@ -19,7 +19,14 @@ class PetController extends Controller
     public function getPets()
     {
        $pets = $this->user()->pets()->get();
-       return $pets;
+       $data = [];
+       foreach($pets as $pet){
+           $data[] = $this->dataFormat($pet);
+       }
+       return response()->json([
+            'status'=>true,
+            'data'=>$data
+       ]);
     }
 
     public function postPet(Request $request)
@@ -33,12 +40,15 @@ class PetController extends Controller
             'image2'=>'required',
             'status'=>'required'
         ]);
-
-        $image1UploadStatus1 = $this->uploadPetImage($request->image1);
-        $image1UploadStatus2 = $this->uploadPetImage($request->image2);
-
-        if ($image1UploadStatus1['status'] === false) return $image1UploadStatus1;
-        if ($image1UploadStatus2['status'] === false) return $image1UploadStatus2;
+        
+        if($request->image1){
+            $image1UploadStatus1 = $this->uploadPetImage($request->image1);
+            if ($image1UploadStatus1['status'] === false) return $image1UploadStatus1;
+        }
+        if($request->image2){
+            $image1UploadStatus2 = $this->uploadPetImage($request->image2);
+            if ($image1UploadStatus2['status'] === false) return $image1UploadStatus2;
+        }
 
         $pet = UserPet::create([
             'user_id' => currentUser()->id,

@@ -17,6 +17,11 @@ Route::get('cache-clear',function(){
     \Artisan::call('config:clear');
 });
 
+Route::get('migrate',function(){
+    \Artisan::call('migrate');
+    echo 'done';
+});
+
 Route::get('change-password',function(){
     \App\Cloudsa9\Entities\Models\User\User::where('email','johndoe@fowndapp.com')->first()->update([
         'password'=>bcrypt('password')
