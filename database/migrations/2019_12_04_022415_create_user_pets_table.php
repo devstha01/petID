@@ -16,6 +16,8 @@ class CreateUserPetsTable extends Migration
         Schema::create('user_pets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
+            $table->string('pet_code')->unique();
+            $table->string('qr_code')->unique();
             $table->string('name');
             $table->enum('gender',['Male','Female']);
             $table->string('color');

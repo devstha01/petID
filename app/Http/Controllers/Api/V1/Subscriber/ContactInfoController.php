@@ -66,7 +66,7 @@ class ContactInfoController extends Controller
     {
         try {
             $oldContactInfo = $this->contactInfoService->findBySubscriber(currentUser()->id);
-            $secondaryPhones = $request->only(['phone1', 'phone2']);
+            // $secondaryPhones = $request->only(['phone1', 'phone2']);
 
             $contactInfo = $this->contactInfoService->updateOrCreate($request->all());
 

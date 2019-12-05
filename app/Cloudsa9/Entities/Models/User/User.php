@@ -38,8 +38,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'email_verified_at',
         'password',
         'phone',
-        'pet_code',
-        'qr_code',
         'account_type',
         'status',
         'stripe_id',

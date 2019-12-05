@@ -106,8 +106,6 @@ class RegisterController extends Controller
             'email'=>$request->email,
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt($request->provider_id),
-            'pet_code' => substr(uniqid(), 0, 6),
-            'qr_code'=>substr(uniqid(), 0, 10),
             'account_type' => 'paid',
             'provider' => $request->provider,
             'provider_id' => $request->provider_id,
@@ -134,9 +132,9 @@ class RegisterController extends Controller
         // ]);
 
         // Generate QR code
-        $qrCode = storage_path('app/public/qrcode/' . $user->qr_code . '.png');
+        // $qrCode = storage_path('app/public/qrcode/' . $user->qr_code . '.png');
         // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
-        generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode);
+        // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode);
 
         // Generate wallpaper
         // $lockscreen = generateLockscreen($user->phone_code, $qrCode, $lockscreenInfo->device, $contactInfo->reward, $lockscreenInfo->lockscreen_color);

@@ -9,6 +9,8 @@ class UserPet extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'pet_code',
+        'qr_code',
         'gender',
         'color',
         'breed',

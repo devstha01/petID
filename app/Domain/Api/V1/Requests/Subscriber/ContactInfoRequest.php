@@ -33,7 +33,7 @@ class ContactInfoRequest extends FormRequest implements IFormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'phone1'=>'required',
-            'phone2'=>'required',
+            // 'phone2'=>'required',
 //             'phone1' => [
 // //                'required',
 //                 function ($attribute, $value, $fail) {
@@ -67,13 +67,13 @@ class ContactInfoRequest extends FormRequest implements IFormRequest
 //                     return true;
 //                 }
 //             ],
-            'reward' => 'required',
-            'address1' => 'required',
-            'address2'=> 'required',
-            'city'=> 'required',
-            'state'=>'required',
-            'zip'=>'required',
-            'country'=>'required'
+            // 'reward' => 'required',
+            // 'address1' => 'required',
+            // 'address2'=> 'required',
+            // 'city'=> 'required',
+            // 'state'=>'required',
+            // 'zip'=>'required',
+            // 'country'=>'required'
         ];
     }
 }

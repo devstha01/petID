@@ -54,8 +54,10 @@ $api->version('v1', function (Router $api) {
             });
 
             $api->group(['namespace' => 'Pet'], function (Router $api) {
-                $api->get('my-pets', 'PetController@getPets');
+                $api->get('my-pets', 'PetController@getMyPets');
                 $api->post('my-pet', 'PetController@postPet');
+                $api->get('my-pet/{id}','PetController@getMyPet');
+                $api->post('my-pet-image/{id}','PetController@myPetImageUpload');
             });
         });
     });

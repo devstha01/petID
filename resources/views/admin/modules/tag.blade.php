@@ -5,31 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   
     <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
     <title>QR Code site</title>
     <style>
-         @page{
-            size:A4;
-            margin:0;
-        }
-        
-        .container {
-            page:cover;
-        }
-
         * {
             padding: 0;
             margin: 0;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
             font-family: "Bebas Neue", cursive;
+            box-sizing: border-box;
         }
 
-     
+        @page {
+            size: A4;
+            margin: 0;
+            media: print;
+        }
+
+        .container {
+            page: cover;
+            position: relative;
+        }
 
         .row {
-            display: -webkit-box;
+            position: relative;
+            /* display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
             -ms-flex-pack: distribute;
@@ -39,11 +38,16 @@
             align-items: center;
             padding: 20px 0;
             -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
+            flex-wrap: wrap; */
+
+            display: block;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
         }
 
         .row .qrcode-container {
-            display: -webkit-box;
+            /* display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
             -webkit-box-pack: center;
@@ -54,6 +58,11 @@
             align-items: center;
             position: relative;
             margin: 25px;
+            width: 50px; */
+            display: inline-block;
+            width: 100%;
+            position: relative;
+            margin: 25px;
             width: 50px;
         }
 
@@ -62,7 +71,7 @@
         }
 
         .row .qrcode-container span {
-            position: absolute;
+            /* position: absolute;
             font-size: 12px;
             text-align: center;
             height: 105px;
@@ -71,9 +80,20 @@
             -ms-flex-line-pack: end;
             align-content: flex-end;
             color: blue;
+            font-weight: bold; */
+            position: absolute;
+            font-size: 12px;
+            text-align: center;
+            height: 105px;
+            color: blue;
             font-weight: bold;
+            left: 49%;
+            top: -48%;
         }
-
+        .row .qrcode-container span p{
+            position:absolute;
+            bottom:0
+        }
         .char1 {
             -webkit-transform: rotate(-90deg);
             transform: rotate(-90deg);
@@ -293,167 +313,133 @@
 
         <div class="row 1">
             <div class="qrcode-container">
-                <img src="{{ asset('/images/qrcode.PNG')}}" alt="QR code" class="qrcode-img" />
-                <span>12345</span>
-            </div>
-
-            <div class="qrcode-container">
-                <img src="{{ asset('/images/qrcode.PNG')}}" alt="QR code" class="qrcode-img" />
-                <span>12345</span>
-            </div>
-            
-            <div class="qrcode-container">
 
                 <span class="char1">-</span>
-                <span class="char2">P</span>
-                <span class="char3">E</span>
-                <span class="char4">T</span>
-                <span class="char5">-</span>
-                <span class="char6">I</span>
-                <span class="char7">D</span>
-                <span class="char8">.</span>
-                <span class="char9">A</span>
-                <span class="char10">P</span>
-                <span class="char11">P</span>
-                <span class="char12">/</span>
-                <span class="char13">R</span>
-                <span class="char14">F</span>
-                <span class="char15">P</span>
-                <span class="char16">/</span>
-                <span class="char17">S</span>
-                <span class="char18">C</span>
-                <span class="char19">7</span>
-                <span class="char20">3</span>
-                <span class="char21">4</span>
+                <span class="char2">
+                    <p>P</p>
+                </span>
+                <span class="char3">
+                    <p>E</p>
+                </span>
+                <span class="char4">
+                    <p>T</p>
+                </span>
+                <span class="char5">
+                    <p>-</p>
+                </span>
+                <span class="char6">
+                    <p>I</p>
+                </span>
+                <span class="char7">
+                    <p>D</p>
+                </span>
+                <span class="char8">
+                    <p>.</p>
+                </span>
+                <span class="char9">
+                    <p>A</p>
+                </span>
+                <span class="char10">
+                    <p>P</p>
+                </span>
+                <span class="char11">
+                    <p>P</p>
+                </span>
+                <span class="char12">
+                    <p>/</p>
+                </span>
+                <span class="char13">
+                    <p>R</p>
+                </span>
+                <span class="char14">
+                    <p>F</p>
+                </span>
+                <span class="char15">
+                    <p>P</p>
+                </span>
+                <span class="char16">
+                    <p>/</p>
+                </span>
+                <span class="char17">
+                    <p>S</p>
+                </span>
+                <span class="char18">
+                    <p>C</p>
+                </span>
+                <span class="char19">
+                    <p>7</p>
+                </span>
+                <span class="char20">
+                    <p>3</p>
+                </span>
+                <span class="char21">
+                    <p>4</p>
+                </span>
 
 
                 <span class="char22">-</span>
-                <span class="char23">P</span>
-                <span class="char24">E</span>
-                <span class="char25">T</span>
-                <span class="char26">-</span>
-                <span class="char27">I</span>
-                <span class="char28">D</span>
-                <span class="char29">.</span>
-                <span class="char30">A</span>
-                <span class="char31">P</span>
-                <span class="char32">P</span>
-                <span class="char33">/</span>
-                <span class="char34">R</span>
-                <span class="char35">F</span>
-                <span class="char36">P</span>
-                <span class="char37">/</span>
-                <span class="char38">S</span>
-                <span class="char39">C</span>
-                <span class="char40">7</span>
-                <span class="char41">3</span>
-                <span class="char42">4</span>
+                <span class="char23">
+                    <p>P</p>
+                </span>
+                <span class="char24">
+                    <p>E</p>
+                </span>
+                <span class="char25">
+                    <p>T</p>
+                </span>
+                <span class="char26">
+                    <p>-</p>
+                </span>
+                <span class="char27">
+                    <p>I</p>
+                </span>
+                <span class="char28">
+                    <p>D</p>
+                </span>
+                <span class="char29">
+                    <p>.</p>
+                </span>
+                <span class="char30">
+                    <p>A</p>
+                </span>
+                <span class="char31">
+                    <p>P</p>
+                </span>
+                <span class="char32">
+                    <p>P</p>
+                </span>
+                <span class="char33">
+                    <p>/</p>
+                </span>
+                <span class="char34">
+                    <p>R</p>
+                </span>
+                <span class="char35">
+                    <p>F</p>
+                </span>
+                <span class="char36">
+                    <p>P</p>
+                </span>
+                <span class="char37">
+                    <p>/</p>
+                </span>
+                <span class="char38">
+                    <p>S</p>
+                </span>
+                <span class="char39">
+                    <p>C</p>
+                </span>
+                <span class="char40">
+                    <p>7</p>
+                </span>
+                <span class="char41">
+                    <p>3</p>
+                </span>
+                <span class="char42">
+                    <p>4</p>
+                </span>
 
-                <img src="{{ asset('/images/qrcode.PNG')}}" alt="QR code" class="qrcode-img" />
-
-
-            </div>
-
-            <div class="qrcode-container">
-
-                <span class="char1">-</span>
-                <span class="char2">P</span>
-                <span class="char3">E</span>
-                <span class="char4">T</span>
-                <span class="char5">-</span>
-                <span class="char6">I</span>
-                <span class="char7">D</span>
-                <span class="char8">.</span>
-                <span class="char9">A</span>
-                <span class="char10">P</span>
-                <span class="char11">P</span>
-                <span class="char12">/</span>
-                <span class="char13">R</span>
-                <span class="char14">F</span>
-                <span class="char15">P</span>
-                <span class="char16">/</span>
-                <span class="char17">S</span>
-                <span class="char18">C</span>
-                <span class="char19">7</span>
-                <span class="char20">3</span>
-                <span class="char21">4</span>
-
-
-                <span class="char22">-</span>
-                <span class="char23">P</span>
-                <span class="char24">E</span>
-                <span class="char25">T</span>
-                <span class="char26">-</span>
-                <span class="char27">I</span>
-                <span class="char28">D</span>
-                <span class="char29">.</span>
-                <span class="char30">A</span>
-                <span class="char31">P</span>
-                <span class="char32">P</span>
-                <span class="char33">/</span>
-                <span class="char34">R</span>
-                <span class="char35">F</span>
-                <span class="char36">P</span>
-                <span class="char37">/</span>
-                <span class="char38">S</span>
-                <span class="char39">C</span>
-                <span class="char40">7</span>
-                <span class="char41">3</span>
-                <span class="char42">4</span>
-
-                <img src="{{ asset('/images/qrcode.PNG')}}" alt="QR code" class="qrcode-img" />
-
-
-            </div>
-
-            <div class="qrcode-container">
-
-                <span class="char1">-</span>
-                <span class="char2">P</span>
-                <span class="char3">E</span>
-                <span class="char4">T</span>
-                <span class="char5">-</span>
-                <span class="char6">I</span>
-                <span class="char7">D</span>
-                <span class="char8">.</span>
-                <span class="char9">A</span>
-                <span class="char10">P</span>
-                <span class="char11">P</span>
-                <span class="char12">/</span>
-                <span class="char13">R</span>
-                <span class="char14">F</span>
-                <span class="char15">P</span>
-                <span class="char16">/</span>
-                <span class="char17">S</span>
-                <span class="char18">C</span>
-                <span class="char19">7</span>
-                <span class="char20">3</span>
-                <span class="char21">4</span>
-
-
-                <span class="char22">-</span>
-                <span class="char23">P</span>
-                <span class="char24">E</span>
-                <span class="char25">T</span>
-                <span class="char26">-</span>
-                <span class="char27">I</span>
-                <span class="char28">D</span>
-                <span class="char29">.</span>
-                <span class="char30">A</span>
-                <span class="char31">P</span>
-                <span class="char32">P</span>
-                <span class="char33">/</span>
-                <span class="char34">R</span>
-                <span class="char35">F</span>
-                <span class="char36">P</span>
-                <span class="char37">/</span>
-                <span class="char38">S</span>
-                <span class="char39">C</span>
-                <span class="char40">7</span>
-                <span class="char41">3</span>
-                <span class="char42">4</span>
-
-                <img src="{{ asset('/images/qrcode.PNG')}}" alt="QR code" class="qrcode-img" />
+                <img src="{{ url('images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
 
 
             </div>
@@ -461,51 +447,131 @@
             <div class="qrcode-container">
 
                 <span class="char1">-</span>
-                <span class="char2">P</span>
-                <span class="char3">E</span>
-                <span class="char4">T</span>
-                <span class="char5">-</span>
-                <span class="char6">I</span>
-                <span class="char7">D</span>
-                <span class="char8">.</span>
-                <span class="char9">A</span>
-                <span class="char10">P</span>
-                <span class="char11">P</span>
-                <span class="char12">/</span>
-                <span class="char13">R</span>
-                <span class="char14">F</span>
-                <span class="char15">P</span>
-                <span class="char16">/</span>
-                <span class="char17">S</span>
-                <span class="char18">C</span>
-                <span class="char19">7</span>
-                <span class="char20">3</span>
-                <span class="char21">4</span>
+                <span class="char2">
+                    <p>P</p>
+                </span>
+                <span class="char3">
+                    <p>E</p>
+                </span>
+                <span class="char4">
+                    <p>T</p>
+                </span>
+                <span class="char5">
+                    <p>-</p>
+                </span>
+                <span class="char6">
+                    <p>I</p>
+                </span>
+                <span class="char7">
+                    <p>D</p>
+                </span>
+                <span class="char8">
+                    <p>.</p>
+                </span>
+                <span class="char9">
+                    <p>A</p>
+                </span>
+                <span class="char10">
+                    <p>P</p>
+                </span>
+                <span class="char11">
+                    <p>P</p>
+                </span>
+                <span class="char12">
+                    <p>/</p>
+                </span>
+                <span class="char13">
+                    <p>R</p>
+                </span>
+                <span class="char14">
+                    <p>F</p>
+                </span>
+                <span class="char15">
+                    <p>P</p>
+                </span>
+                <span class="char16">
+                    <p>/</p>
+                </span>
+                <span class="char17">
+                    <p>S</p>
+                </span>
+                <span class="char18">
+                    <p>C</p>
+                </span>
+                <span class="char19">
+                    <p>7</p>
+                </span>
+                <span class="char20">
+                    <p>3</p>
+                </span>
+                <span class="char21">
+                    <p>4</p>
+                </span>
 
 
                 <span class="char22">-</span>
-                <span class="char23">P</span>
-                <span class="char24">E</span>
-                <span class="char25">T</span>
-                <span class="char26">-</span>
-                <span class="char27">I</span>
-                <span class="char28">D</span>
-                <span class="char29">.</span>
-                <span class="char30">A</span>
-                <span class="char31">P</span>
-                <span class="char32">P</span>
-                <span class="char33">/</span>
-                <span class="char34">R</span>
-                <span class="char35">F</span>
-                <span class="char36">P</span>
-                <span class="char37">/</span>
-                <span class="char38">S</span>
-                <span class="char39">C</span>
-                <span class="char40">7</span>
-                <span class="char41">3</span>
-                <span class="char42">4</span>
+                <span class="char23">
+                    <p>P</p>
+                </span>
+                <span class="char24">
+                    <p>E</p>
+                </span>
+                <span class="char25">
+                    <p>T</p>
+                </span>
+                <span class="char26">
+                    <p>-</p>
+                </span>
+                <span class="char27">
+                    <p>I</p>
+                </span>
+                <span class="char28">
+                    <p>D</p>
+                </span>
+                <span class="char29">
+                    <p>.</p>
+                </span>
+                <span class="char30">
+                    <p>A</p>
+                </span>
+                <span class="char31">
+                    <p>P</p>
+                </span>
+                <span class="char32">
+                    <p>P</p>
+                </span>
+                <span class="char33">
+                    <p>/</p>
+                </span>
+                <span class="char34">
+                    <p>R</p>
+                </span>
+                <span class="char35">
+                    <p>F</p>
+                </span>
+                <span class="char36">
+                    <p>P</p>
+                </span>
+                <span class="char37">
+                    <p>/</p>
+                </span>
+                <span class="char38">
+                    <p>S</p>
+                </span>
+                <span class="char39">
+                    <p>C</p>
+                </span>
+                <span class="char40">
+                    <p>7</p>
+                </span>
+                <span class="char41">
+                    <p>3</p>
+                </span>
+                <span class="char42">
+                    <p>4</p>
+                </span>
 
-                <img src="{{ asset('/images/qrcode.PNG')}}" alt="QR code" class="qrcode-img" />
+                <img src="{{ url('images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
 
 
             </div>
@@ -513,51 +579,131 @@
             <div class="qrcode-container">
 
                 <span class="char1">-</span>
-                <span class="char2">P</span>
-                <span class="char3">E</span>
-                <span class="char4">T</span>
-                <span class="char5">-</span>
-                <span class="char6">I</span>
-                <span class="char7">D</span>
-                <span class="char8">.</span>
-                <span class="char9">A</span>
-                <span class="char10">P</span>
-                <span class="char11">P</span>
-                <span class="char12">/</span>
-                <span class="char13">R</span>
-                <span class="char14">F</span>
-                <span class="char15">P</span>
-                <span class="char16">/</span>
-                <span class="char17">S</span>
-                <span class="char18">C</span>
-                <span class="char19">7</span>
-                <span class="char20">3</span>
-                <span class="char21">4</span>
+                <span class="char2">
+                    <p>P</p>
+                </span>
+                <span class="char3">
+                    <p>E</p>
+                </span>
+                <span class="char4">
+                    <p>T</p>
+                </span>
+                <span class="char5">
+                    <p>-</p>
+                </span>
+                <span class="char6">
+                    <p>I</p>
+                </span>
+                <span class="char7">
+                    <p>D</p>
+                </span>
+                <span class="char8">
+                    <p>.</p>
+                </span>
+                <span class="char9">
+                    <p>A</p>
+                </span>
+                <span class="char10">
+                    <p>P</p>
+                </span>
+                <span class="char11">
+                    <p>P</p>
+                </span>
+                <span class="char12">
+                    <p>/</p>
+                </span>
+                <span class="char13">
+                    <p>R</p>
+                </span>
+                <span class="char14">
+                    <p>F</p>
+                </span>
+                <span class="char15">
+                    <p>P</p>
+                </span>
+                <span class="char16">
+                    <p>/</p>
+                </span>
+                <span class="char17">
+                    <p>S</p>
+                </span>
+                <span class="char18">
+                    <p>C</p>
+                </span>
+                <span class="char19">
+                    <p>7</p>
+                </span>
+                <span class="char20">
+                    <p>3</p>
+                </span>
+                <span class="char21">
+                    <p>4</p>
+                </span>
 
 
                 <span class="char22">-</span>
-                <span class="char23">P</span>
-                <span class="char24">E</span>
-                <span class="char25">T</span>
-                <span class="char26">-</span>
-                <span class="char27">I</span>
-                <span class="char28">D</span>
-                <span class="char29">.</span>
-                <span class="char30">A</span>
-                <span class="char31">P</span>
-                <span class="char32">P</span>
-                <span class="char33">/</span>
-                <span class="char34">R</span>
-                <span class="char35">F</span>
-                <span class="char36">P</span>
-                <span class="char37">/</span>
-                <span class="char38">S</span>
-                <span class="char39">C</span>
-                <span class="char40">7</span>
-                <span class="char41">3</span>
-                <span class="char42">4</span>
+                <span class="char23">
+                    <p>P</p>
+                </span>
+                <span class="char24">
+                    <p>E</p>
+                </span>
+                <span class="char25">
+                    <p>T</p>
+                </span>
+                <span class="char26">
+                    <p>-</p>
+                </span>
+                <span class="char27">
+                    <p>I</p>
+                </span>
+                <span class="char28">
+                    <p>D</p>
+                </span>
+                <span class="char29">
+                    <p>.</p>
+                </span>
+                <span class="char30">
+                    <p>A</p>
+                </span>
+                <span class="char31">
+                    <p>P</p>
+                </span>
+                <span class="char32">
+                    <p>P</p>
+                </span>
+                <span class="char33">
+                    <p>/</p>
+                </span>
+                <span class="char34">
+                    <p>R</p>
+                </span>
+                <span class="char35">
+                    <p>F</p>
+                </span>
+                <span class="char36">
+                    <p>P</p>
+                </span>
+                <span class="char37">
+                    <p>/</p>
+                </span>
+                <span class="char38">
+                    <p>S</p>
+                </span>
+                <span class="char39">
+                    <p>C</p>
+                </span>
+                <span class="char40">
+                    <p>7</p>
+                </span>
+                <span class="char41">
+                    <p>3</p>
+                </span>
+                <span class="char42">
+                    <p>4</p>
+                </span>
 
-                <img src="{{ asset('/images/qrcode.PNG')}}" alt="QR code" class="qrcode-img" />
+            <img src="{{ url('images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
 
 
             </div>
@@ -565,51 +711,922 @@
             <div class="qrcode-container">
 
                 <span class="char1">-</span>
-                <span class="char2">P</span>
-                <span class="char3">E</span>
-                <span class="char4">T</span>
-                <span class="char5">-</span>
-                <span class="char6">I</span>
-                <span class="char7">D</span>
-                <span class="char8">.</span>
-                <span class="char9">A</span>
-                <span class="char10">P</span>
-                <span class="char11">P</span>
-                <span class="char12">/</span>
-                <span class="char13">R</span>
-                <span class="char14">F</span>
-                <span class="char15">P</span>
-                <span class="char16">/</span>
-                <span class="char17">S</span>
-                <span class="char18">C</span>
-                <span class="char19">7</span>
-                <span class="char20">3</span>
-                <span class="char21">4</span>
+                <span class="char2">
+                    <p>P</p>
+                </span>
+                <span class="char3">
+                    <p>E</p>
+                </span>
+                <span class="char4">
+                    <p>T</p>
+                </span>
+                <span class="char5">
+                    <p>-</p>
+                </span>
+                <span class="char6">
+                    <p>I</p>
+                </span>
+                <span class="char7">
+                    <p>D</p>
+                </span>
+                <span class="char8">
+                    <p>.</p>
+                </span>
+                <span class="char9">
+                    <p>A</p>
+                </span>
+                <span class="char10">
+                    <p>P</p>
+                </span>
+                <span class="char11">
+                    <p>P</p>
+                </span>
+                <span class="char12">
+                    <p>/</p>
+                </span>
+                <span class="char13">
+                    <p>R</p>
+                </span>
+                <span class="char14">
+                    <p>F</p>
+                </span>
+                <span class="char15">
+                    <p>P</p>
+                </span>
+                <span class="char16">
+                    <p>/</p>
+                </span>
+                <span class="char17">
+                    <p>S</p>
+                </span>
+                <span class="char18">
+                    <p>C</p>
+                </span>
+                <span class="char19">
+                    <p>7</p>
+                </span>
+                <span class="char20">
+                    <p>3</p>
+                </span>
+                <span class="char21">
+                    <p>4</p>
+                </span>
 
 
                 <span class="char22">-</span>
-                <span class="char23">P</span>
-                <span class="char24">E</span>
-                <span class="char25">T</span>
-                <span class="char26">-</span>
-                <span class="char27">I</span>
-                <span class="char28">D</span>
-                <span class="char29">.</span>
-                <span class="char30">A</span>
-                <span class="char31">P</span>
-                <span class="char32">P</span>
-                <span class="char33">/</span>
-                <span class="char34">R</span>
-                <span class="char35">F</span>
-                <span class="char36">P</span>
-                <span class="char37">/</span>
-                <span class="char38">S</span>
-                <span class="char39">C</span>
-                <span class="char40">7</span>
-                <span class="char41">3</span>
-                <span class="char42">4</span>
+                <span class="char23">
+                    <p>P</p>
+                </span>
+                <span class="char24">
+                    <p>E</p>
+                </span>
+                <span class="char25">
+                    <p>T</p>
+                </span>
+                <span class="char26">
+                    <p>-</p>
+                </span>
+                <span class="char27">
+                    <p>I</p>
+                </span>
+                <span class="char28">
+                    <p>D</p>
+                </span>
+                <span class="char29">
+                    <p>.</p>
+                </span>
+                <span class="char30">
+                    <p>A</p>
+                </span>
+                <span class="char31">
+                    <p>P</p>
+                </span>
+                <span class="char32">
+                    <p>P</p>
+                </span>
+                <span class="char33">
+                    <p>/</p>
+                </span>
+                <span class="char34">
+                    <p>R</p>
+                </span>
+                <span class="char35">
+                    <p>F</p>
+                </span>
+                <span class="char36">
+                    <p>P</p>
+                </span>
+                <span class="char37">
+                    <p>/</p>
+                </span>
+                <span class="char38">
+                    <p>S</p>
+                </span>
+                <span class="char39">
+                    <p>C</p>
+                </span>
+                <span class="char40">
+                    <p>7</p>
+                </span>
+                <span class="char41">
+                    <p>3</p>
+                </span>
+                <span class="char42">
+                    <p>4</p>
+                </span>
 
-                <img src="{{ asset('/images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
+                <img src="{{ url('images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
+
+
+            </div>
+
+            <div class="qrcode-container">
+
+                <span class="char1">-</span>
+                <span class="char2">
+                    <p>P</p>
+                </span>
+                <span class="char3">
+                    <p>E</p>
+                </span>
+                <span class="char4">
+                    <p>T</p>
+                </span>
+                <span class="char5">
+                    <p>-</p>
+                </span>
+                <span class="char6">
+                    <p>I</p>
+                </span>
+                <span class="char7">
+                    <p>D</p>
+                </span>
+                <span class="char8">
+                    <p>.</p>
+                </span>
+                <span class="char9">
+                    <p>A</p>
+                </span>
+                <span class="char10">
+                    <p>P</p>
+                </span>
+                <span class="char11">
+                    <p>P</p>
+                </span>
+                <span class="char12">
+                    <p>/</p>
+                </span>
+                <span class="char13">
+                    <p>R</p>
+                </span>
+                <span class="char14">
+                    <p>F</p>
+                </span>
+                <span class="char15">
+                    <p>P</p>
+                </span>
+                <span class="char16">
+                    <p>/</p>
+                </span>
+                <span class="char17">
+                    <p>S</p>
+                </span>
+                <span class="char18">
+                    <p>C</p>
+                </span>
+                <span class="char19">
+                    <p>7</p>
+                </span>
+                <span class="char20">
+                    <p>3</p>
+                </span>
+                <span class="char21">
+                    <p>4</p>
+                </span>
+
+
+                <span class="char22">-</span>
+                <span class="char23">
+                    <p>P</p>
+                </span>
+                <span class="char24">
+                    <p>E</p>
+                </span>
+                <span class="char25">
+                    <p>T</p>
+                </span>
+                <span class="char26">
+                    <p>-</p>
+                </span>
+                <span class="char27">
+                    <p>I</p>
+                </span>
+                <span class="char28">
+                    <p>D</p>
+                </span>
+                <span class="char29">
+                    <p>.</p>
+                </span>
+                <span class="char30">
+                    <p>A</p>
+                </span>
+                <span class="char31">
+                    <p>P</p>
+                </span>
+                <span class="char32">
+                    <p>P</p>
+                </span>
+                <span class="char33">
+                    <p>/</p>
+                </span>
+                <span class="char34">
+                    <p>R</p>
+                </span>
+                <span class="char35">
+                    <p>F</p>
+                </span>
+                <span class="char36">
+                    <p>P</p>
+                </span>
+                <span class="char37">
+                    <p>/</p>
+                </span>
+                <span class="char38">
+                    <p>S</p>
+                </span>
+                <span class="char39">
+                    <p>C</p>
+                </span>
+                <span class="char40">
+                    <p>7</p>
+                </span>
+                <span class="char41">
+                    <p>3</p>
+                </span>
+                <span class="char42">
+                    <p>4</p>
+                </span>
+
+                <img src="{{ url('images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
+
+
+            </div>
+
+            <div class="qrcode-container">
+
+                <span class="char1">-</span>
+                <span class="char2">
+                    <p>P</p>
+                </span>
+                <span class="char3">
+                    <p>E</p>
+                </span>
+                <span class="char4">
+                    <p>T</p>
+                </span>
+                <span class="char5">
+                    <p>-</p>
+                </span>
+                <span class="char6">
+                    <p>I</p>
+                </span>
+                <span class="char7">
+                    <p>D</p>
+                </span>
+                <span class="char8">
+                    <p>.</p>
+                </span>
+                <span class="char9">
+                    <p>A</p>
+                </span>
+                <span class="char10">
+                    <p>P</p>
+                </span>
+                <span class="char11">
+                    <p>P</p>
+                </span>
+                <span class="char12">
+                    <p>/</p>
+                </span>
+                <span class="char13">
+                    <p>R</p>
+                </span>
+                <span class="char14">
+                    <p>F</p>
+                </span>
+                <span class="char15">
+                    <p>P</p>
+                </span>
+                <span class="char16">
+                    <p>/</p>
+                </span>
+                <span class="char17">
+                    <p>S</p>
+                </span>
+                <span class="char18">
+                    <p>C</p>
+                </span>
+                <span class="char19">
+                    <p>7</p>
+                </span>
+                <span class="char20">
+                    <p>3</p>
+                </span>
+                <span class="char21">
+                    <p>4</p>
+                </span>
+
+
+                <span class="char22">-</span>
+                <span class="char23">
+                    <p>P</p>
+                </span>
+                <span class="char24">
+                    <p>E</p>
+                </span>
+                <span class="char25">
+                    <p>T</p>
+                </span>
+                <span class="char26">
+                    <p>-</p>
+                </span>
+                <span class="char27">
+                    <p>I</p>
+                </span>
+                <span class="char28">
+                    <p>D</p>
+                </span>
+                <span class="char29">
+                    <p>.</p>
+                </span>
+                <span class="char30">
+                    <p>A</p>
+                </span>
+                <span class="char31">
+                    <p>P</p>
+                </span>
+                <span class="char32">
+                    <p>P</p>
+                </span>
+                <span class="char33">
+                    <p>/</p>
+                </span>
+                <span class="char34">
+                    <p>R</p>
+                </span>
+                <span class="char35">
+                    <p>F</p>
+                </span>
+                <span class="char36">
+                    <p>P</p>
+                </span>
+                <span class="char37">
+                    <p>/</p>
+                </span>
+                <span class="char38">
+                    <p>S</p>
+                </span>
+                <span class="char39">
+                    <p>C</p>
+                </span>
+                <span class="char40">
+                    <p>7</p>
+                </span>
+                <span class="char41">
+                    <p>3</p>
+                </span>
+                <span class="char42">
+                    <p>4</p>
+                </span>
+
+                <img src="{{ url('images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
+
+
+            </div>
+
+            <div class="qrcode-container">
+
+                <span class="char1">-</span>
+                <span class="char2">
+                    <p>P</p>
+                </span>
+                <span class="char3">
+                    <p>E</p>
+                </span>
+                <span class="char4">
+                    <p>T</p>
+                </span>
+                <span class="char5">
+                    <p>-</p>
+                </span>
+                <span class="char6">
+                    <p>I</p>
+                </span>
+                <span class="char7">
+                    <p>D</p>
+                </span>
+                <span class="char8">
+                    <p>.</p>
+                </span>
+                <span class="char9">
+                    <p>A</p>
+                </span>
+                <span class="char10">
+                    <p>P</p>
+                </span>
+                <span class="char11">
+                    <p>P</p>
+                </span>
+                <span class="char12">
+                    <p>/</p>
+                </span>
+                <span class="char13">
+                    <p>R</p>
+                </span>
+                <span class="char14">
+                    <p>F</p>
+                </span>
+                <span class="char15">
+                    <p>P</p>
+                </span>
+                <span class="char16">
+                    <p>/</p>
+                </span>
+                <span class="char17">
+                    <p>S</p>
+                </span>
+                <span class="char18">
+                    <p>C</p>
+                </span>
+                <span class="char19">
+                    <p>7</p>
+                </span>
+                <span class="char20">
+                    <p>3</p>
+                </span>
+                <span class="char21">
+                    <p>4</p>
+                </span>
+
+
+                <span class="char22">-</span>
+                <span class="char23">
+                    <p>P</p>
+                </span>
+                <span class="char24">
+                    <p>E</p>
+                </span>
+                <span class="char25">
+                    <p>T</p>
+                </span>
+                <span class="char26">
+                    <p>-</p>
+                </span>
+                <span class="char27">
+                    <p>I</p>
+                </span>
+                <span class="char28">
+                    <p>D</p>
+                </span>
+                <span class="char29">
+                    <p>.</p>
+                </span>
+                <span class="char30">
+                    <p>A</p>
+                </span>
+                <span class="char31">
+                    <p>P</p>
+                </span>
+                <span class="char32">
+                    <p>P</p>
+                </span>
+                <span class="char33">
+                    <p>/</p>
+                </span>
+                <span class="char34">
+                    <p>R</p>
+                </span>
+                <span class="char35">
+                    <p>F</p>
+                </span>
+                <span class="char36">
+                    <p>P</p>
+                </span>
+                <span class="char37">
+                    <p>/</p>
+                </span>
+                <span class="char38">
+                    <p>S</p>
+                </span>
+                <span class="char39">
+                    <p>C</p>
+                </span>
+                <span class="char40">
+                    <p>7</p>
+                </span>
+                <span class="char41">
+                    <p>3</p>
+                </span>
+                <span class="char42">
+                    <p>4</p>
+                </span>
+
+                <img src="{{ url('images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
+
+
+            </div>
+
+            <div class="qrcode-container">
+
+                <span class="char1">-</span>
+                <span class="char2">
+                    <p>P</p>
+                </span>
+                <span class="char3">
+                    <p>E</p>
+                </span>
+                <span class="char4">
+                    <p>T</p>
+                </span>
+                <span class="char5">
+                    <p>-</p>
+                </span>
+                <span class="char6">
+                    <p>I</p>
+                </span>
+                <span class="char7">
+                    <p>D</p>
+                </span>
+                <span class="char8">
+                    <p>.</p>
+                </span>
+                <span class="char9">
+                    <p>A</p>
+                </span>
+                <span class="char10">
+                    <p>P</p>
+                </span>
+                <span class="char11">
+                    <p>P</p>
+                </span>
+                <span class="char12">
+                    <p>/</p>
+                </span>
+                <span class="char13">
+                    <p>R</p>
+                </span>
+                <span class="char14">
+                    <p>F</p>
+                </span>
+                <span class="char15">
+                    <p>P</p>
+                </span>
+                <span class="char16">
+                    <p>/</p>
+                </span>
+                <span class="char17">
+                    <p>S</p>
+                </span>
+                <span class="char18">
+                    <p>C</p>
+                </span>
+                <span class="char19">
+                    <p>7</p>
+                </span>
+                <span class="char20">
+                    <p>3</p>
+                </span>
+                <span class="char21">
+                    <p>4</p>
+                </span>
+
+
+                <span class="char22">-</span>
+                <span class="char23">
+                    <p>P</p>
+                </span>
+                <span class="char24">
+                    <p>E</p>
+                </span>
+                <span class="char25">
+                    <p>T</p>
+                </span>
+                <span class="char26">
+                    <p>-</p>
+                </span>
+                <span class="char27">
+                    <p>I</p>
+                </span>
+                <span class="char28">
+                    <p>D</p>
+                </span>
+                <span class="char29">
+                    <p>.</p>
+                </span>
+                <span class="char30">
+                    <p>A</p>
+                </span>
+                <span class="char31">
+                    <p>P</p>
+                </span>
+                <span class="char32">
+                    <p>P</p>
+                </span>
+                <span class="char33">
+                    <p>/</p>
+                </span>
+                <span class="char34">
+                    <p>R</p>
+                </span>
+                <span class="char35">
+                    <p>F</p>
+                </span>
+                <span class="char36">
+                    <p>P</p>
+                </span>
+                <span class="char37">
+                    <p>/</p>
+                </span>
+                <span class="char38">
+                    <p>S</p>
+                </span>
+                <span class="char39">
+                    <p>C</p>
+                </span>
+                <span class="char40">
+                    <p>7</p>
+                </span>
+                <span class="char41">
+                    <p>3</p>
+                </span>
+                <span class="char42">
+                    <p>4</p>
+                </span>
+
+                <img src="{{ url('images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
+
+
+            </div>
+            <div class="qrcode-container">
+
+                <span class="char1">-</span>
+                <span class="char2">
+                    <p>P</p>
+                </span>
+                <span class="char3">
+                    <p>E</p>
+                </span>
+                <span class="char4">
+                    <p>T</p>
+                </span>
+                <span class="char5">
+                    <p>-</p>
+                </span>
+                <span class="char6">
+                    <p>I</p>
+                </span>
+                <span class="char7">
+                    <p>D</p>
+                </span>
+                <span class="char8">
+                    <p>.</p>
+                </span>
+                <span class="char9">
+                    <p>A</p>
+                </span>
+                <span class="char10">
+                    <p>P</p>
+                </span>
+                <span class="char11">
+                    <p>P</p>
+                </span>
+                <span class="char12">
+                    <p>/</p>
+                </span>
+                <span class="char13">
+                    <p>R</p>
+                </span>
+                <span class="char14">
+                    <p>F</p>
+                </span>
+                <span class="char15">
+                    <p>P</p>
+                </span>
+                <span class="char16">
+                    <p>/</p>
+                </span>
+                <span class="char17">
+                    <p>S</p>
+                </span>
+                <span class="char18">
+                    <p>C</p>
+                </span>
+                <span class="char19">
+                    <p>7</p>
+                </span>
+                <span class="char20">
+                    <p>3</p>
+                </span>
+                <span class="char21">
+                    <p>4</p>
+                </span>
+
+
+                <span class="char22">-</span>
+                <span class="char23">
+                    <p>P</p>
+                </span>
+                <span class="char24">
+                    <p>E</p>
+                </span>
+                <span class="char25">
+                    <p>T</p>
+                </span>
+                <span class="char26">
+                    <p>-</p>
+                </span>
+                <span class="char27">
+                    <p>I</p>
+                </span>
+                <span class="char28">
+                    <p>D</p>
+                </span>
+                <span class="char29">
+                    <p>.</p>
+                </span>
+                <span class="char30">
+                    <p>A</p>
+                </span>
+                <span class="char31">
+                    <p>P</p>
+                </span>
+                <span class="char32">
+                    <p>P</p>
+                </span>
+                <span class="char33">
+                    <p>/</p>
+                </span>
+                <span class="char34">
+                    <p>R</p>
+                </span>
+                <span class="char35">
+                    <p>F</p>
+                </span>
+                <span class="char36">
+                    <p>P</p>
+                </span>
+                <span class="char37">
+                    <p>/</p>
+                </span>
+                <span class="char38">
+                    <p>S</p>
+                </span>
+                <span class="char39">
+                    <p>C</p>
+                </span>
+                <span class="char40">
+                    <p>7</p>
+                </span>
+                <span class="char41">
+                    <p>3</p>
+                </span>
+                <span class="char42">
+                    <p>4</p>
+                </span>
+
+                <img src="{{ url('images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
+
+
+            </div>
+            <div class="qrcode-container">
+
+                <span class="char1">-</span>
+                <span class="char2">
+                    <p>P</p>
+                </span>
+                <span class="char3">
+                    <p>E</p>
+                </span>
+                <span class="char4">
+                    <p>T</p>
+                </span>
+                <span class="char5">
+                    <p>-</p>
+                </span>
+                <span class="char6">
+                    <p>I</p>
+                </span>
+                <span class="char7">
+                    <p>D</p>
+                </span>
+                <span class="char8">
+                    <p>.</p>
+                </span>
+                <span class="char9">
+                    <p>A</p>
+                </span>
+                <span class="char10">
+                    <p>P</p>
+                </span>
+                <span class="char11">
+                    <p>P</p>
+                </span>
+                <span class="char12">
+                    <p>/</p>
+                </span>
+                <span class="char13">
+                    <p>R</p>
+                </span>
+                <span class="char14">
+                    <p>F</p>
+                </span>
+                <span class="char15">
+                    <p>P</p>
+                </span>
+                <span class="char16">
+                    <p>/</p>
+                </span>
+                <span class="char17">
+                    <p>S</p>
+                </span>
+                <span class="char18">
+                    <p>C</p>
+                </span>
+                <span class="char19">
+                    <p>7</p>
+                </span>
+                <span class="char20">
+                    <p>3</p>
+                </span>
+                <span class="char21">
+                    <p>4</p>
+                </span>
+
+
+                <span class="char22">-</span>
+                <span class="char23">
+                    <p>P</p>
+                </span>
+                <span class="char24">
+                    <p>E</p>
+                </span>
+                <span class="char25">
+                    <p>T</p>
+                </span>
+                <span class="char26">
+                    <p>-</p>
+                </span>
+                <span class="char27">
+                    <p>I</p>
+                </span>
+                <span class="char28">
+                    <p>D</p>
+                </span>
+                <span class="char29">
+                    <p>.</p>
+                </span>
+                <span class="char30">
+                    <p>A</p>
+                </span>
+                <span class="char31">
+                    <p>P</p>
+                </span>
+                <span class="char32">
+                    <p>P</p>
+                </span>
+                <span class="char33">
+                    <p>/</p>
+                </span>
+                <span class="char34">
+                    <p>R</p>
+                </span>
+                <span class="char35">
+                    <p>F</p>
+                </span>
+                <span class="char36">
+                    <p>P</p>
+                </span>
+                <span class="char37">
+                    <p>/</p>
+                </span>
+                <span class="char38">
+                    <p>S</p>
+                </span>
+                <span class="char39">
+                    <p>C</p>
+                </span>
+                <span class="char40">
+                    <p>7</p>
+                </span>
+                <span class="char41">
+                    <p>3</p>
+                </span>
+                <span class="char42">
+                    <p>4</p>
+                </span>
+
+                <img src="{{ url('images/qrcode.PNG') }}" alt="QR code" class="qrcode-img" />
+
 
             </div>
         </div>

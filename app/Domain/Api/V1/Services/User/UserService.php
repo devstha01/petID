@@ -57,8 +57,6 @@ class UserService
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt(array_get($inputs, 'password')),
             'phone' => array_get($inputs, 'phone'),
-            'pet_code' => substr(uniqid(), 0, 6),
-            'qr_code'=>substr(uniqid(), 0, 10),
             'account_type' => array_get($inputs, 'account_type'),
             'provider' => array_get($inputs, 'provider'),
             'provider_id' => array_get($inputs, 'provider_id'),

@@ -16,7 +16,7 @@ class PetController extends Controller
     {
         return currentUser();
     }
-    public function getPets()
+    public function getMyPets()
     {
        $pets = $this->user()->pets()->get();
        $data = [];
@@ -27,6 +27,15 @@ class PetController extends Controller
             'status'=>true,
             'data'=>$data
        ]);
+    }
+
+    public function getMyPet($id)
+    {
+        $pet = UserPet::find($id);
+        return response()->json([
+            'status' => true,
+            'data' => $this->dataFormat($pet)
+        ]);
     }
 
     public function postPet(Request $request)
@@ -40,7 +49,7 @@ class PetController extends Controller
             'image2'=>'required',
             'status'=>'required'
         ]);
-        
+
         if($request->image1){
             $image1UploadStatus1 = $this->uploadPetImage($request->image1);
             if ($image1UploadStatus1['status'] === false) return $image1UploadStatus1;
@@ -53,6 +62,8 @@ class PetController extends Controller
         $pet = UserPet::create([
             'user_id' => currentUser()->id,
             'name' => $request->name,
+            'pet_code' => substr(uniqid(), 0, 6),
+            'qr_code' => substr(uniqid(), 0, 10),
             'gender' => $request->gender,
             'color' => $request->color,
             'breed' => $request->breed,
@@ -62,6 +73,10 @@ class PetController extends Controller
             'status_verified_at' => Carbon::now(),
             'message' => $request->message,
         ]);
+
+        $qrCode = storage_path('app/public/qrcode/' . $pet->qr_code . '.png');
+        // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
+        generateQRCode('petid.app/rfp/' . $pet->pet_code, $qrCode);
 
         if($pet){
             return response()->json([
@@ -74,10 +89,14 @@ class PetController extends Controller
         return response()->json([
             'status'=>false,
             'message'=>'failed to save pets. Something went wrong'
-        ]);
-      
+        ]); 
+    }
 
-       
+    public function myPetImageUpload($id, Request $request)
+    {
+        // $pet = UserPet::find($id);
+        // if($request->image1)
+        // $this->uploadPetImage($request->image);
     }
 
     public function uploadPetImage($image)

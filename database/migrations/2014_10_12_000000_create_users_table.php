@@ -24,8 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             $table->string('phone')->nullable();
-            $table->string('pet_code')->unique();
-            $table->string('qr_code')->unique();
+            // $table->string('pet_code')->unique();
+            // $table->string('qr_code')->unique();
 
             $table->enum('account_type', AccountType::all())->default(AccountType::PAID);
             $table->enum('status', StatusType::all())->default(StatusType::ACTIVE);

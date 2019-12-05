@@ -34,8 +34,8 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt('secret'),
             'phone' => '+16237553141',
-            'pet_code' => uniquePetCode(),
-            'qr_code'=> uniqueQrCode(),
+            // 'pet_code' => uniquePetCode(),
+            // 'qr_code'=> uniqueQrCode(),
             'account_type' => AccountType::FREE,
             'status' => StatusType::ACTIVE,
             'created_at' => Carbon::now(),
@@ -86,8 +86,8 @@ class UsersTableSeeder extends Seeder
                 'email' => $faker->unique()->email,
                 'password' => bcrypt('secret'),
                 'phone' => $faker->phoneNumber,
-                'pet_code' => uniquePetCode(),
-                'qr_code'=> uniqueQRCode(),
+                // 'pet_code' => uniquePetCode(),
+                // 'qr_code'=> uniqueQRCode(),
                 'status' => StatusType::ACTIVE,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
@@ -107,9 +107,9 @@ class UsersTableSeeder extends Seeder
                 'message' => '',
             ]);
 
-            $qrCode = storage_path('app/public/qrcode/' . $subscriber->qr_code . '.png');
+            // $qrCode = storage_path('app/public/qrcode/' . $subscriber->qr_code . '.png');
             // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
-            generateQRCode('petid.app/rfp/' . $subscriber->pet_code, $qrCode);
+            // generateQRCode('petid.app/rfp/' . $subscriber->pet_code, $qrCode);
         }
     }
 }
