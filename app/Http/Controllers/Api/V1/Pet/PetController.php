@@ -32,6 +32,12 @@ class PetController extends Controller
     public function getMyPet($id)
     {
         $pet = UserPet::find($id);
+        if(!$pet){
+            return response()->json([
+                'status'=>false,
+                'message'=>'No Pet ID is existed with that id'
+            ]);
+        }
         return response()->json([
             'status' => true,
             'data' => $this->dataFormat($pet)
@@ -90,6 +96,46 @@ class PetController extends Controller
             'status'=>false,
             'message'=>'failed to save pets. Something went wrong'
         ]); 
+    }
+
+    public function updateMyPet(Request $request, $id)
+    {
+        $pet = UserPet::find($id);
+        if(!$pet){
+            return response()->json([
+                'status'=>false,
+                'message'=>'No Pet ID is existed with that id'
+            ]);
+        }
+        $request->validate([
+            'name'=>'required',
+            'gender'=>'required',
+            'color'=>'required',
+            'breed'=>'required',
+            'status'=>'required'
+        ]);
+
+        if($request->status != $pet->status){
+            $statusVerified = Carbon::now();
+        }else {
+            $statusVerified = $pet->status_verified_at;
+        }
+
+        $pet->update([
+            'user_id' => currentUser()->id,
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'color' => $request->color,
+            'breed' => $request->breed,
+            'status' => $request->status,
+            'status_verified_at' => $statusVerified,
+            'message' => $request->message,
+        ]);
+        
+        return response()->json([
+            'status' => true,
+            'data' => $this->dataFormat($pet)
+        ]);
     }
 
     public function myPetImageUpload($id, Request $request)

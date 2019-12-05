@@ -57,6 +57,7 @@ $api->version('v1', function (Router $api) {
                 $api->get('my-pets', 'PetController@getMyPets');
                 $api->post('my-pet', 'PetController@postPet');
                 $api->get('my-pet/{id}','PetController@getMyPet');
+                $api->post('my-pet/{id}','PetController@updateMyPet');
                 $api->post('my-pet-image/{id}','PetController@myPetImageUpload');
             });
         });
