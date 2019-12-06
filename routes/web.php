@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('/subscribers', 'SubscribersController');
 
         Route::get('draw-tag','TagController@tag');
+        Route::get('pdf-tag','TagController@getNewPetTag');
 
         Route::get('/transactions', 'TransactionsController@index')->name('transactions.index');
         Route::get('/influencer', 'InfluencersController@index')->name('influencer.index');

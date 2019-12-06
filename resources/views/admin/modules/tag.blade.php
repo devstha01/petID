@@ -25,6 +25,8 @@
             page: cover;
             position: relative;
         }
+        
+        
 
         .row {
             position: relative;

@@ -35,7 +35,7 @@ class PetController extends Controller
         if(!$pet){
             return response()->json([
                 'status'=>false,
-                'message'=>'No Pet ID is existed with that id'
+                'message'=>'No Pet exists with that id'
             ]);
         }
         return response()->json([
@@ -104,7 +104,7 @@ class PetController extends Controller
         if(!$pet){
             return response()->json([
                 'status'=>false,
-                'message'=>'No Pet ID is existed with that id'
+                'message'=>'No Pet exists with that id'
             ]);
         }
         $request->validate([
@@ -140,9 +140,37 @@ class PetController extends Controller
 
     public function myPetImageUpload($id, Request $request)
     {
-        // $pet = UserPet::find($id);
-        // if($request->image1)
-        // $this->uploadPetImage($request->image);
+        $pet = UserPet::find($id);
+        if(!$pet){
+            return response()->json([
+                'status'=>false,
+                'message'=>'No Pet exists with that id'
+            ]);
+        }
+
+        $request->validate([
+            'image_key'=>'required',
+            'image'=>'required'
+        ]);
+
+        if(!$request->image_key == ('image1' || 'image2')) return response()->json([
+            'status'=>false,
+            'message'=>'Wrong key'
+        ]);
+
+        $image1UploadStatus = $this->uploadPetImage($request->image);
+        if ($image1UploadStatus['status'] === false) return $image1UploadStatus;
+        $image = $this->uploadPetImage($request->image);
+        $pet->update([
+            $request->image_key => $image1UploadStatus['image']
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Image uploaded succesfully',
+            'data' => $this->dataFormat($pet)
+        ]);
+        
     }
 
     public function uploadPetImage($image)

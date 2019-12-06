@@ -26,22 +26,21 @@ class TagController extends Controller
     //     $this->contactInfoService = $contactInfoService;
     // }
 
-    // public function getNewPetTag(){
-    //     $new_users = User::where('new_user_status', 0)->get();
+    public function getNewPetTag(){
+        // $new_users = User::where('new_user_status', 0)->get();
     
-    //     $fileName = uniqid('', true);
+        // $fileName = uniqid('', true);
 
-    //     // $savepdf = storage_path('app/public/tag/' . $fileName . '.pdf');
-    //     $pdf = PDF::loadView('admin.modules.tag');
-    //     return $pdf->stream('certificate.pdf');
+        // $savepdf = storage_path('app/public/tag/' . $fileName . '.pdf');
+        $pdf = PDF::loadView('admin.modules.tag');
+        return $pdf->stream('certificate.pdf');
 
-    //     // PDF::loadView('admin.modules.tag',array(
-    //     //     'newUsers'=>$new_users
-    //     // ))->save($savepdf);
+        // PDF::loadView('admin.modules.tag',array(
+        //     'newUsers'=>$new_users
+        // ))->save($savepdf);
         
-    // }
-
-
+    }
+ 
      public function tag()
      {
 
@@ -63,7 +62,7 @@ class TagController extends Controller
         $fontPathSemiBold = public_path('fonts/Raleway/Raleway-SemiBold.ttf');
         $fontPathLight = public_path('fonts/Raleway/Raleway-Light.ttf');
 
-
+    
         $img1->text('ROCCO', 96, 50, function ($font) use ($fontPathExtraBold, $textColor) {
             $font->file($fontPathExtraBold);
             $font->size(18);
@@ -108,11 +107,11 @@ class TagController extends Controller
         $img->save($saveimg);
         $img1->save($saveimg1);
 
-        $savepdf = storage_path('app/public/wallpaper/' . $fileName . '.pdf');
-        $savepdf1 = storage_path('app/public/wallpaper/' . $fileName1 . '.pdf');
+        // $savepdf = storage_path('app/public/wallpaper/' . $fileName . '.pdf');
+        // $savepdf1 = storage_path('app/public/wallpaper/' . $fileName1 . '.pdf');
 
-        PDF::loadHTML("<img src='" . $saveimg . "'>")->save($savepdf);
-        PDF::loadHTML("<img src='" . $saveimg1 . "'>")->save($savepdf1);
+        // PDF::loadHTML("<img src='" . $saveimg . "'>")->save($savepdf);
+        // PDF::loadHTML("<img src='" . $saveimg1 . "'>")->save($savepdf1);
         return 'done';
     }
 
