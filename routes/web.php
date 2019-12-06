@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('draw-tag','Front\PagesController@tag');
+
 Route::get('cache-clear',function(){
     \Artisan::call('cache:clear');
     \Artisan::call('config:cache');
@@ -63,7 +65,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::resource('/subscribers', 'SubscribersController');
 
-        Route::get('draw-tag','TagController@tag');
+        
         Route::get('pdf-tag','TagController@getNewPetTag');
 
         Route::get('/transactions', 'TransactionsController@index')->name('transactions.index');
