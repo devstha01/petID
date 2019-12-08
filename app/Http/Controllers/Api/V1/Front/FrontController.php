@@ -6,6 +6,9 @@ use App\Domain\Api\V1\Services\Front\ContactInfoService;
 use App\Domain\Api\V1\Services\Front\UserService;
 use Exception;
 use Illuminate\Http\Request;
+use App\Cloudsa9\Entities\Models\User\User;
+use App\Cloudsa9\Entities\Models\User\UserPet;
+use App\Cloudsa9\Entities\Models\User\ContactInfo;
 use App\Http\Controllers\Controller;
 
 class FrontController extends Controller
@@ -31,34 +34,30 @@ class FrontController extends Controller
      * @param Request $request
      * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|string|null
      */
-    public function getReturnFoundPhone(Request $request)
+    public function getReturnFoundPet($petCode)
     {
-        $phoneCode = $request->segment(3) ? $request->segment(3) : $request->input('phone_code');
-
         $contactInfo = [];
 
-        if (!$phoneCode) {
+        if (!$petCode) {
             return [
-                'phoneCode' => $phoneCode,
-                'contactInfo' => $contactInfo
+                'status'=>false,
+                'message'=>'Unable to find contact information',
+                'petcode' => $petCode,
             ];
         }
 
         try {
-            $userInfo = $this->userService->findByPhoneCode($phoneCode);
+            $pet = UserPet::where('pet_code',$petCode)->first();
 
-//            if ($userInfo && $userInfo->account_type == 'paid') {
-//                if (!$userInfo->subscribed('main') || $userInfo->subscription('main')->cancelled()) {
-//                    throw new Exception('No information found with phone code: ' . $phoneCode);
-//                }
-//            }
-
-            $contactInfo = $this->contactInfoService->findByUser($userInfo->id);
+            $petInfo = $this->petInfo($pet);
+            
+            $contactInfo = ContactInfo::where('user_id',$petInfo->user_id)->first();
 
             $response = [
-                'error' => false,
-                'message' => 'User found having phone code: ' . $phoneCode,
-                'recovery-info' => $contactInfo,
+                'error' => true,
+                'message' => 'User found having pet code: ' . $petCode,
+                'contact-info' => $contactInfo,
+                'pet-info' => $petInfo
             ];
 
         } catch (Exception $e) {
@@ -66,11 +65,27 @@ class FrontController extends Controller
 
             $response = [
                 'error' => true,
-                'message' => 'No information found with phone code: ' . $phoneCode,
-                'recovery-info' => $contactInfo,
+                'message' => 'No information found with pet code: ' . $petCode
             ];
         }
 
         return $response;
+    }
+
+    public function petInfo($pet){
+        if($pet['status'] === 1){
+            $status = 'Protected';
+        }else{
+            $status = 'Lost';
+        }
+
+        $pet['name'] = $pet->name;
+        $pet['color'] = $pet->color;
+        $pet['breed'] = $pet->breed;
+        $pet['image1'] = isset($pet['image1']) ? url('pet/' . $pet['image1']) : '';
+        $pet['image2'] = isset($pet['image2']) ? url('pet/' . $pet['image2']) : '';
+        $pet['status'] = $status;
+        $pet['message'] = $pet['message'];
+        return $pet;
     }
 }

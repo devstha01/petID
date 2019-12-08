@@ -33,13 +33,4 @@ class UserService
     {
         return $this->repository->findByField('user_id', $userId)->first();
     }
-
-    /**
-     * @param $phoneCode
-     * @return mixed
-     */
-    public function findByPhoneCode($phoneCode)
-    {
-        return $this->repository->findByField('phone_code', $phoneCode)->first();
-    }
 }

@@ -173,6 +173,23 @@ class PetController extends Controller
         
     }
 
+    public function deleteMyPet($id)
+    {
+        $pet = UserPet::findOrFail($id);
+        if($pet){
+            $pet->delete(); 
+            return response()->json([
+                'status'=>true,
+                'message'=>'Pet Deleted Succefully'
+            ]);
+        }else{
+            return response()->json([
+                'status'=>false,
+                'message'=>'Pet delete failed'
+            ]);
+        }
+    }
+
     public function uploadPetImage($image)
     {
         // your base64 encoded
