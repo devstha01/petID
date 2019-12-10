@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Pet;
 
 use Illuminate\Http\Request;
 use App\Cloudsa9\Entities\Models\User\UserPet;
+use App\Cloudsa9\Entities\Models\User\ContactInfo;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use File;
@@ -80,9 +81,13 @@ class PetController extends Controller
             'message' => $request->message,
         ]);
 
+        $contacInfo = ContactInfo::where('user_id',$pet->user_id)->first();
+
         $qrCode = storage_path('app/public/qrcode/' . $pet->qr_code . '.png');
         // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
         generateQRCode('petid.app/rfp/' . $pet->pet_code, $qrCode);
+        $this->makeCurveQrImage($pet->qr_code, $pet->pet_code);
+        $this->makeCurveImageWithPetName($pet->pet_code, $pet->name, $contacInfo->phone1, $contacInfo->phone2);
 
         if($pet){
             return response()->json([
@@ -238,6 +243,162 @@ class PetController extends Controller
         $pet['status'] = $status;
         $pet['message'] = $pet['message'];
         return $pet;
+    }
+
+    function makeCurveQrImage($qr_code, $pet_code)
+    {
+        $im = imagecreate(400, 400);
+
+        $white = imagecolorallocate($im, 0x00, 0x00, 0x00);
+        $grey  = imagecolorallocate($im, 0x00, 0x00, 0x00);
+        $txtcol = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+
+        $r = 150;
+        $cx = 200;
+        $cy = 200;
+        $txt1 = 'PET-ID.APP/REP/' . $pet_code . ' - PET-ID.APP/RFP/' . $pet_code . ' - ';
+        $txt2 = '';
+        $font = public_path('fonts/Raleway/Raleway-Bold.ttf');
+        #$font = 'bauhausm.ttf';
+        $size = 32;
+        $s = 385;
+        $e = 360;
+        imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
+        $pad = 2;                      // extra char spacing for text
+
+        $this->textOnArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt1, $font, $size, $pad);
+        $pad = 6;                      // extra char spacing for text
+        $s = 0;
+        $e = 180;
+        $this->textInsideArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt2, $font, $size, $pad);
+
+        $img1 = Image::make($im);
+
+        //header("content-type: image/png");
+
+        //QR Code
+        $qrCode = storage_path('app/public/qrcode/' . $qr_code . '.png');
+        // Insert QR Code
+        $insertQr = Image::make($qrCode)->resize(180, 180);
+        $img1->insert($insertQr, 'center');
+
+        $fileName = uniqid('', true);
+        $saveimg = storage_path('app/public/tag/image/' . $fileName . '.jpg');
+        $img1->save($saveimg);
+
+        return $fileName . '.jpg';
+    }
+
+    function makeCurveImageWithPetName($pet_code, $pet_name, $contct_no1, $contct_no2)
+    {
+        $im = imagecreate(400, 400);
+
+        $white = imagecolorallocate($im, 0x00, 0x00, 0x00);
+        $grey  = imagecolorallocate($im, 0x00, 0x00, 0x00);
+        $txtcol = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+
+        $r = 150;
+        $cx = 200;
+        $cy = 200;
+        $txt1 = 'PET-ID.APP/REP/' . $pet_code . ' - PET-ID.APP/RFP/' . $pet_code . ' - ';
+        $txt2 = '';
+        $font1 = public_path('fonts/Raleway/Raleway-Bold.ttf');
+        #$font = 'bauhausm.ttf';
+        $size = 32;
+        $s = 385;
+        $e = 360;
+        imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
+        $pad = 2;                      // extra char spacing for text
+
+        $this->textOnArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt1, $font1, $size, $pad);
+        $pad = 6;                      // extra char spacing for text
+        $s = 0;
+        $e = 180;
+        $this->textInsideArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt2, $font1, $size, $pad);
+
+        $img2 = Image::make($im);
+        $fileName = uniqid('', true);
+        $saveimg = storage_path('app/public/tag/image/demo' . $pet_code . '.jpg');
+        $img2->save($saveimg);
+
+        $img1 = Image::make(storage_path('app/public/tag/image/demo' . $pet_code . '.jpg'));
+
+        $textColor = '#000';
+
+
+
+        $img2->text($pet_name, 190, 160, function ($font) use ($font1, $textColor) {
+            $font->file($font1);
+            $font->size(35);
+            $font->color($textColor);
+            $font->align('center');
+        });
+        $img2->text($contct_no1, 200, 220, function ($font) use ($textColor, $font1) {
+            $font->file($font1);
+            $font->size(35);
+            $font->color($textColor);
+            $font->align('center');
+        });
+        $img2->text($contct_no2, 200, 260, function ($font) use ($textColor, $font1) {
+            $font->file($font1);
+            $font->size(35);
+            $font->color($textColor);
+            $font->align('center');
+        });
+
+
+        $fileName = uniqid('', true);
+        $saveimg = storage_path('app/public/tag/image/' . $fileName . '.jpg');
+        $img1->save($saveimg);
+
+        return $fileName . '.jpg';
+    }
+
+    function textWidth($txt, $font, $size)
+    {
+        $bbox = imagettfbbox($size, 0, $font, $txt);
+        $w = abs($bbox[4] - $bbox[0]);
+        return $w;
+    }
+
+    function textOnArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt, $font, $size, $pad = 0)
+    {
+        $tlen = strlen($txt);
+        $arccentre = ($e + $s) / 2;
+        $total_width = $this->textWidth($txt, $font, $size) - ($tlen - 1) * $pad;
+        $textangle = rad2deg($total_width / $r);
+        $s = $arccentre - $textangle / 2;
+        $e = $arccentre + $textangle / 2;
+        for ($i = 0, $theta = deg2rad($s); $i < $tlen; $i++) {
+            $ch = $txt{
+                $i};
+            $tx = $cx + $r * cos($theta);
+            $ty = $cy + $r * sin($theta);
+            $dtheta = ($this->textWidth($ch, $font, $size)) / $r;
+            $angle = rad2deg(M_PI * 3 / 2 - ($dtheta / 2 + $theta));
+            imagettftext($im, $size, $angle, $tx, $ty, $txtcol, $font, $ch);
+            $theta += $dtheta;
+        }
+    }
+
+    function textInsideArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt, $font, $size, $pad = 0)
+    {
+        $tlen = strlen($txt);
+        $arccentre = ($e + $s) / 2;
+        $total_width = $this->textWidth($txt, $font, $size) + ($tlen - 1) * $pad;
+        $textangle = rad2deg($total_width / $r);
+        $s = $arccentre - $textangle / 2;
+        $e = $arccentre + $textangle / 2;
+        for ($i = 0, $theta = deg2rad($e); $i < $tlen; $i++) {
+            $ch = $txt{
+                $i};
+            $tx = $cx + $r * cos($theta);
+            $ty = $cy + $r * sin($theta);
+            $dtheta = ($this->textWidth($ch, $font, $size) + $pad) / $r;
+            $angle = rad2deg(M_PI / 2 - ($theta - $dtheta / 2));
+            imagettftext($im, $size, $angle, $tx, $ty, $txtcol, $font, $ch);
+            $theta -= $dtheta;
+        }
     }
 
 }
