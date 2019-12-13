@@ -86,8 +86,16 @@ class PetController extends Controller
         $qrCode = storage_path('app/public/qrcode/' . $pet->qr_code . '.png');
         // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
         generateQRCode('petid.app/rfp/' . $pet->pet_code, $qrCode);
-        $this->makeCurveQrImage($pet->qr_code, $pet->pet_code);
+        
+        $backTag = $this->makeCurveQrImage($pet->qr_code, $pet->pet_code);
+        $pet->update([
+            'back_tag'=> $backTag
+        ]);
+
         $this->makeCurveImageWithPetName($pet->pet_code, $pet->name, $contacInfo->phone1, $contacInfo->phone2);
+        $pet->update([
+            'front_tag'=> $backTag
+        ]);
 
         if ($pet) {
             return response()->json([
@@ -256,7 +264,7 @@ class PetController extends Controller
         $r = 150;
         $cx = 200;
         $cy = 200;
-        $txt1 = '*        P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . '       *             P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        $txt1 = '*         P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . '       *             P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
         $txt2 = '';
         $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
 
@@ -298,7 +306,7 @@ class PetController extends Controller
         $r = 150;
         $cx = 200;
         $cy = 200;
-        $txt1 = '*        P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . '       *             P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        $txt1 = '*         P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . '       *             P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
         $txt2 = '';
         $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
         // $font2 = public_path('fonts/Raleway/Raleway-Bold.ttf');

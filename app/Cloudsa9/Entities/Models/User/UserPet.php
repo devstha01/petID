@@ -18,7 +18,9 @@ class UserPet extends Model
         'image2',
         'message',
         'status',
-        'status_verified_at'
+        'status_verified_at',
+        'front_tag',
+        'back_tag'
     ];
 
     /**

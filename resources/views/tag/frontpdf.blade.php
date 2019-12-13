@@ -25,7 +25,7 @@
     <div style="width:100%">
         @php
 
-        $chunk_data = array_chunk($myusers,12);
+        $chunk_data = array_chunk($myusers->toArray(),12);
 
         @endphp
         <table>
@@ -36,7 +36,7 @@
 
 
                     @php
-                    $img_path = url('storage/app/public/tag/image/'.$chunk_data[$i][$j]['image2']);
+                    $img_path = url('storage/app/public/tag/image/'.$chunk_data[$i][$j]['front_tag']);
                     @endphp
                     <img src="{{$img_path}}" alt="" class="pdf_images">
                     </td>
