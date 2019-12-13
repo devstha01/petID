@@ -247,21 +247,21 @@ class PetController extends Controller
     function makeCurveQrImage($qr_code, $pet_code)
     {
 
-        $im = imagecreate(400, 400);
+        $im = imagecreate(380, 380);
 
-        $white = imagecolorallocate($im, 0x00, 0x00, 0x00);
-        $grey  = imagecolorallocate($im, 0x00, 0x00, 0x00);
-        $txtcol = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $grey = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $txtcol = imagecolorallocate($im, 0x00, 0x00, 0x00);
 
         $r = 150;
         $cx = 200;
         $cy = 200;
-        $txt1 = 'P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . '   P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        $txt1 = '*        P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . '       *             P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
         $txt2 = '';
-        $font1 = public_path('fonts/Monospaced/Anonymous.ttf');
+        $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
 
-        $size = 13;
-        $s = 348;
+        $size = 23;
+        $s = 280;
         $e = 360;
         imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
         $pad = 2;
@@ -277,7 +277,7 @@ class PetController extends Controller
 
         $qrCode = storage_path('app/public/qrcode/' . $qr_code . '.png');
 
-        $insertQr = Image::make($qrCode)->resize(180, 180);
+        $insertQr = Image::make($qrCode)->resize(160, 160);
         $img1->insert($insertQr, 'center');
 
         $fileName = uniqid('', true);
@@ -289,22 +289,22 @@ class PetController extends Controller
 
     function makeCurveImageWithPetName($pet_code, $pet_name, $contct_no1, $contct_no2)
     {
-        $im = imagecreate(400, 400);
+        $im = imagecreate(380, 380);
 
-        $white = imagecolorallocate($im, 0x00, 0x00, 0x00);
-        $grey  = imagecolorallocate($im, 0x00, 0x00, 0x00);
-        $txtcol = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $grey = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $txtcol = imagecolorallocate($im, 0x00, 0x00, 0x00);
 
         $r = 150;
         $cx = 200;
         $cy = 200;
-        $txt1 = 'P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . '   P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        $txt1 = '*        P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . '       *             P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
         $txt2 = '';
-        $font1 = public_path('fonts/Monospaced/Anonymous.ttf');
-        $font2 = public_path('fonts/Raleway/Raleway-Bold.ttf');
+        $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
+        // $font2 = public_path('fonts/Raleway/Raleway-Bold.ttf');
 
-        $size = 13;
-        $s = 348;
+        $size = 23;
+        $s = 280;
         $e = 360;
         imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
         $pad = 2;
@@ -322,22 +322,22 @@ class PetController extends Controller
 
         $img2 = Image::make(storage_path('app/public/tag/image/demo' . $pet_code . '.jpg'));
 
-        $textColor = '#fff';
+        $textColor = '#000000';
 
-        $img2->text(strtoupper($pet_name), 190, 160, function ($font) use ($font2, $textColor) {
-            $font->file(($font2));
+        $img2->text(strtoupper($pet_name), 190, 160, function ($font) use ($font1, $textColor) {
+            $font->file(($font1));
             $font->size(35);
             $font->color($textColor);
             $font->align('center');
         });
-        $img2->text($contct_no1, 200, 220, function ($font) use ($textColor, $font2) {
-            $font->file($font2);
+        $img2->text($contct_no1, 200, 220, function ($font) use ($textColor, $font1) {
+            $font->file($font1);
             $font->size(35);
             $font->color($textColor);
             $font->align('center');
         });
-        $img2->text($contct_no2, 200, 260, function ($font) use ($textColor, $font2) {
-            $font->file($font2);
+        $img2->text($contct_no2, 200, 260, function ($font) use ($textColor, $font1) {
+            $font->file($font1);
             $font->size(35);
             $font->color($textColor);
             $font->align('center');

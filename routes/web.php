@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('draw-tag','Front\PagesController@tag');
+Route::get('draw-tag','Front\PagesController@test_pdf');
 
 Route::get('cache-clear',function(){
     \Artisan::call('cache:clear');
