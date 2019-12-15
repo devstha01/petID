@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
         // Admin
         $admin = User::create([
             'name' => 'John Doe',
-            'email' => 'johndoe@fowndapp.com',
+            'email' => 'johndoe@petid.com',
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt('secret'),
             'phone' => '+16237553141',

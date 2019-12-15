@@ -31,21 +31,20 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Birthday</th>
                     <th>Address</th>
                     <th>Created At</th>
                     <th>Status</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($influencers as $key=>$inf)
                     <tr>
                         <td>{{++$key}}</td>
-                        <td>{{$inf->user->first_name??''}}</td>
-                        <td>{{$inf->user->last_name??''}}</td>
+                        <td>{{$inf->user->name??''}}</td>
                         <td>{{$inf->user->email??''}}</td>
                         <td>{{$inf->birthday}}</td>
                         <td>{{$inf->city}} | {{$inf->street}} </td>
@@ -60,14 +59,6 @@
                                 @endif
                             </form>
                         </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>{{$inf->facebook_url}} |</td>
-                        <td>{{$inf->twitter_url}} | {{$inf->twitter_followers}}</td>
-                        <td>{{$inf->instagram_url}} | {{$inf->instagram_followers}}</td>
-                        <td>{{$inf->tiktok_url}} | {{$inf->tiktok_followers}}</td>
-                        <td>{{$inf->website_url}} | {{$inf->website_visitors}}</td>
                         <td colspan="2">
                             <a href="{{route('admin.influencer.edit',$inf->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</a>
                             <a href="{{route('admin.influencer.editpass',$inf->id)}}" class="btn btn-info btn-sm"> Password</a>

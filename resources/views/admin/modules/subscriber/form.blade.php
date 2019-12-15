@@ -5,25 +5,16 @@
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <div class="form-group m-form__group{{ $errors->has('first_name') ? ' has-danger' : '' }}">
-                    <label for="first_name">First Name*</label>
-                    <input type="text" id="first_name" class="form-control m-input"
-                           name="first_name" value="{{ old('first_name', optional($accountInfo)->first_name) }}" required>
-                    @if ($errors->has('first_name'))
-                        <span class="form-control-feedback">{{ $errors->first('first_name') }}</span>
+                <div class="form-group m-form__group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                    <label for="name">Name*</label>
+                    <input type="text" id="name" class="form-control m-input"
+                           name="name" value="{{ old('name', optional($accountInfo)->name) }}" required>
+                    @if ($errors->has('name'))
+                        <span class="form-control-feedback">{{ $errors->first('name') }}</span>
                     @endif
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="form-group m-form__group{{ $errors->has('last_name') ? ' has-danger' : '' }}">
-                    <label for="last_name">Last Name*</label>
-                    <input type="text" id="last_name" class="form-control m-input"
-                           name="last_name" value="{{ old('last_name', optional($accountInfo)->last_name) }}" required>
-                    @if ($errors->has('last_name'))
-                        <span class="form-control-feedback">{{ $errors->first('last_name') }}</span>
-                    @endif
-                </div>
-            </div>
+            
         </div>
 
         <div class="row">

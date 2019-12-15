@@ -36,6 +36,9 @@ $api->version('v1', function (Router $api) {
         // Visitor routes
         $api->get('rfp/{code}', 'Front\FrontController@getReturnFoundPet');
 
+        //Country Lists
+        $api->get('country-list','Pet\TagController@getCountry');
+
         // Subscriber routes
         $api->group(['middleware' => 'jwt.auth'], function (Router $api) {
 
@@ -60,6 +63,8 @@ $api->version('v1', function (Router $api) {
                 $api->post('my-pet/{id}','PetController@updateMyPet');
                 $api->post('my-pet-image/{id}','PetController@myPetImageUpload');
                 $api->delete('my-pet/{id}','PetController@deleteMyPet');
+
+               
             });
         });
     });

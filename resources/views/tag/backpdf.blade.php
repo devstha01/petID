@@ -12,21 +12,26 @@
     }
 
     td {
-        padding: 5px;
+        padding: 22px 4px;
     }
 
     .pdf_images {
-        width: 113px;
-        height: 113px;
+        width: 122px;
+        height: 122px;
     }
 </style>
 
 <body>
     <div style="width:100%">
         @php
-
-        $chunk_data = array_chunk($myusers->toArray(),12);
-
+        $myloop = 84;
+        $marray = [];
+        for ($i=0; $i < $myloop; $i++) { 
+            array_push($marray,$i);
+        }
+        //dd($marray);
+        //$chunk_data = array_chunk($myusers->toArray(),14);
+        $chunk_data = array_chunk($marray,14);
         @endphp
         <table>
 
@@ -36,7 +41,7 @@
 
 
                     @php
-                    $img_path = url('storage/app/public/tag/image/'.$chunk_data[$i][$j]['back_tag']);
+                    $img_path = asset('storage/tag/image/'.$myusers[0]['back_tag']);
                     @endphp
                     <img src="{{$img_path}}" alt="" class="pdf_images">
                     </td>

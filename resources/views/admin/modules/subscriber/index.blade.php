@@ -54,7 +54,6 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Phone Code</th>
                     <th>Subscription</th>
                     <th>Status</th>
                     <th>Created At</th>
@@ -65,10 +64,9 @@
                 @foreach($subscribers as $subscriber)
                     <tr>
                         <td>{{ $subscriber->id }}</td>
-                        <td>{{ $subscriber->full_name }}</td>
+                        <td>{{ $subscriber->name }}</td>
                         <td>{{ $subscriber->email }}</td>
-                        <td>{{ $subscriber->phone }}</td>
-                        <td>{{ $subscriber->phone_code }}</td>
+                        <td>{{ $subscriber->contactInfo->phone1 }}</td>
                         <td>
                             @if(currentUser()->subscribed('main'))
                                 {{ $user->subscription('main')->onTrial() ? 'Trial' : 'Recurring' }}

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Cloudsa9\Entities\Models\User\UserPet;
+use App\Cloudsa9\Entities\Models\User\ContactInfo;
 use PDF;
 use Image;
 use Carbon\Carbon;
@@ -135,13 +136,23 @@ class PagesController extends Controller
             'email' => 'required|email|max:255|unique:users,email',
         ]);
         $input = $request->except('_token', 'first_name', 'last_name', 'email');
+        $valid['name'] = $request->first_name.' '.$request->last_name;
         $valid['password'] = bcrypt('secret' . rand(1000, 9999));
-        $valid['phone'] = "0";
-        $valid['phone_code'] = rand(100000, 999999);
         $user = $userRepository->create($valid);
         if (!$user)
             return redirect()->back()->with('success', 'Failed to submit information');
         $input['user_id'] = $user->id;
+        $user->roles()->sync([2]);
+         // Create contact info
+        $contactInfo = ContactInfo::create([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone1' => '',
+            'phone2' => '',
+            'reward' => 0,
+            'message' => '',
+        ]);
         $inf = Influencer::create($input);
         if (!$inf)
             return redirect()->back()->with('success', 'Failed to submit information');
@@ -228,11 +239,16 @@ class PagesController extends Controller
 
         $users = UserPet::where('created_at', '>=', Carbon::now()->subDay())->get();
 
-        //return view('pdf.frontpdf', ['myusers' => $users]);
+        // return view('tag.backpdf', ['myusers' => $users]);
+        $customPaper = array(0,0,1440,864);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
-        ->loadHTML(view('tag.backpdf', ['myusers' => $users])->render())->setPaper('a3', 'landscape');
+        ->loadHTML(view('tag.backpdf', ['myusers' => $users])->render())->setPaper($customPaper, 'portrait');
         //download('invoice.pdf')
         return $pdf->stream('test.pdf');
+
+
+        // $pdf = PDF::loadView('tag.demo-tag'); //load view page
+        // return $pdf->stream('test.pdf'); // download pdf file
     }
 }

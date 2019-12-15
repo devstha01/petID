@@ -26,8 +26,7 @@ class InfluencersController extends Controller
     {
         $inf = Influencer::find($id);
         $valid = $this->validate($request, [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $inf->user_id,
         ]);
         $userRepository->find($inf->user_id)->update($valid);

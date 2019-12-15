@@ -41,40 +41,23 @@
 
                     <div class="col-md-6">
 
-                        <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                            <label>First name</label>
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label>Name</label>
 
-                            <input type="text" class="form-control" name="first_name"
-                                   value="{{ $inf->user->first_name ??''}}"
+                            <input type="text" class="form-control" name="name"
+                                   value="{{ $inf->user->name ??''}}"
 
-                                   placeholder="First Name*" required>
+                                   placeholder="Name*" required>
 
-                            @if ($errors->has('first_name'))
+                            @if ($errors->has('name'))
 
-                                <span class="help-block">{{ $errors->first('first_name') }}</span>
-
-                            @endif
-
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-
-                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                            <label>Last name</label>
-
-                            <input type="text" class="form-control" name="last_name"
-                                   value="{{ $inf->user->last_name??'' }}"
-
-                                   placeholder="Last Name*" required>
-
-                            @if ($errors->has('last_name'))
-
-                                <span class="help-block">{{ $errors->first('last_name') }}</span>
+                                <span class="help-block">{{ $errors->first('name') }}</span>
 
                             @endif
 
                         </div>
                     </div>
+                
 
                     <div class="col-md-6">
 
