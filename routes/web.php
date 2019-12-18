@@ -12,6 +12,8 @@
 */
 
 Route::get('draw-tag','Front\PagesController@test_pdf');
+Route::get('get-shiprate','Front\PagesController@getRate');
+Route::get('draw-image','Front\PagesController@imageTest');
 
 Route::get('cache-clear',function(){
     \Artisan::call('cache:clear');

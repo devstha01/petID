@@ -110,4 +110,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasMany(UserPet::class);
     }
+
+    public function tags()
+    {
+        return $this->hasMany(OrderTag::class);
+    }
 }

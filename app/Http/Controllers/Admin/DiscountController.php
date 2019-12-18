@@ -16,10 +16,12 @@ class DiscountController extends Controller
 
     public function create(Request $request){
         $this->validate($request,[
-            'discount_code'=>'required|min:6|max:10|unique:discount_codes'
+            'discount_code'=>'required|min:6|max:10|unique:discount_codes',
+            'discount'=>'required|numeric'
         ]);
         DiscountCode::create([
-            'discount_code'=>$request->discount_code
+            'discount_code'=>$request->discount_code,
+            'discount'=>$request->discount
         ]);
         return redirect()->back()->with('success', 'Information updated successfully');
     }

@@ -8,6 +8,6 @@ class DiscountCode extends Model
 {
     protected $table = 'discount_codes';
     protected $fillable = [
-        'discount_code'
+        'discount_code','discount'
     ];
 }

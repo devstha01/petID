@@ -16,6 +16,7 @@ class CreateDiscountCodesTable extends Migration
         Schema::create('discount_codes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('discount_code')->unique();
+            $table->float('discount');
             $table->timestamps();
         });
     }

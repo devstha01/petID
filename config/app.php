@@ -177,6 +177,7 @@ return [
 
 
         Barryvdh\DomPDF\ServiceProvider::class,
+        LaravelShipStation\ShipStationServiceProvider::class
     ],
 
     /*

@@ -42,6 +42,17 @@
                             @endif
                         </div>
                     </div>
+
+                    <div class="col-lg-6">
+                            <div class="form-group m-form__group{{ $errors->has('discount') ? ' has-danger' : '' }}">
+                                <label for="discount">Discount*</label>
+                                <input type="text" id="discount" class="form-control m-input"
+                                       name="discount" value="{{ old('discount') }}" required>
+                                @if ($errors->has('discount'))
+                                    <span class="form-control-feedback">{{ $errors->first('discount') }}</span>
+                                @endif
+                            </div>
+                        </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Generate Discount Code</button>
             </div>
@@ -55,6 +66,7 @@
                 <tr>
                     <th>#</th>
                     <th>Code</th>
+                    <th>Discount Price</th>
                     <th>Created At</th>
                     {{-- <th>Actions</th> --}}
                 </tr>
@@ -64,6 +76,7 @@
                     <tr>
                         <td>{{++$key}}</td>
                         <td>{{$code->discount_code}}</td>
+                        <td>{{$code->discount}}</td>
                         <td>{{Carbon\Carbon::parse($code->created_at)->diffForHumans()}}</td>
                     </tr>
                 @endforeach

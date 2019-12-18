@@ -237,7 +237,8 @@ class PagesController extends Controller
    public function test_pdf()
     {
 
-        $users = UserPet::where('created_at', '>=', Carbon::now()->subDay())->get();
+        // $users = UserPet::where('created_at', '>=', Carbon::now()->subDay())->get();
+        $users = UserPet::latest()->get();
 
         // return view('tag.backpdf', ['myusers' => $users]);
         $customPaper = array(0,0,1440,864);
@@ -250,5 +251,66 @@ class PagesController extends Controller
 
         // $pdf = PDF::loadView('tag.demo-tag'); //load view page
         // return $pdf->stream('test.pdf'); // download pdf file
+    }
+
+    public function getRate(){
+        $ss = app(\LaravelShipStation\ShipStation::class);
+        $weight = new \LaravelShipStation\Models\Weight();
+        $weight->units = 'ounces';
+        $weight->value = 35.274;
+        $shipmentInfo = [
+            'carrierCode' => 'stamps_com',
+            'fromPostalCode' => 85087,
+            'toCountry' => 'CA',
+            'toPostalCode' => 'M4B 1B5',
+            'weight' => $weight
+        ];
+
+        $rates = $ss->shipments->post(
+            $shipmentInfo,
+            'getrates'
+        );
+      
+        $shippingCharge = $rates[0]->shipmentCost;
+
+        return $shippingCharge;
+    }
+
+
+    public function imageTest(){
+        $im = imagecreate(1920, 1152);
+        $img1 = Image::make($im);
+        $j = 29;
+        $leftPadding = 40;
+        for($i = 1; $i < $j; $i++){
+            if($i > 0 && $i < 15){
+                $topPadding = 25;
+                $backImage = url('images/code1.jpg');
+                $insertQr = Image::make($backImage)->resize(120, 120);
+                $img1->insert($insertQr, 'top-left', $leftPadding, $topPadding);
+                $leftPadding = $leftPadding + 125;
+                if($i == 14){
+                    $leftPadding = 40;
+                }
+            } else if($i > 14 && $i < 29){
+                $topPadding = 175;
+                $backImage = url('images/code1.jpg');
+                $insertQr = Image::make($backImage)->resize(120, 120);
+                $img1->insert($insertQr, 'top-left', $leftPadding, $topPadding);
+                $leftPadding = $leftPadding + 125;
+            }
+        }
+        $fileName = uniqid('', true);
+        $saveimg = storage_path('app/public/tag/image/' . $fileName . '.jpg');
+        $img1->save($saveimg);
+        $customPaper = array(0,0,1440,864);
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+        ->loadHTML("<img src='" . $saveimg . "'>")->setPaper($customPaper, 'portrait');
+        return $pdf->stream('test.pdf');
+        // $customPaper = array(0,0,1440,864);
+        // $savepdf = storage_path('app/public/wallpaper/' . $fileName . '.pdf');
+        // PDF::loadHTML("<img src='" . $saveimg . "'>")->stream($savepdf);
+        // echo 'done';
     }
 }

@@ -63,8 +63,9 @@ $api->version('v1', function (Router $api) {
                 $api->post('my-pet/{id}','PetController@updateMyPet');
                 $api->post('my-pet-image/{id}','PetController@myPetImageUpload');
                 $api->delete('my-pet/{id}','PetController@deleteMyPet');
-
-               
+                //Order Tag
+                $api->post('calculate-rate','TagController@calculateRate');
+                $api->post('order-tag','TagController@orderTag');
             });
         });
     });

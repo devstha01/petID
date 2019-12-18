@@ -24,7 +24,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 function generateQRCode($content, $fileName): void
 {
-    QrCode::format('png')->size(200)->generate($content, $fileName);
+    QrCode::format('png')->size(250)->generate($content, $fileName);
 }
 
 /**

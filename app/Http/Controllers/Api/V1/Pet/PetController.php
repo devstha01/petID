@@ -255,20 +255,20 @@ class PetController extends Controller
     function makeCurveQrImage($qr_code, $pet_code)
     {
 
-        $im = imagecreate(380, 380);
+        $im = imagecreate(400, 400);
 
         $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $grey = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $txtcol = imagecolorallocate($im, 0x00, 0x00, 0x00);
 
-        $r = 150;
+        $r = 180;
         $cx = 200;
         $cy = 200;
-        $txt1 = '*         P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . '       *             P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        $txt1 = '*  P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
         $txt2 = '';
         $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
 
-        $size = 23;
+        $size = 25;
         $s = 280;
         $e = 360;
         imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
@@ -285,7 +285,7 @@ class PetController extends Controller
 
         $qrCode = storage_path('app/public/qrcode/' . $qr_code . '.png');
 
-        $insertQr = Image::make($qrCode)->resize(160, 160);
+        $insertQr = Image::make($qrCode)->resize(250, 250);
         $img1->insert($insertQr, 'center');
 
         $fileName = uniqid('', true);
@@ -297,7 +297,7 @@ class PetController extends Controller
 
     function makeCurveImageWithPetName($pet_code, $pet_name, $contct_no1, $contct_no2)
     {
-        $im = imagecreate(380, 380);
+        $im = imagecreate(400, 380);
 
         $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $grey = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
