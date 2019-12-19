@@ -253,6 +253,25 @@ class PagesController extends Controller
         // return $pdf->stream('test.pdf'); // download pdf file
     }
 
+    public function front_pdf()
+    {
+
+        // $users = UserPet::where('created_at', '>=', Carbon::now()->subDay())->get();
+        $users = UserPet::latest()->get();
+
+        // return view('tag.backpdf', ['myusers' => $users]);
+        $customPaper = array(0,0,1440,864);
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+        ->loadHTML(view('tag.frontpdf', ['myusers' => $users])->render())->setPaper($customPaper, 'portrait');
+        //download('invoice.pdf')
+        return $pdf->stream('front.pdf');
+
+
+        // $pdf = PDF::loadView('tag.demo-tag'); //load view page
+        // return $pdf->stream('test.pdf'); // download pdf file
+    }
+
     public function getRate(){
         $ss = app(\LaravelShipStation\ShipStation::class);
         $weight = new \LaravelShipStation\Models\Weight();
