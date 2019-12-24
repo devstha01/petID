@@ -18,25 +18,40 @@ class ForgotPasswordController extends Controller
         $user = User::where('email', '=', $request->get('email'))->first();
 
         if (!$user) {
-            throw new NotFoundHttpException();
+            // throw new NotFoundHttpException();
+            return response()->json([
+                'error' => true,
+                'message' => 'User email not found',
+            ], 404);
+        } else {
+            try{
+                $token = mt_rand(100000, 999999);
+
+                DB::table(config('auth.passwords.users.table'))->insert([
+                    'email' => $user->email,
+                    'token' => $token
+                ]);
+
+                Mail::to($request->input('email'))->send(new ResetPassword([
+                    'subject' => 'Reset Password Notification',
+                    'token' => $token
+                ]));
+
+                return response()->json([
+                    'error' => false,
+                    'message' => trans('api.messages.forgot_password.success'),
+                ], 200);
+
+            }catch (Exception $e){
+
+                logger()->error($e);
+
+                $response = [
+                    'error' => true,
+                    'message' => 'Unable to send email. Please verify your email is valid or not.',
+                ];
+            }
         }
-
-        $token = mt_rand(100000, 999999);
-
-        DB::table(config('auth.passwords.users.table'))->insert([
-            'email' => $user->email,
-            'token' => $token
-        ]);
-
-        Mail::to($request->input('email'))->send(new ResetPassword([
-            'subject' => 'Reset Password Notification',
-            'token' => $token
-        ]));
-
-        return response()->json([
-            'error' => false,
-            'message' => trans('api.messages.forgot_password.success'),
-        ], 200);
     }
 
     public function verifyToken(Request $request)
@@ -54,7 +69,7 @@ class ForgotPasswordController extends Controller
         return response()->json([
             'error' => true,
             'token' => $request->input('token'),
-            'message' => 'User with this token found.',
-        ], 200);
+            'message' => 'User with this token not found.',
+        ], 404);
     }
 }

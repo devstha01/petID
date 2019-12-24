@@ -276,12 +276,12 @@ class PagesController extends Controller
         $ss = app(\LaravelShipStation\ShipStation::class);
         $weight = new \LaravelShipStation\Models\Weight();
         $weight->units = 'ounces';
-        $weight->value = 35.274;
+        $weight->value = 2;
         $shipmentInfo = [
             'carrierCode' => 'stamps_com',
             'fromPostalCode' => 85087,
-            'toCountry' => 'CA',
-            'toPostalCode' => 'M4B 1B5',
+            'toCountry' => 'NP',
+            'toPostalCode' => '44600',
             'weight' => $weight
         ];
 
@@ -331,5 +331,46 @@ class PagesController extends Controller
         // $savepdf = storage_path('app/public/wallpaper/' . $fileName . '.pdf');
         // PDF::loadHTML("<img src='" . $saveimg . "'>")->stream($savepdf);
         // echo 'done';
+    }
+
+    public function getTax()
+    {
+
+        $client = new \GuzzleHttp\Client;
+
+        $headers = [
+            "Authorization" => "Bearer fc977b602fbdb797b424e5e059e0f85e",
+            "Accept" => "application/json"
+        ];
+
+        $response = $client->request('POST','https://api.taxjar.com/v2/taxes', [
+            'headers' => $headers,
+            'form_params' => [
+                'from_country' => 'US',
+                'from_zip' => '85087',
+                "from_state" => "AZ",
+                "from_city" => "New River",
+                "from_street" => "826 w Jenny Lin rd.",
+                "to_country" => "US",
+                "to_zip" => "90002",
+                "to_state" => "CA",
+                "to_city" => "Los Angeles",
+                "to_street" => "1335 E 103rd St",
+                "amount" => 15.00,
+                "shipping" => 1.50,
+                "nexus_addresses[][country]" => 'US',
+                "nexus_addresses[][zip]" => '85087',
+                "nexus_addresses[][state]" => 'AZ',
+                "nexus_addresses[][city]" => 'New River',
+                "nexus_addresses[][street]" => '826 w Jenny Lin rd.',
+                "line_items[][quantity]" => 1,
+                "line_items[][product_tax_code]" => "20010",
+                "line_items[][unit_price]" => 15.00,
+                "line_items[][discount]" => 0
+            ],
+        ]);
+        
+        // $statusCode = $response->getStatusCode();
+        return $response->getBody();
     }
 }

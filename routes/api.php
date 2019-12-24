@@ -66,6 +66,7 @@ $api->version('v1', function (Router $api) {
                 //Order Tag
                 $api->post('calculate-rate','TagController@calculateRate');
                 $api->post('order-tag','TagController@orderTag');
+                $api->post('shipstation-order','TagController@orderAtShipStation');
             });
         });
     });

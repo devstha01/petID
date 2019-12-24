@@ -18,13 +18,17 @@ class CreateOrderTagsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('pet_id')->unsigned();
             $table->float('total_price');
+            $table->float('tag_price')->nullable();
+            $table->float('discount')->nullable();
+            $table->float('shipping_charge')->nullable();
+            $table->float('tax')->nullable();
             $table->string('discount_code')->nullable();
             $table->string('address1')->nullable();
             $table->string('address2')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('zip_code')->nullable();
-            $table->integer('country_id')->unsigned();
+            $table->string('country_code')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')

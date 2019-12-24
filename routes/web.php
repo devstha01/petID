@@ -12,6 +12,7 @@
 */
 
 Route::get('draw-tag','Front\PagesController@test_pdf');
+Route::get('calculate-tax','Front\PagesController@getTax');
 
 Route::get('draw-front','Front\PagesController@front_pdf');
 Route::get('get-shiprate','Front\PagesController@getRate');
@@ -24,7 +25,8 @@ Route::get('cache-clear',function(){
 });
 
 Route::get('migrate',function(){
-    \Artisan::call('migrate');
+    \Artisan::call('migrate:fresh');
+    \Artisan::call('db:seed');
     echo 'done';
 });
 
