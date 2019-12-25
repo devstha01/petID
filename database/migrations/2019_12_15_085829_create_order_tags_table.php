@@ -29,6 +29,7 @@ class CreateOrderTagsTable extends Migration
             $table->string('state')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('country_code')->nullable();
+            $table->string('stripe_token')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')

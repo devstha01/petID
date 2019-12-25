@@ -22,7 +22,8 @@ class OrderTag extends Model
         'city',
         'state',
         'zip_code',
-        'country_code'
+        'country_code',
+        'stripe_token'
     ];
 
     public function user()

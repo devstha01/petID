@@ -373,4 +373,10 @@ class PagesController extends Controller
         // $statusCode = $response->getStatusCode();
         return $response->getBody();
     }
+
+    public function deleteOrderFromStation(){
+        $shipStation = app(\LaravelShipStation\ShipStation::class);
+        $shipStation->orders->delete('53b20e');
+        echo 'done';
+    }
 }

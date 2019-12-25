@@ -83,7 +83,7 @@ class PetController extends Controller
 
         $contacInfo = ContactInfo::where('user_id', $pet->user_id)->first();
 
-        $qrCode = storage_path('app/public/qrcode/' . $pet->qr_code . '.png');
+        $qrCode = storage_path('app/public/qrcode/' . $pet->qr_code . '.jpg');
         // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
         generateQRCode('petid.app/rfp/' . $pet->pet_code, $qrCode);
         
@@ -249,20 +249,20 @@ class PetController extends Controller
     function makeCurveQrImage($qr_code, $pet_code)
     {
 
-        $im = imagecreate(300, 300);
+        $im = imagecreate(200, 200);
 
         $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $grey = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $txtcol = imagecolorallocate($im, 0x00, 0x00, 0x00);
 
-        $r = 120;
-        $cx = 150;
-        $cy = 150;
+        $r = 80;
+        $cx = 100;
+        $cy = 100;
         $txt1 = '* P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
         $txt2 = '';
         $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
 
-        $size = 23;
+        $size = 16;
         $s = 100;
         $e = 70;
         imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
@@ -277,7 +277,7 @@ class PetController extends Controller
         $img1 = Image::make($im);
 
 
-        $qrCode = storage_path('app/public/qrcode/' . $qr_code . '.png');
+        $qrCode = storage_path('app/public/qrcode/' . $qr_code . '.jpg');
 
         $insertQr = Image::make($qrCode);
         $img1->insert($insertQr, 'center');
@@ -291,21 +291,21 @@ class PetController extends Controller
 
     function makeCurveImageWithPetName($pet_code, $pet_name, $contct_no1, $contct_no2)
     {
-        $im = imagecreate(300, 300);
+        $im = imagecreate(200, 200);
 
         $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $grey = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $txtcol = imagecolorallocate($im, 0x00, 0x00, 0x00);
 
-        $r = 120;
-        $cx = 150;
-        $cy = 150;
+        $r = 80;
+        $cx = 100;
+        $cy = 100;
         $txt1 = '* P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
         $txt2 = '';
         $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
         // $font2 = public_path('fonts/Raleway/Raleway-Bold.ttf');
 
-        $size = 23;
+        $size = 16;
         $s = 100;
         $e = 70;
         imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
@@ -326,21 +326,21 @@ class PetController extends Controller
 
         $textColor = '#000000';
 
-        $img2->text(strtoupper($pet_name), 150, 130, function ($font) use ($font1, $textColor) {
+        $img2->text(strtoupper($pet_name), 100, 80, function ($font) use ($font1, $textColor) {
             $font->file(($font1));
-            $font->size(38);
+            $font->size(28);
             $font->color($textColor);
             $font->align('center');
         });
-        $img2->text($contct_no1, 150, 165, function ($font) use ($textColor, $font1) {
+        $img2->text($contct_no1, 100, 110, function ($font) use ($textColor, $font1) {
             $font->file($font1);
-            $font->size(32);
+            $font->size(23);
             $font->color($textColor);
             $font->align('center');
         });
-        $img2->text($contct_no2, 150, 200, function ($font) use ($textColor, $font1) {
+        $img2->text($contct_no2, 100, 140, function ($font) use ($textColor, $font1) {
             $font->file($font1);
-            $font->size(32);
+            $font->size(23);
             $font->color($textColor);
             $font->align('center');
         });

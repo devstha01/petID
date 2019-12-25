@@ -42,7 +42,7 @@ class TagController extends Controller
                 $ss = app(\LaravelShipStation\ShipStation::class);
                 $weight = new \LaravelShipStation\Models\Weight();
                 $weight->units = 'ounces';
-                $weight->value = 35.274;
+                $weight->value = 2;
                 $shipmentInfo = [
                     'carrierCode' => 'stamps_com',
                     'fromPostalCode' => 85087,
@@ -92,12 +92,12 @@ class TagController extends Controller
     {
         
         $this->validate($request,[
+            'name'=>'required',
             'pet_id'=>'required',
             'total_price'=>'required',
             'tag_price'=>'required',
             'discount'=>'required',
             'shipping_charge'=>'required',
-            'discount_code'=>'required',
             'address1'=>'required',
             // 'address2'=>'required',
             'city'=>'required',
@@ -105,6 +105,8 @@ class TagController extends Controller
             'zip_code'=>'required',
             'country_code'=>'required',
         ]);
+        
+        $petCode = UserPet::find($request->pet_id)->pet_code;
 
         $shipStation = app(\LaravelShipStation\ShipStation::class);
 
@@ -127,19 +129,35 @@ class TagController extends Controller
     
         $order = new \LaravelShipStation\Models\Order();
 
-        $order->orderNumber = $request->pet_code;
+        $order->orderNumber = $petCode;
         $order->orderDate = Carbon::now()->format('Y-m-d');
         $order->orderStatus = 'awaiting_shipment';
-        $order->amountPaid = $request->total_amount;
+        $order->amountPaid = $request->total_price;
         $order->taxAmount = 0;
         $order->shippingAmount = $request->shipping_charge;
-        $order->internalNotes = 'PETID tag order created for petcode '. $request->pet_code . 'for user '.$request->name;
+        $order->internalNotes = 'PETID tag order created for petcode '. $petCode . 'for user '.$request->name;
         $order->billTo = $address;
         $order->shipTo = $address;
         $order->items[] = $item;
 
         $data = $shipStation->orders->post($order, 'createorder');
-    
+
+        $client = new \GuzzleHttp\Client;
+
+        $headers = [
+            "Authorization" => "Bearer sk_test_AxUWnazrBOnBZDe07UYXdHSH",
+        ];
+
+        $response = $client->request('POST','https://api.stripe.com/v1/charges', [
+            'headers' => $headers,
+            'form_params' => [
+                'amount' => (int) $request->total_price * 100,
+                'currency' => 'usd',
+                'source' => $request->stripe_token,
+                'description' => 'Payment done for tag for user: ' . currentUser()->id .'('.$request->name.') and petcode: '.$petCode ,
+            ],
+        ]);
+        
         $order =  OrderTag::create([
             'user_id' => currentUser()->id,
             'pet_id' => $request->pet_id,
@@ -153,7 +171,8 @@ class TagController extends Controller
             'city'=>$request->city,
             'state'=>$request->state,
             'zip_code'=>$request->zip_code,
-            'country_code'=>$request->country_code
+            'country_code'=>$request->country_code,
+            'stripe_token'=>$request->stripe_token
         ]);
 
         return response()->json([
@@ -165,7 +184,8 @@ class TagController extends Controller
 
     public function orderAtShipStation(Request $request)
     {
-        
+        $shipStation = app(\LaravelShipStation\ShipStation::class);
+        $shipStation->orders->delete('53b20e');
         // This will var_dump the newly created order, and order should be wrapped in an array.
         // var_dump($shipStation->orders->post($order, 'createorder'));
     }

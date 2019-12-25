@@ -13,10 +13,15 @@
 
 Route::get('draw-tag','Front\PagesController@test_pdf');
 Route::get('calculate-tax','Front\PagesController@getTax');
+Route::get('delete-order','Front\PagesController@deleteOrderFromStation');
 
 Route::get('draw-front','Front\PagesController@front_pdf');
 Route::get('get-shiprate','Front\PagesController@getRate');
 Route::get('draw-image','Front\PagesController@imageTest');
+
+Route::get('storage',function(){
+    \Artisan::call('storage:link');
+});
 
 Route::get('cache-clear',function(){
     \Artisan::call('cache:clear');

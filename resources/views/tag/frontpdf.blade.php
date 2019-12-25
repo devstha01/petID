@@ -12,7 +12,7 @@
     }
 
     td {
-        padding: 22px 4px;
+        padding: 24px 4px;
     }
 
     .pdf_images {
