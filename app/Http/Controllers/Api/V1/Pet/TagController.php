@@ -68,24 +68,35 @@ class TagController extends Controller
 
        
         if($request->discount_code){
-            $discount = DiscountCode::where('discount_code',$request->discount_code)->first()->discount;
+            $discount = DiscountCode::where('discount_code',$request->discount_code)->first();
             if(!$discount){
                 return response()->json([
                     'error' => true,
                     'message' => 'Unable to fetch discount from code. Please try again',
                 ]);
             }
+            $total = $tagCost + $shippingCharge - $discount->discount;
+            return response()->json([
+                'status' => true,
+                'tag_price'=> number_format((float)$tagCost,2,'.',''),
+                'shipping_charge' => number_format((float)$shippingCharge,2,'.',''),
+                'discount' => number_format((float)$discount,2,'.',''),
+                'tax' => 0,
+                'total_charge'=> number_format((float)$total,2,'.','')
+            ]);
+        } else {
+            $total = $tagCost + $shippingCharge;
+            return response()->json([
+                'status' => true,
+                'tag_price'=> number_format((float)$tagCost,2,'.',''),
+                'shipping_charge' => number_format((float)$shippingCharge,2,'.',''),
+                'discount' => number_format((float)$discount,2,'.',''),
+                'tax' => 0,
+                'total_charge'=> number_format((float)$total,2,'.','')
+            ]);
         }
 
-        $total = $tagCost + $shippingCharge - $discount;
-        return response()->json([
-            'status' => true,
-            'tag_price'=> number_format((float)$tagCost,2,'.',''),
-            'shipping_charge' => number_format((float)$shippingCharge,2,'.',''),
-            'discount' => number_format((float)$discount,2,'.',''),
-            'tax' => 0,
-            'total_charge'=> number_format((float)$total,2,'.','')
-        ]);
+      
     }
 
     public function orderTag(Request $request)
@@ -107,6 +118,22 @@ class TagController extends Controller
         ]);
         
         $petCode = UserPet::find($request->pet_id)->pet_code;
+
+        $client = new \GuzzleHttp\Client;
+
+        $headers = [
+            "Authorization" => "Bearer sk_test_AxUWnazrBOnBZDe07UYXdHSH",
+        ];
+
+        $response = $client->request('POST','https://api.stripe.com/v1/charges', [
+            'headers' => $headers,
+            'form_params' => [
+                'amount' => (int) $request->total_price * 100,
+                'currency' => 'usd',
+                'source' => $request->stripe_token,
+                'description' => 'Payment done for tag for user: ' . currentUser()->id .'('.$request->name.') and petcode: '.$petCode ,
+            ],
+        ]);
 
         $shipStation = app(\LaravelShipStation\ShipStation::class);
 
@@ -142,22 +169,6 @@ class TagController extends Controller
 
         $data = $shipStation->orders->post($order, 'createorder');
 
-        $client = new \GuzzleHttp\Client;
-
-        $headers = [
-            "Authorization" => "Bearer sk_test_AxUWnazrBOnBZDe07UYXdHSH",
-        ];
-
-        $response = $client->request('POST','https://api.stripe.com/v1/charges', [
-            'headers' => $headers,
-            'form_params' => [
-                'amount' => (int) $request->total_price * 100,
-                'currency' => 'usd',
-                'source' => $request->stripe_token,
-                'description' => 'Payment done for tag for user: ' . currentUser()->id .'('.$request->name.') and petcode: '.$petCode ,
-            ],
-        ]);
-        
         $order =  OrderTag::create([
             'user_id' => currentUser()->id,
             'pet_id' => $request->pet_id,

@@ -87,6 +87,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('/influencer/{id}/pass', 'InfluencersController@updatePass')->name('influencer.updatepass');
         Route::post('/influencer/{id}/status', 'InfluencersController@status')->name('influencer.status');
 
+        Route::get('/order-tags','OrderTagController@index')->name('orders.index');
         //Discount Codes
         Route::get('/discount-codes','DiscountController@index')->name('discount.index');
         Route::post('/create-code','DiscountController@create')->name('discount.create');
