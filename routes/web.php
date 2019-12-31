@@ -79,6 +79,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         
         Route::get('pdf-tag','TagController@getNewPetTag');
 
+        Route::get('users','UsersController@index')->name('users.index');
+
         Route::get('/transactions', 'TransactionsController@index')->name('transactions.index');
         Route::get('/influencer', 'InfluencersController@index')->name('influencer.index');
         Route::get('/influencer/{id}', 'InfluencersController@edit')->name('influencer.edit');

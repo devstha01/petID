@@ -30,4 +30,8 @@ class OrderTag extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function pet(){
+        return $this->belongsTo(UserPet::class);
+    }
 }

@@ -17,7 +17,7 @@
                 </a>
             </li>
 
-            {{-- <li class="m-menu__item m-menu__item--submenu{{ $route == 'admin.subscribers.index' || $route == 'admin.subscribers.create' || $route == 'admin.subscribers.edit'  ? ' m-menu__item--active m-menu__item--open': null }}"
+            <li class="m-menu__item m-menu__item--submenu{{ $route == 'admin.subscribers.index' || $route == 'admin.subscribers.create' || $route == 'admin.subscribers.edit'  ? ' m-menu__item--active m-menu__item--open': null }}"
                 aria-haspopup="true" m-menu-submenu-toggle="hover">
                 <a href="javascript:void(0);" class="m-menu__link m-menu__toggle">
                     <span class="m-menu__item-here"></span>
@@ -50,13 +50,20 @@
                         </li>
                     </ul>
                 </div>
-            </li> --}}
+            </li>
 
-            <li class="m-menu__item{{ $route == 'admin.transactions.index'  ? ' m-menu__item--active': null }}" aria-haspopup="true" m-menu-link-redirect="1">
+            {{-- <li class="m-menu__item{{ $route == 'admin.transactions.index'  ? ' m-menu__item--active': null }}" aria-haspopup="true" m-menu-link-redirect="1">
                 <a href="{{ route('admin.transactions.index') }}" class="m-menu__link ">
                     <span class="m-menu__item-here"></span>
                     <i class="m-menu__link-icon flaticon-coins"></i>
                     <span class="m-menu__link-text">Transactions</span>
+                </a>
+            </li> --}}
+             <li class="m-menu__item{{ $route == 'admin.orders.index'  ? ' m-menu__item--active': null }}" aria-haspopup="true" m-menu-link-redirect="1">
+                <a href="{{ route('admin.orders.index') }}" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-coins"></i>
+                    <span class="m-menu__link-text">Order Tags</span>
                 </a>
             </li>
 
