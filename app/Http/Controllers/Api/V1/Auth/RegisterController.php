@@ -124,23 +124,41 @@ class RegisterController extends Controller
             'message' => '',
         ]);
 
-        // Create lockscreen
-        // $lockscreenInfo = $this->lockscreenService->create([
-        //     'user_id' => $user->id,
-        //     'device' => 'phone',
-        //     'lockscreen_color' => 'black',
-        // ]);
+        $token = $JWTAuth->fromUser($user);
 
-        // Generate QR code
-        // $qrCode = storage_path('app/public/qrcode/' . $user->qr_code . '.png');
-        // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
-        // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode);
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+        ], 201);
+    }
 
-        // Generate wallpaper
-        // $lockscreen = generateLockscreen($user->phone_code, $qrCode, $lockscreenInfo->device, $contactInfo->reward, $lockscreenInfo->lockscreen_color);
+    public function registerViaApple(Request $request,JWTAuth $JWTAuth){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:' . DBTable::USERS,
+        ]);
 
-        // Save lockscreen to database
-        // $this->lockscreenService->update(['lockscreen' => $lockscreen], $lockscreenInfo->id);
+        $user = User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'email_verified_at' => Carbon::now(),
+            'password' => bcrypt($request->email),
+            'account_type' => 'paid',
+            'provider' => 'Apple',
+        ]);
+
+        $user->roles()->sync([2]);
+
+        // Create contact info
+        $contactInfo = $this->contactInfoService->create([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone1' => '',
+            'phone2' => '',
+            'reward' => 0,
+            'message' => '',
+        ]);
 
         $token = $JWTAuth->fromUser($user);
 

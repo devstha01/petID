@@ -258,12 +258,15 @@ class PetController extends Controller
         $r = 80;
         $cx = 100;
         $cy = 100;
-        $txt1 = '* P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        // $txt1 = ' * P E T - I D . A P P / R F P / '.implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        $txt1 = '* PET-ID.APP/RFP/'.implode('',str_split(strtoupper($pet_code))) . ' * PET-ID.APP/RFP/' . implode('',str_split(strtoupper($pet_code)));
         $txt2 = '';
-        $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
+        // $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
+        $font1 = public_path('fonts/dejavu-sans/DejaVuSans-Bold.ttf');
 
-        $size = 16;
-        $s = 100;
+
+        $size = 15;
+        $s = 10;
         $e = 70;
         imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
         $pad = 2;
@@ -300,14 +303,15 @@ class PetController extends Controller
         $r = 80;
         $cx = 100;
         $cy = 100;
-        $txt1 = '* P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        $txt1 = '* PET-ID.APP/RFP/'.implode('',str_split(strtoupper($pet_code))) . ' * PET-ID.APP/RFP/' . implode('',str_split(strtoupper($pet_code)));
         $txt2 = '';
-        $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
+        // $font2 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
         // $font2 = public_path('fonts/Raleway/Raleway-Bold.ttf');
+        $font1 = public_path('fonts/dejavu-sans/DejaVuSans-Bold.ttf');
 
-        $size = 16;
-        $s = 100;
-        $e = 70;
+        $size = 15;
+        $s = 20;
+        $e = 20;
         imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
         $pad = 2;
 
@@ -328,19 +332,19 @@ class PetController extends Controller
 
         $img2->text(strtoupper($pet_name), 100, 80, function ($font) use ($font1, $textColor) {
             $font->file(($font1));
-            $font->size(28);
+            $font->size(21);
             $font->color($textColor);
             $font->align('center');
         });
         $img2->text($contct_no1, 100, 110, function ($font) use ($textColor, $font1) {
             $font->file($font1);
-            $font->size(23);
+            $font->size(16);
             $font->color($textColor);
             $font->align('center');
         });
         $img2->text($contct_no2, 100, 140, function ($font) use ($textColor, $font1) {
             $font->file($font1);
-            $font->size(23);
+            $font->size(16);
             $font->color($textColor);
             $font->align('center');
         });

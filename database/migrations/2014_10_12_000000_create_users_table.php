@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('email_verified_notification_sent')->default(0);
-            $table->string('password');
+            $table->string('password')->nullable();
 
             $table->string('phone')->nullable();
             // $table->string('pet_code')->unique();

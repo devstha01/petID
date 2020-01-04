@@ -17,7 +17,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'loginFacebook','userLog']]);
+        $this->middleware('auth:api', ['except' => ['login', 'loginFacebook','userLog','loginViaApple']]);
     }
 
     /**
@@ -46,6 +46,21 @@ class LoginController extends Controller
         if (empty(request('provider_id')))
             return response()->json(['error' => 'Unauthorized'], 401);
         $user = User::where('provider_id', request('provider_id'))->first();
+        if (!$user)
+            return response()->json(['error' => 'Unauthorized'], 401);
+        $token = JWTAuth::fromUser($user);
+        if (!$token)
+            return response()->json(['error' => 'Unauthorized'], 401);
+
+
+        return $this->respondWithToken($token);
+    }
+
+    public function loginViaApple()
+    {
+        if (empty(request('email')))
+            return response()->json(['error' => 'Unauthorized'], 401);
+        $user = User::where('email', request('email'))->first();
         if (!$user)
             return response()->json(['error' => 'Unauthorized'], 401);
         $token = JWTAuth::fromUser($user);

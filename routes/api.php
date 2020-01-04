@@ -24,6 +24,8 @@ $api->version('v1', function (Router $api) {
             $api->post('login', 'LoginController@login');
             $api->post('user-log','LoginController@userLog');
             $api->post('login/fb', 'LoginController@loginFacebook');
+            $api->post('signup/apple','RegisterController@registerViaApple');
+            $api->post('login/apple','LoginController@loginViaApple');
 
             $api->post('password/email', 'ForgotPasswordController@sendResetEmail');
             $api->post('password/verify-token', 'ForgotPasswordController@verifyToken');

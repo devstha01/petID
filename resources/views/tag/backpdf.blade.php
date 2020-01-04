@@ -12,7 +12,7 @@
     }
 
     td {
-        padding: 24px 4px;
+        padding: 28px 4px;
     }
 
     .pdf_images {
@@ -33,7 +33,7 @@
         //$chunk_data = array_chunk($myusers->toArray(),14);
         $chunk_data = array_chunk($marray,14);
         @endphp
-        <table>
+        <table style="top-margin: 10px;">
 
             @for ($i = 0; $i < sizeof($chunk_data); $i++) <tr>
 
