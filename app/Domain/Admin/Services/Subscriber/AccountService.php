@@ -103,15 +103,14 @@ class AccountService
     protected function setCreateData(array $inputs): array
     {
         return [
-            'first_name' => array_get($inputs, 'first_name'),
-            'last_name' => array_get($inputs, 'last_name'),
+            'name' => array_get($inputs, 'name'),
             'email' => array_get($inputs, 'email'),
             'email_verified_at' => array_get($inputs, 'email_verified') == 'yes' ? Carbon::now() : null,
             'password' => bcrypt(array_get($inputs, 'password')),
-            'phone' => array_get($inputs, 'full_phone') ? array_get($inputs, 'full_phone') : array_get($inputs, 'phone'),
-            'phone_code' => substr(uniqid(), 0, 6),
-            'account_type' => array_get($inputs, 'account_type'),
-            'status' => array_get($inputs, 'status'),
+            // 'phone' => array_get($inputs, 'full_phone') ? array_get($inputs, 'full_phone') : array_get($inputs, 'phone'),
+            // 'phone_code' => substr(uniqid(), 0, 6),
+            'account_type' => 'paid',
+            'status' => 'active',
         ];
     }
 
@@ -122,13 +121,15 @@ class AccountService
     protected function setUpdateData(array $inputs): array
     {
         return [
-            'first_name' => array_get($inputs, 'first_name'),
-            'last_name' => array_get($inputs, 'last_name'),
+            'name' => array_get($inputs, 'name'),
+            // 'last_name' => array_get($inputs, 'last_name'),
             'email' => array_get($inputs, 'email'),
             'email_verified_at' => array_get($inputs, 'email_verified') == 'yes' ? Carbon::now() : null,
-            'phone' => array_get($inputs, 'full_phone') ? array_get($inputs, 'full_phone') : array_get($inputs, 'phone'),
-            'account_type' => array_get($inputs, 'account_type'),
-            'status' => array_get($inputs, 'status'),
+            // 'phone' => array_get($inputs, 'full_phone') ? array_get($inputs, 'full_phone') : array_get($inputs, 'phone'),
+            // 'account_type' => array_get($inputs, 'account_type'),
+            // 'status' => array_get($inputs, 'status'),
+            'account_type' => 'paid',
+            'status' => 'active',
         ];
     }
 }

@@ -234,38 +234,39 @@ class PagesController extends Controller
     }
 
 
-   public function test_pdf()
+    public function test_pdf()
     {
+        return view('tag.downloadpdf');
+    }
 
-        // $users = UserPet::where('created_at', '>=', Carbon::now()->subDay())->get();
-        $users = UserPet::latest()->get();
-
-        // return view('tag.backpdf', ['myusers' => $users]);
-        $customPaper = array(0,0,1440,864);
+    public function front_pdf()
+    {
+        
+        $users = UserPet::whereDate('created_at', Carbon::parse(request()->get('date')))->get();
+        
+        $customPaper = array(0,0,1440,910);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
-        ->loadHTML(view('tag.backpdf', ['myusers' => $users])->render())->setPaper($customPaper, 'portrait');
+        ->loadHTML(view('tag.frontpdf', ['myusers' => $users])->render())->setPaper($customPaper, 'portrait');
         //download('invoice.pdf')
-        return $pdf->stream('test.pdf');
+        return $pdf->download('Front.pdf');
 
 
         // $pdf = PDF::loadView('tag.demo-tag'); //load view page
         // return $pdf->stream('test.pdf'); // download pdf file
     }
-
-    public function front_pdf()
+    
+    public function back_pdf()
     {
 
-        // $users = UserPet::where('created_at', '>=', Carbon::now()->subDay())->get();
-        $users = UserPet::latest()->get();
-
-        // return view('tag.backpdf', ['myusers' => $users]);
-        $customPaper = array(0,0,1440,864);
+        $users = UserPet::whereDate('created_at', Carbon::parse(request()->get('date')))->get();
+        
+        $customPaper = array(0,0,1440,910);
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
-        ->loadHTML(view('tag.frontpdf', ['myusers' => $users])->render())->setPaper($customPaper, 'portrait');
+        ->loadHTML(view('tag.backpdf', ['myusers' => $users])->render())->setPaper($customPaper, 'portrait');
         //download('invoice.pdf')
-        return $pdf->stream('front.pdf');
+        return $pdf->download('Back.pdf');
 
 
         // $pdf = PDF::loadView('tag.demo-tag'); //load view page

@@ -9,6 +9,7 @@ use App\Mail\Api\V1\ResetPassword;
 use DB;
 use Illuminate\Http\Request;
 use Mail;
+use \Carbon\Carbon;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ForgotPasswordController extends Controller
@@ -25,13 +26,14 @@ class ForgotPasswordController extends Controller
             ], 404);
         } else {
             try{
-                $token = mt_rand(100000, 999999);
-
+                $token = str_random(64);
+                
                 DB::table(config('auth.passwords.users.table'))->insert([
                     'email' => $user->email,
-                    'token' => $token
+                    'token' => $token,
+                    'created_at'=> Carbon::now()
                 ]);
-
+                    
                 Mail::to($request->input('email'))->send(new ResetPassword([
                     'subject' => 'Reset Password Notification',
                     'token' => $token

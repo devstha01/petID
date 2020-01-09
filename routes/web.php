@@ -15,7 +15,9 @@ Route::get('draw-tag','Front\PagesController@test_pdf');
 Route::get('calculate-tax','Front\PagesController@getTax');
 Route::get('delete-order','Front\PagesController@deleteOrderFromStation');
 
-Route::get('draw-front','Front\PagesController@front_pdf');
+Route::get('download_frontpdf','Front\PagesController@front_pdf');
+Route::get('download_backpdf','Front\PagesController@back_pdf');
+//Route::get('draw-front','Front\PagesController@front_pdf');
 Route::get('get-shiprate','Front\PagesController@getRate');
 Route::get('draw-image','Front\PagesController@imageTest');
 
@@ -63,9 +65,10 @@ Route::get('/d', 'Front\PagesController@redirectToStore');
 
 //Route::get('/promo', 'Auth\RegisterController@getPromo');
 //Route::post('/promo', 'Auth\RegisterController@postPromo')->name('promo');
-
 Auth::routes(['verify' => true]);
-
+Route::get('password-reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password-reset.token');
+Route::post('password-reset', 'Auth\ResetPasswordController@resetPassword')->name('password-update');
+Route::get('reset-success','Auth\ResetPasswordController@resetSuccess');
 Route::group(['middleware' => ['auth', 'verified']], function () {
     // Admin routes
     Route::group(['namespace' => 'Admin', 'middleware' => ['role:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -75,11 +78,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('/profile', 'ProfileController@postProfile')->name('profile.update');
 
         Route::resource('/subscribers', 'SubscribersController');
+        Route::get('subscriber-pets/{id}','SubscribersController@getPets')->name('subscribers.pets');
 
         
         Route::get('pdf-tag','TagController@getNewPetTag');
-
-        Route::get('users','UsersController@index')->name('users.index');
 
         Route::get('/transactions', 'TransactionsController@index')->name('transactions.index');
         Route::get('/influencer', 'InfluencersController@index')->name('influencer.index');
@@ -93,6 +95,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         //Discount Codes
         Route::get('/discount-codes','DiscountController@index')->name('discount.index');
         Route::post('/create-code','DiscountController@create')->name('discount.create');
+        Route::get('/discount-code/used/{code}','DiscountController@codeUsedBy')->name('discount.used');
+
+        //TAG DOWNLOAD
+        Route::get('download-template','OrderTagController@downloadTagView')->name('orders.download.template');
+        Route::get('download_frontpdf','OrderTagController@front_pdf');
+        Route::get('download_backpdf','OrderTagController@back_pdf');
     });
 
     // Subscriber routes

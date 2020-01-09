@@ -6,6 +6,7 @@ use App\Cloudsa9\Constants\AccountType;
 use App\Cloudsa9\Constants\DeviceType;
 use App\Cloudsa9\Constants\StatusType;
 use App\Cloudsa9\Entities\Models\User\User;
+use App\Cloudsa9\Entities\Models\User\UserPet;
 use App\Domain\Admin\Requests\Subscriber\SubscriberCreateRequest;
 use App\Domain\Admin\Requests\Subscriber\SubscriberRequest;
 use App\Domain\Admin\Requests\Subscriber\SubscriberUpdateRequest;
@@ -166,5 +167,11 @@ class SubscribersController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function getPets($id)
+    {
+        $pets = UserPet::where('user_id',$id)->get();
+        return view('admin.modules.subscriber.pets',compact('pets','id'));
     }
 }

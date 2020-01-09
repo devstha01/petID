@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Cloudsa9\Entities\Models\User\DiscountCode;
+use App\Cloudsa9\Entities\Models\User\OrderTag;
 use App\Http\Controllers\Controller;
 
 class DiscountController extends Controller
@@ -24,5 +25,12 @@ class DiscountController extends Controller
             'discount'=>$request->discount
         ]);
         return redirect()->back()->with('success', 'Information updated successfully');
+    }
+
+    public function codeUsedBy($code)
+    {
+        $orders = OrderTag::where('discount',$code)->get();
+        $usedCount = OrderTag::where('discount',$code)->count();
+        return view('admin.modules.discount.used', compact('orders','code','usedCount'));
     }
 }

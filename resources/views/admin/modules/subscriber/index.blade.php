@@ -54,8 +54,8 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Subscription</th>
-                    <th>Status</th>
+                    {{-- <th>Subscription</th> --}}
+                    {{-- <th>Status</th> --}}
                     <th>Created At</th>
                     <th>Actions</th>
                 </tr>
@@ -67,18 +67,18 @@
                         <td>{{ $subscriber->name }}</td>
                         <td>{{ $subscriber->email }}</td>
                         <td>{{ $subscriber->contactInfo->phone1 }}</td>
-                        <td>
+                        {{-- <td>
                             @if(currentUser()->subscribed('main'))
                                 {{ $user->subscription('main')->onTrial() ? 'Trial' : 'Recurring' }}
                             @else
                                 Unsubscribed
                             @endif
-                        </td>
-                        <td>
+                        </td> --}}
+                        {{-- <td>
                             <span class="m-badge m-badge--{{ $subscriber->status == 'active' ? 'success' : 'danger' }} m-badge--wide">
                                 {{ ucfirst($subscriber->status) }}
                             </span>
-                        </td>
+                        </td> --}}
                         <td>{{ $subscriber->created_at }}</td>
                         <td>
                         <span class="dropdown">
@@ -90,9 +90,13 @@
                                   style="position: absolute; will-change: transform; top: 0; left: 0; transform: translate3d(-33px, 26px, 0px);">
                                 <a class="dropdown-item" href="{{ route('admin.subscribers.edit', $subscriber->id) }}">
                                     <i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-cog"></i> Change Password</a>
+                                {{-- <a class="dropdown-item" href="#"><i class="la la-cog"></i> Change Password</a> --}}
+                                <a class="dropdown-item" href="{{ route('admin.subscribers.pets', $subscriber->id) }}"><i class="la la-cog"></i> View Pets</a>
+                              
                                 <!--<a class="dropdown-item" href="#"><i class="la la-history"></i> History</a>-->
                             </span>
+
+                   
                         </span>
                             <a href="javascript:void(0);"
                                class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill m-btn-delete"

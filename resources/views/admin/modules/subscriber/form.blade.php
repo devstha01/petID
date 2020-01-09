@@ -28,7 +28,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-lg-6">
+            {{-- <div class="col-lg-6">
                 <div class="form-group m-form__group{{ $errors->has('phone') ? ' has-danger' : '' }}">
                     <label for="phone">Phone*</label>
                     <input type="text" id="phone" class="form-control m-input"
@@ -37,7 +37,7 @@
                         <span class="form-control-feedback">{{ $errors->first('phone') }}</span>
                     @endif
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         @if(empty($accountInfo))
@@ -61,7 +61,7 @@
             </div>
         @endif
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-lg-12">
                 <div class="form-group m-form__group{{ $errors->has('account_type') ? ' has-danger' : '' }}">
                     <label>Account Type*</label>
@@ -79,9 +79,9 @@
                     @endif
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-lg-12">
                 <div class="form-group m-form__group{{ $errors->has('status') ? ' has-danger' : '' }}">
                     <label>Status*</label>
@@ -99,7 +99,7 @@
                     @endif
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="row">
             <div class="col-lg-12">
@@ -119,7 +119,7 @@
             </div>
         </div>
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-lg-12">
                 <div class="form-group m-form__group mb-0{{ $errors->has('subscribe_newsletter') ? ' has-danger' : '' }}">
                     <label>Subscribe Newsletter</label>
@@ -135,9 +135,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        <div class="row d-none">
+        {{-- <div class="row d-none">
             <div class="col-lg-12">
                 <div class="form-group m-form__group mb-0{{ $errors->has('email_notification') ? ' has-danger' : '' }}">
                     <label>Send Email Notification</label>
@@ -153,7 +153,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <div class="m-form__seperator m-form__seperator--dashed"></div>
@@ -162,8 +162,8 @@
             <h3 class="m-form__heading-title">Recovery Info:</h3>
         </div>
 
-        <div class="row">
-            <div class="col-lg-6">
+        {{-- <div class="row"> --}}
+            {{-- <div class="col-lg-6">
                 <div class="form-group m-form__group{{ $errors->has('contact_name') ? ' has-danger' : '' }}">
                     <label for="contact-name">Full Name*</label>
                     <input type="text" id="contact-name" class="form-control m-input"
@@ -172,8 +172,8 @@
                         <span class="form-control-feedback">{{ $errors->first('contact_name') }}</span>
                     @endif
                 </div>
-            </div>
-            <div class="col-lg-6">
+            </div> --}}
+            {{-- <div class="col-lg-6">
                 <div class="form-group m-form__group{{ $errors->has('contact_email') ? ' has-danger' : '' }}">
                     <label for="contact-email">Email Address*</label>
                     <input type="email" id="contact-email" class="form-control m-input"
@@ -183,12 +183,12 @@
                     @endif
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group m-form__group{{ $errors->has('contact_phone1') ? ' has-danger' : '' }}">
-                    <label for="contact-phone1">Secondary Phone Number 1*</label>
+                    <label for="contact-phone1">Phone Number 1*</label>
                     <input type="text" id="contact-phone1" class="form-control m-input"
                            name="contact_phone1" value="{{ old('contact_phone1', optional($contactInfo)->phone1) }}" required>
                     @if ($errors->has('contact_phone1'))
@@ -198,7 +198,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="form-group m-form__group{{ $errors->has('contact_phone2') ? ' has-danger' : '' }}">
-                    <label for="contact-phone2">Secondary Phone Number 2</label>
+                    <label for="contact-phone2">Phone Number 2</label>
                     <input type="text" id="contact-phone2" class="form-control m-input"
                            name="contact_phone2" value="{{ old('contact_phone2', optional($contactInfo)->phone2) }}">
                     @if ($errors->has('contact_phone2'))
@@ -208,28 +208,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group m-form__group{{ $errors->has('contact_phone3') ? ' has-danger' : '' }}">
-                    <label for="contact-phone3">Secondary Phone Number 3</label>
-                    <input type="text" id="contact-phone3" class="form-control m-input"
-                           name="contact_phone3" value="{{ old('contact_phone3', optional($contactInfo)->phone3) }}">
-                    @if ($errors->has('contact_phone3'))
-                        <span class="form-control-feedback">{{ $errors->first('contact_phone3') }}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group m-form__group{{ $errors->has('contact_phone4') ? ' has-danger' : '' }}">
-                    <label for="contact-phone4">Secondary Phone Number 4</label>
-                    <input type="text" id="contact-phone4" class="form-control m-input"
-                           name="contact_phone4" value="{{ old('contact_phone4', optional($contactInfo)->phone4) }}">
-                    @if ($errors->has('contact_phone4'))
-                        <span class="form-control-feedback">{{ $errors->first('contact_phone4') }}</span>
-                    @endif
-                </div>
-            </div>
-        </div>
 
         <div class="row">
             <div class="col-lg-12">
@@ -237,11 +215,11 @@
                     <label>Reward Offered*</label>
                     <div class="m-radio-inline">
                         <label class="m-radio m-radio--solid">
-                            <input type="radio" name="contact_reward" value="yes" checked required> Yes
+                            <input type="radio" name="contact_reward" value="1" checked required> Yes
                             <span></span>
                         </label>
                         <label class="m-radio m-radio--solid">
-                            <input type="radio" name="contact_reward" value="no" required> No
+                            <input type="radio" name="contact_reward" value="0" required> No
                             <span></span>
                         </label>
                     </div>

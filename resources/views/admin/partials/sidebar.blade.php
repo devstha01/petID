@@ -52,6 +52,14 @@
                 </div>
             </li>
 
+            <li class="m-menu__item{{ $route == 'admin.orders.download.template'  ? ' m-menu__item--active': null }}" aria-haspopup="true" m-menu-link-redirect="1">
+                <a href="{{ route('admin.orders.download.template') }}" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-coins"></i>
+                    <span class="m-menu__link-text">Download Templates</span>
+                </a>
+            </li>
+
             {{-- <li class="m-menu__item{{ $route == 'admin.transactions.index'  ? ' m-menu__item--active': null }}" aria-haspopup="true" m-menu-link-redirect="1">
                 <a href="{{ route('admin.transactions.index') }}" class="m-menu__link ">
                     <span class="m-menu__item-here"></span>

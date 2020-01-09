@@ -12,10 +12,11 @@
                             <h3>{{ __('Reset Password') }}</h3>
                         </div>
 
-                        <form method="POST" action="{{ route('password.update') }}">
+                        <form method="POST" action="{{ route('password-update') }}">
                             @csrf
 
-                            <input type="hidden" name="token" value="{{ $token }}">
+                            <input type="hidden" name="token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="reset_token" value="{{ $token }} ">
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email">{{ __('E-Mail Address') }}</label>
@@ -57,10 +58,12 @@
                     <div class="card-header">{{ __('Reset Password') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('password.update') }}">
+                        <form method="POST" action="{{ route('password-update') }}">
                             @csrf
 
-                            <input type="hidden" name="token" value="{{ $token }}">
+                            <input type="hidden" name="token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="reset_token" value="{{ $token }} ">
+
 
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

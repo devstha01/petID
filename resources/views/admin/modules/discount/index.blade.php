@@ -68,7 +68,7 @@
                     <th>Code</th>
                     <th>Discount Price</th>
                     <th>Created At</th>
-                    {{-- <th>Actions</th> --}}
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -78,6 +78,9 @@
                         <td>{{$code->discount_code}}</td>
                         <td>{{$code->discount}}</td>
                         <td>{{Carbon\Carbon::parse($code->created_at)->diffForHumans()}}</td>
+                        <td>
+                            <a href="{{route('admin.discount.used',$code->discount_code)}}" class="btn btn-info btn-sm"><i class="fa fa-user"></i> Used By</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

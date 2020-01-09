@@ -33,8 +33,8 @@
         //$chunk_data = array_chunk($myusers->toArray(),14);
         $chunk_data = array_chunk($marray,14);
         @endphp
-        <table style="top-margin: 10px;">
 
+        <table style="margin-top: 12px;">
             @for ($i = 0; $i < sizeof($chunk_data); $i++) <tr>
 
                 @for ($j = 0; $j < sizeof($chunk_data[$i]); $j++) <td>
@@ -49,6 +49,9 @@
 
                     </tr>
                     @endfor
+
+
+
 
 
         </table>

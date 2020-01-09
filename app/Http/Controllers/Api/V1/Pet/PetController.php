@@ -87,7 +87,7 @@ class PetController extends Controller
         // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
         generateQRCode('petid.app/rfp/' . $pet->pet_code, $qrCode);
         
-        $backTag = $this->makeCurveQrImage($pet->qr_code, $pet->pet_code);
+        $backTag = $this->makeCurveQrImage($pet->qr_code, $pet->pet_code);  
         $pet->update([
             'back_tag'=> $backTag,
         ]);
@@ -249,25 +249,25 @@ class PetController extends Controller
     function makeCurveQrImage($qr_code, $pet_code)
     {
 
-        $im = imagecreate(200, 200);
+        $im = imagecreate(300, 300);
 
         $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $grey = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $txtcol = imagecolorallocate($im, 0x00, 0x00, 0x00);
 
-        $r = 80;
-        $cx = 100;
-        $cy = 100;
-        // $txt1 = ' * P E T - I D . A P P / R F P / '.implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
-        $txt1 = '* PET-ID.APP/RFP/'.implode('',str_split(strtoupper($pet_code))) . ' * PET-ID.APP/RFP/' . implode('',str_split(strtoupper($pet_code)));
+        $r = 120;
+        $cx = 150;
+        $cy = 150;
+         $txt1 = ' * P E T - I D . A P P / R F P / '.implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        //$txt1 = '* PET-ID.APP/RFP/'.implode('',str_split(strtoupper($pet_code))) . ' * PET-ID.APP/RFP/' . implode('',str_split(strtoupper($pet_code)));
         $txt2 = '';
         // $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
         $font1 = public_path('fonts/dejavu-sans/DejaVuSans-Bold.ttf');
 
 
-        $size = 15;
-        $s = 10;
-        $e = 70;
+        $size = 14;
+        $s = 200;
+        $e = 120;
         imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
         $pad = 2;
 
@@ -282,7 +282,7 @@ class PetController extends Controller
 
         $qrCode = storage_path('app/public/qrcode/' . $qr_code . '.jpg');
 
-        $insertQr = Image::make($qrCode);
+        $insertQr = Image::make($qrCode)->resize(150, 150);
         $img1->insert($insertQr, 'center');
 
         $fileName = uniqid('', true);
@@ -294,24 +294,26 @@ class PetController extends Controller
 
     function makeCurveImageWithPetName($pet_code, $pet_name, $contct_no1, $contct_no2)
     {
-        $im = imagecreate(200, 200);
+        $im = imagecreate(300, 300);
 
         $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $grey = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
         $txtcol = imagecolorallocate($im, 0x00, 0x00, 0x00);
 
-        $r = 80;
-        $cx = 100;
-        $cy = 100;
-        $txt1 = '* PET-ID.APP/RFP/'.implode('',str_split(strtoupper($pet_code))) . ' * PET-ID.APP/RFP/' . implode('',str_split(strtoupper($pet_code)));
+        $r = 120;
+        $cx = 150;
+        $cy = 150;
+        $txt1 = ' * P E T - I D . A P P / R F P / '.implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        
+        //$txt1 = '* PET-ID.APP/RFP/'.implode('',str_split(strtoupper($pet_code))) . ' * PET-ID.APP/RFP/' . implode('',str_split(strtoupper($pet_code)));
         $txt2 = '';
         // $font2 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
         // $font2 = public_path('fonts/Raleway/Raleway-Bold.ttf');
         $font1 = public_path('fonts/dejavu-sans/DejaVuSans-Bold.ttf');
 
-        $size = 15;
-        $s = 20;
-        $e = 20;
+        $size = 14;
+        $s = 200;
+        $e = 120;
         imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
         $pad = 2;
 
@@ -329,25 +331,58 @@ class PetController extends Controller
         $img2 = Image::make(storage_path('app/public/tag/image/demo' . $pet_code . '.jpg'));
 
         $textColor = '#000000';
+        
+        // $split_petname = explode(' ',$pet_name);
+        
+        // if(sizeof($split_petname) > 1)
+        // {
+        //     $img2->text(strtoupper($split_petname[0]), 150, 130, function ($font) use ($font1, $textColor) {
+        //         $font->file(($font1));
+        //         $font->size(34);
+        //         $font->color($textColor);
+        //         $font->align('center');
+        //     });
+        //     $img2->text(strtoupper($split_petname[1]), 150, 160, function ($font) use ($font1, $textColor) {
+        //         $font->file(($font1));
+        //         $font->size(34);
+        //         $font->color($textColor);
+        //         $font->align('center');
+        //     });
+        //     $img2->text($contct_no1, 150, 190, function ($font) use ($textColor, $font1) {
+        //         $font->file($font1);
+        //         $font->size(24);
+        //         $font->color($textColor);
+        //         $font->align('center');
+        //     });
+        //     $img2->text($contct_no2, 150, 220, function ($font) use ($textColor, $font1) {
+        //         $font->file($font1);
+        //         $font->size(24);
+        //         $font->color($textColor);
+        //         $font->align('center');
+        //     });
+        // }
+        // else{
+            $img2->text(strtoupper($pet_name), 150, 130, function ($font) use ($font1, $textColor) {
+                $font->file(($font1));
+                $font->size(30);
+                $font->color($textColor);
+                $font->align('center');
+            });
+            $img2->text($contct_no1, 150, 160, function ($font) use ($textColor, $font1) {
+                $font->file($font1);
+                $font->size(24);
+                $font->color($textColor);
+                $font->align('center');
+            });
+            $img2->text($contct_no2, 150, 190, function ($font) use ($textColor, $font1) {
+                $font->file($font1);
+                $font->size(24);
+                $font->color($textColor);
+                $font->align('center');
+            });
+        // }
 
-        $img2->text(strtoupper($pet_name), 100, 80, function ($font) use ($font1, $textColor) {
-            $font->file(($font1));
-            $font->size(21);
-            $font->color($textColor);
-            $font->align('center');
-        });
-        $img2->text($contct_no1, 100, 110, function ($font) use ($textColor, $font1) {
-            $font->file($font1);
-            $font->size(16);
-            $font->color($textColor);
-            $font->align('center');
-        });
-        $img2->text($contct_no2, 100, 140, function ($font) use ($textColor, $font1) {
-            $font->file($font1);
-            $font->size(16);
-            $font->color($textColor);
-            $font->align('center');
-        });
+        
 
         $fileName2 = uniqid('', true);
         $saveimg2 = storage_path('app/public/tag/image/' . $fileName2 . '.jpg');

@@ -9,7 +9,7 @@ namespace App\Cloudsa9\Constants;
 class Config
 {
     const ADMIN_DASHBOARD_ROUTE_PREFIX = 'admin';
-    const SUBSCRIBER_DASHBOARD_ROUTE_PREFIX = 'dashboard/contact-info';
+    const SUBSCRIBER_DASHBOARD_ROUTE_PREFIX = 'admin/dashboard';
 
     const PAGINATE_XSMALL = 5;
     const PAGINATE_SMALL = 10;
