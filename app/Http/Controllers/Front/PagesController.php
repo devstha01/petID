@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use App\Cloudsa9\Entities\Models\User\User;
 use App\Cloudsa9\Entities\Models\User\UserPet;
 use App\Cloudsa9\Entities\Models\User\ContactInfo;
 use PDF;
@@ -55,15 +56,19 @@ class PagesController extends Controller
      */
     public function getReturnFoundPet(Request $request)
     {
-        $phoneCode = $request->segment(2) ? $request->segment(2) : $request->input('phone_code');
+        $petCode = $request->segment(2) ? $request->segment(2) : $request->input('pet_code');
         $contactInfo = [];
 
-        if (!$phoneCode) {
-            return view('front.modules.return-found-pet', ['phoneCode' => $phoneCode, 'contactInfo' => $contactInfo]);
+        if (!$petCode) {
+            return view('front.modules.return-found-pet', ['petCode' => $petCode, 'contactInfo' => $contactInfo]);
         }
 
         try {
-            $userInfo = $this->userService->findByPhoneCode($phoneCode);
+            $pet = UserPet::where('pet_code',$petCode)->first();
+
+            $petInfo = $this->petInfo($pet);
+            
+            $contactInfo = ContactInfo::where('user_id',$petInfo->user_id)->first();
 
             /*if ($userInfo && $userInfo->account_type == 'paid') {
                 if (!$userInfo->subscribed('main') || $userInfo->subscription('main')->cancelled()) {
@@ -71,16 +76,36 @@ class PagesController extends Controller
                 }
             }*/
 
-            $contactInfo = $this->contactInfoService->findByUser($userInfo->id);
-
-            flash()->success('User found having phone code: ' . $phoneCode);
+            flash()->success('User found having pet code: ' . $petCode);
 
         } catch (Exception $e) {
             logger()->error($e);
-            flash()->error('No information found with phone code: ' . $phoneCode);
+            flash()->error('No information found with pet code: ' . $petCode);
         }
 
-        return view('front.modules.return-found-pet', ['phoneCode' => $phoneCode, 'contactInfo' => $contactInfo]);
+        return view('front.modules.return-found-pet', ['petCode' => $petCode, 'contactInfo' => $contactInfo]);
+    }
+
+    public function petInfo($pet){
+        if($pet['status'] === 1){
+            $status = 'Protected';
+        }else{
+            $status = 'Lost';
+        }
+
+       
+        $pet['name'] = $pet->name;
+        $pet['color'] = $pet->color;
+        $pet['breed'] = $pet->breed;
+        $pet['rabies_tag_id'] = $pet->rabies_tag_id;
+        $pet['rabies_exp'] = $pet->rabies_tag_id;
+        $pet['microship_id'] = $pet->microship_id;
+        $pet['county_reg'] = $pet->county_reg;
+        $pet['image1'] = isset($pet['image1']) ? url('pet/' . $pet['image1']) : '';
+        $pet['image2'] = isset($pet['image2']) ? url('pet/' . $pet['image2']) : '';
+        $pet['status'] = $status;
+        $pet['message'] = $pet['message'];
+        return $pet;
     }
 
     /**

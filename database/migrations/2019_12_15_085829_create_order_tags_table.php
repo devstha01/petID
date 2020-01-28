@@ -16,6 +16,7 @@ class CreateOrderTagsTable extends Migration
         Schema::create('order_tags', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
+            $table->string('email')->nullable();
             $table->integer('pet_id')->unsigned();
             $table->float('total_price');
             $table->float('tag_price')->nullable();

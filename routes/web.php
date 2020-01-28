@@ -11,15 +11,15 @@
 |
 */
 
-Route::get('draw-tag','Front\PagesController@test_pdf');
-Route::get('calculate-tax','Front\PagesController@getTax');
-Route::get('delete-order','Front\PagesController@deleteOrderFromStation');
+// Route::get('draw-tag','Front\PagesController@test_pdf');
+// Route::get('calculate-tax','Front\PagesController@getTax');
+// Route::get('delete-order','Front\PagesController@deleteOrderFromStation');
 
-Route::get('download_frontpdf','Front\PagesController@front_pdf');
-Route::get('download_backpdf','Front\PagesController@back_pdf');
+// Route::get('download_frontpdf','Front\PagesController@front_pdf');
+// Route::get('download_backpdf','Front\PagesController@back_pdf');
 //Route::get('draw-front','Front\PagesController@front_pdf');
-Route::get('get-shiprate','Front\PagesController@getRate');
-Route::get('draw-image','Front\PagesController@imageTest');
+// Route::get('get-shiprate','Front\PagesController@getRate');
+// Route::get('draw-image','Front\PagesController@imageTest');
 
 Route::get('storage',function(){
     \Artisan::call('storage:link');
@@ -31,8 +31,15 @@ Route::get('cache-clear',function(){
     \Artisan::call('config:clear');
 });
 
-Route::get('migrate',function(){
+Route::get('migrate-fresh',function(){
     \Artisan::call('migrate:fresh');
+    \Artisan::call('db:seed');
+    echo 'done';
+});
+
+
+Route::get('migrate',function(){
+    \Artisan::call('migrate');
     \Artisan::call('db:seed');
     echo 'done';
 });
@@ -101,6 +108,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('download-template','OrderTagController@downloadTagView')->name('orders.download.template');
         Route::get('download_frontpdf','OrderTagController@front_pdf');
         Route::get('download_backpdf','OrderTagController@back_pdf');
+        Route::get('download-csv','OrderTagController@getCSVReport');
     });
 
     // Subscriber routes

@@ -82,6 +82,10 @@ class FrontController extends Controller
         $pet['name'] = $pet->name;
         $pet['color'] = $pet->color;
         $pet['breed'] = $pet->breed;
+        $pet['rabies_tag_id'] = $pet->rabies_tag_id;
+        $pet['rabies_exp'] = $pet->rabies_tag_id;
+        $pet['microship_id'] = $pet->microship_id;
+        $pet['county_reg'] = $pet->county_reg;
         $pet['image1'] = isset($pet['image1']) ? url('pet/' . $pet['image1']) : '';
         $pet['image2'] = isset($pet['image2']) ? url('pet/' . $pet['image2']) : '';
         $pet['status'] = $status;

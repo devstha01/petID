@@ -122,7 +122,7 @@ class TagController extends Controller
         $client = new \GuzzleHttp\Client;
 
         $headers = [
-            "Authorization" => "Bearer sk_test_AxUWnazrBOnBZDe07UYXdHSH",
+            "Authorization" => "Bearer sk_live_dln4L38wMIDpzpill2FsEbof",
         ];
 
         $response = $client->request('POST','https://api.stripe.com/v1/charges', [
@@ -132,6 +132,7 @@ class TagController extends Controller
                 'currency' => 'usd',
                 'source' => $request->stripe_token,
                 'description' => 'Payment done for tag for user: ' . currentUser()->id .'('.$request->name.') and petcode: '.$petCode ,
+                'receipt_email' => $request->email
             ],
         ]);
 
@@ -139,10 +140,10 @@ class TagController extends Controller
 
         $address = new \LaravelShipStation\Models\Address();
     
-        $address->name = $request->name;
-        $address->street1 = $request->address1;
-        $address->city = $request->city;
-        $address->state = $request->state;
+        $address->name = ucwords($request->name);
+        $address->street1 = ucwords($request->address1);
+        $address->city = ucwords($request->city);
+        $address->state = ucwords($request->state);
         $address->postalCode = $request->zip_code;
         $address->country = $request->country_code;
         $address->phone = currentUser()->contactInfo->phone1;
@@ -171,16 +172,17 @@ class TagController extends Controller
 
         $order =  OrderTag::create([
             'user_id' => currentUser()->id,
+            'email' => $request->email,
             'pet_id' => $request->pet_id,
             'total_price' => $request->total_price,
             'tag_price'=> $request->tag_price,
             'discount'=>$request->discount,
             'shipping_charge'=>$request->shipping_charge,
             'discount_code' => $request->discount_code,
-            'address1'=>$request->address1,
-            'address2'=>$request->address2,
-            'city'=>$request->city,
-            'state'=>$request->state,
+            'address1'=>ucwords($request->address1),
+            'address2'=>ucwords($request->address2),
+            'city'=>ucwords($request->city),
+            'state'=>ucwords($request->state),
             'zip_code'=>$request->zip_code,
             'country_code'=>$request->country_code,
             'stripe_token'=>$request->stripe_token

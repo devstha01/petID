@@ -10,6 +10,7 @@ class OrderTag extends Model
     
     protected $fillable = [
         'user_id',
+        'email',
         'pet_id',
         'total_price',
         'tag_price',

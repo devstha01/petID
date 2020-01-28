@@ -52,12 +52,13 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request, JWTAuth $JWTAuth)
     {
         // Create new user
+        $request['name'] = ucwords($request->name);
         $user = $this->userService->create(array_merge($request->all(), ['account_type' => 'paid']));
 
         // Create contact info
         $contactInfo = $this->contactInfoService->create([
             'user_id' => $user->id,
-            'name' => $user->name,
+            'name' => ucwords($user->name),
             'email' => $user->email,
             'phone1' => '',
             'phone2' => '',
@@ -102,7 +103,7 @@ class RegisterController extends Controller
         ]);
 
         $user = User::create([
-            'name'=>$request->name,
+            'name'=> ucwords($request->name),
             'email'=>$request->email,
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt($request->provider_id),
@@ -116,7 +117,7 @@ class RegisterController extends Controller
         // Create contact info
         $contactInfo = $this->contactInfoService->create([
             'user_id' => $user->id,
-            'name' => $user->name,
+            'name' => ucwords($user->name),
             'email' => $user->email,
             'phone1' => '',
             'phone2' => '',
@@ -139,8 +140,8 @@ class RegisterController extends Controller
         ]);
 
         $user = User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
+            'name'=> ucwords($request->name),
+            'email'=> $request->email,
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt($request->email),
             'account_type' => 'paid',
@@ -152,7 +153,7 @@ class RegisterController extends Controller
         // Create contact info
         $contactInfo = $this->contactInfoService->create([
             'user_id' => $user->id,
-            'name' => $user->name,
+            'name' => ucwords($user->name),
             'email' => $user->email,
             'phone1' => '',
             'phone2' => '',

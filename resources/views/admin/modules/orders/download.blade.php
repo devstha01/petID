@@ -24,7 +24,7 @@
             <div class="row" align="center">
                 <h3>Download BackPdf</h3>
             </div>
-            <form action="{{ url('download_backpdf') }}" method="GET">
+            <form action="{{ url('admin/download_backpdf') }}" method="GET">
                 <div class="row">
                 
                     <div class="col-sm-4">
@@ -41,7 +41,7 @@
             <div class="row" align="center">
                 <h3>Download FrontPdf</h3>
             </div>
-            <form action="{{ url('download_frontpdf') }}" method="GET">
+            <form action="{{ url('admin/download_frontpdf') }}" method="GET">
                 <div class="row">
                 
                     <div class="col-sm-4">
@@ -52,8 +52,25 @@
                     <div class="col-sm-4" align="left">
                         <button type="submit" class="btn btn-success">Download</button>
                     </div>
-                
                 </div>
+            </form>
+
+            <div class="row" align="center">
+                <h3>Download CSV</h3>
+            </div>
+            <form action="{{ url('admin/download-csv') }}" method="GET">
+                <div class="row">
+                
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="date" style="height:39px" placeholder="Select Date" required />
+                        </div>
+                    </div>
+                    <div class="col-sm-4" align="left">
+                        <button type="submit" class="btn btn-success">Download</button>
+                    </div>
+                </div>
+            </form>
 
         </div>
     </div>

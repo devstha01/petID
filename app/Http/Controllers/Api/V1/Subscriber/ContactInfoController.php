@@ -67,6 +67,13 @@ class ContactInfoController extends Controller
         try {
             $oldContactInfo = $this->contactInfoService->findBySubscriber(currentUser()->id);
             // $secondaryPhones = $request->only(['phone1', 'phone2']);
+            $request['name'] = ucwords($request->name);
+            $request['address1'] = ucwords($request->address1);
+            $request['address2'] = ucwords($request->address2);
+            $request['address1'] = ucwords($request->address1);
+            $request['city'] = ucwords($request->city);
+            $request['state'] = ucwords($request->state);
+            $request['country'] = ucwords($request->country);
 
             $contactInfo = $this->contactInfoService->updateOrCreate($request->all());
 

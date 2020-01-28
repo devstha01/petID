@@ -44,6 +44,7 @@ class AccountController extends Controller
     public function postAccount(AccountRequest $request)
     {
         try {
+            $request['name'] = ucwords($request->name);
             $account = $this->accountService->update($request->all(), currentUser()->id);
 
             $response = [

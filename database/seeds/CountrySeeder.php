@@ -14,6 +14,7 @@ class CountrySeeder extends Seeder
     {
        $countries = array
         (
+            'US' => 'United States',
             'AF' => 'Afghanistan',
             'AX' => 'Aland Islands',
             'AL' => 'Albania',
@@ -242,7 +243,6 @@ class CountrySeeder extends Seeder
             'UA' => 'Ukraine',
             'AE' => 'United Arab Emirates',
             'GB' => 'United Kingdom',
-            'US' => 'United States',
             'UM' => 'United States Outlying Islands',
             'UY' => 'Uruguay',
             'UZ' => 'Uzbekistan',

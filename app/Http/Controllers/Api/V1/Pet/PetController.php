@@ -68,16 +68,20 @@ class PetController extends Controller
 
         $pet = UserPet::create([
             'user_id' => currentUser()->id,
-            'name' => $request->name,
+            'name' => ucwords($request->name),
             'pet_code' => str_shuffle(substr(uniqid(), 0, 6)),
             'qr_code' => str_shuffle(substr(uniqid(), 0, 10)),
             'gender' => $request->gender,
-            'color' => $request->color,
-            'breed' => $request->breed,
+            'color' => ucwords($request->color),
+            'breed' => ucwords($request->breed),
+            'rabies_tag_id' => ucwords($request->rabies_tag_id),
+            'rabies_exp' => $request->rabies_exp,
+            'microship_id' => ucwords($request->microship_id),
+            'county_reg' => ucwords($request->county_reg),
             'image1' => $image1UploadStatus1['image'],
             'image2' => $image1UploadStatus2['image'],
             'status' => $request->status,
-            'status_verified_at' => Carbon::now(),
+            'status_verified_at' => Carbon::now()->toDateTimeString(),
             'message' => $request->message,
         ]);
 
@@ -85,7 +89,7 @@ class PetController extends Controller
 
         $qrCode = storage_path('app/public/qrcode/' . $pet->qr_code . '.jpg');
         // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
-        generateQRCode('petid.app/rfp/' . $pet->pet_code, $qrCode);
+        generateQRCode('www.pet-id.app/rfp/' . $pet->pet_code, $qrCode);
         
         $backTag = $this->makeCurveQrImage($pet->qr_code, $pet->pet_code);  
         $pet->update([
@@ -97,11 +101,18 @@ class PetController extends Controller
             'front_tag'=> $frontTag
         ]);
 
+        $first = false;
+        $petCount = UserPet::where('user_id',currentUser()->id)->count();
+        if($petCount == 1){
+            $first == true;
+        } 
+
         if ($pet) {
             return response()->json([
                 'status' => true,
                 'message' => 'Pet Created Successfully',
-                'data' => $this->dataFormat($pet)
+                'data' => $this->dataFormat($pet),
+                'first'=>$first
             ]);
         }
 
@@ -129,18 +140,22 @@ class PetController extends Controller
         ]);
 
         if ($request->status != $pet->status) {
-            $statusVerified = Carbon::now();
+            $statusVerified = Carbon::now()->toDateTimeString();
         } else {
             $statusVerified = $pet->status_verified_at;
         }
 
         $pet->update([
             'user_id' => currentUser()->id,
-            'name' => $request->name,
+            'name' => ucwords($request->name),
             'gender' => $request->gender,
-            'color' => $request->color,
-            'breed' => $request->breed,
+            'color' => ucwords($request->color),
+            'breed' => ucwords($request->breed),
             'status' => $request->status,
+            'rabies_tag_id' => ucwords($request->rabies_tag_id),
+            'rabies_exp' => $request->rabies_exp,
+            'microship_id' => ucwords($request->microship_id),
+            'county_reg' => ucwords($request->county_reg),
             'status_verified_at' => $statusVerified,
             'message' => $request->message,
         ]);
@@ -242,6 +257,11 @@ class PetController extends Controller
         $pet['image1'] = isset($pet['image1']) ? url('pet/' . $pet['image1']) : '';
         $pet['image2'] = isset($pet['image2']) ? url('pet/' . $pet['image2']) : '';
         $pet['status'] = $pet->status;
+        $pet['status_verified_at'] = $pet->status_verified_at;
+        $pet['rabies_tag_id'] = $pet->rabies_tag_id;
+        $pet['rabies_exp'] = $pet->rabies_exp;
+        $pet['microship_id'] = $pet->microship_id;
+        $pet['county_reg'] = $pet->county_reg;
         $pet['message'] = $pet['message'];
         return $pet;
     }

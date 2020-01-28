@@ -17,8 +17,8 @@
 
                     <form method="GET" action="{{ route('return-found-pet') }}">
                         <div class="input-group input-group-return-found-phone">
-                            <input type="text" class="form-control" name="phone_code"
-                                   value="{{ old('phone_code', $phoneCode) }}" placeholder="Enter Tag Code*">
+                            <input type="text" class="form-control" name="pet_code"
+                                   value="{{ old('pet_code', $petCode) }}" placeholder="Enter Tag Code*">
                             <span class="input-group-btn">
                                 <button type="submit"
                                         class="btn btn-default btn-style hvr-bounce-to-right">Submit</button>
@@ -46,14 +46,23 @@
                                 <td>Secondary Phone Number 2</td>
                                 <td>{{ $contactInfo->phone2 ? $contactInfo->phone2 : '-' }}</td>
                             </tr>
+
                             <tr>
-                                <td>Secondary Phone Number 3</td>
-                                <td>{{ $contactInfo->phone3 ? $contactInfo->phone3 : '-' }}</td>
+                                <td>Address</td>
+                                <td>{{ $contactInfo->address1 }} {{ $contactInfo->address2 }}</td>
                             </tr>
+
+
                             <tr>
-                                <td>Secondary Phone Number 4</td>
-                                <td>{{ $contactInfo->phone4 ? $contactInfo->phone4 : '-' }}</td>
+                                <td>City | State</td>
+                                <td>{{ $contactInfo->city }} | {{ $contactInfo->State }}</td>
                             </tr>
+                           
+                            <tr>
+                                <td>Zip Code | Country</td>
+                                <td>{{ $contactInfo->zip }} | {{ $contactInfo->country }}</td>
+                            </tr>
+                           
                             <tr>
                                 <td>Reward Offered</td>
                                 <td>{{ $contactInfo->reward == 1 ? 'Yes' : 'No' }}</td>
