@@ -23,7 +23,7 @@
 
 <body>
     <div style="width:100%">
-        @php
+     @php
           /* $myloop = 84;
         $marray = [];
         for ($i=0; $i < $myloop; $i++) { 
@@ -33,7 +33,6 @@
         $chunk_data = array_chunk($myusers->toArray(),14);
         //$chunk_data = array_chunk($marray,14);
         @endphp
-
         <table style="margin-top: 12px;">
             @for ($i = 0; $i < sizeof($chunk_data); $i++) <tr>
 
@@ -41,7 +40,7 @@
 
 
                     @php
-                    $img_path = asset('storage/tag/image/'.$myusers[0]['back_tag']);
+                    $img_path = asset('storage/tag/image/'.$myusers[$j]['back_tag']);
                     @endphp
                     <img src="{{$img_path}}" alt="" class="pdf_images">
                     </td>

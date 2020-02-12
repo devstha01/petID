@@ -14,6 +14,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Cloudsa9\Entities\Models\User\User;
 use App\Cloudsa9\Entities\Models\User\UserPet;
+use App\Cloudsa9\Entities\Models\User\DiscountCode;
+use App\Cloudsa9\Entities\Models\User\OrderTag;
 use App\Cloudsa9\Entities\Models\User\ContactInfo;
 use PDF;
 use Image;
@@ -245,8 +247,8 @@ class PagesController extends Controller
         $Android = stripos($_SERVER['HTTP_USER_AGENT'], "Android");
         $webOS = stripos($_SERVER['HTTP_USER_AGENT'], "webOS");
 
-        $playStore = 'https://play.google.com/store/apps/details?id=com.smartcodetechnology.fownd';
-        $appStore = 'https://apps.apple.com/tt/app/fowndapp/id1459825685';
+        $playStore = 'https://play.google.com/store/apps/details?id=com.smartcode.pet_id';
+        $appStore = 'https://apps.apple.com/us/app/petid-pet-identification/id1480578425?ls=1';
 
         // Do something with this information
         if ($iPhone || $iPad || $iPod) {
@@ -404,5 +406,16 @@ class PagesController extends Controller
         $shipStation = app(\LaravelShipStation\ShipStation::class);
         $shipStation->orders->delete('53b20e');
         echo 'done';
+    }
+
+    public function salesView($code)
+    {
+        if(DiscountCode::where('discount_code',$code)->count() > 0){
+            $orders = OrderTag::where('discount',$code)->get();
+            $usedCount = OrderTag::where('discount',$code)->count();
+            return view('front.modules.sales-by-code', compact('orders','code','usedCount'));
+        }
+        return 404;
+       
     }
 }

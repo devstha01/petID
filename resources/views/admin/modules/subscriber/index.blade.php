@@ -61,9 +61,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($subscribers as $subscriber)
+                @foreach($subscribers as $key=>$subscriber)
                     <tr>
-                        <td>{{ $subscriber->id }}</td>
+                        <td> {{$key + $subscribers->firstItem()}} </td>
                         <td>{{ $subscriber->name }}</td>
                         <td>{{ $subscriber->email }}</td>
                         <td>{{ $subscriber->contactInfo->phone1 }}</td>

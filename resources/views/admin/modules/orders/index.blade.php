@@ -45,7 +45,7 @@
                 @foreach($orders as $key=>$order)
                     <tr>
                         <td>{{++$key}}</td>
-                        <td>{{$order->user->name??''}} <br> ({{$order->user->email??''}})</td>
+                        <td>{{$order->user->name??''}} <br> {{$order->user->email??''}}</td>
                         <td>{{$order->pet->pet_code}}</td>
                         <td>{{$order->total_price}}</td>
                         <td>{{$order->tag_price}}</td>

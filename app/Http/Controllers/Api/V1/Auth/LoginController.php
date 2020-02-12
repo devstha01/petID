@@ -58,9 +58,9 @@ class LoginController extends Controller
 
     public function loginViaApple()
     {
-        if (empty(request('email')))
+        if (empty(request('provider_id')))
             return response()->json(['error' => 'Unauthorized'], 401);
-        $user = User::where('email', request('email'))->first();
+        $user = User::where('provider_id', request('provider_id'))->first();
         if (!$user)
             return response()->json(['error' => 'Unauthorized'], 401);
         $token = JWTAuth::fromUser($user);

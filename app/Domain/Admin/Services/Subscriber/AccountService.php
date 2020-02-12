@@ -35,7 +35,8 @@ class AccountService
     {
         return $this->repository->whereHas('roles', function ($query) {
             $query->where('name', '=', 'subscriber');
-        })->paginate(Config::PAGINATE_MEDIUM);
+        })->orderBy('created_at','ASC')
+        ->paginate(Config::PAGINATE_MEDIUM);
     }
 
     /**

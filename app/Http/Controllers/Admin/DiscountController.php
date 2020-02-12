@@ -29,8 +29,8 @@ class DiscountController extends Controller
 
     public function codeUsedBy($code)
     {
-        $orders = OrderTag::where('discount',$code)->get();
-        $usedCount = OrderTag::where('discount',$code)->count();
+        $orders = OrderTag::where('discount_code',$code)->get();
+        $usedCount = OrderTag::where('discount_code',$code)->count();
         return view('admin.modules.discount.used', compact('orders','code','usedCount'));
     }
 }

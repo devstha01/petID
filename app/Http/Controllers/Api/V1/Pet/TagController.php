@@ -80,7 +80,7 @@ class TagController extends Controller
                 'status' => true,
                 'tag_price'=> number_format((float)$tagCost,2,'.',''),
                 'shipping_charge' => number_format((float)$shippingCharge,2,'.',''),
-                'discount' => number_format((float)$discount,2,'.',''),
+                'discount' => number_format((float)$discount->discount,2,'.',''),
                 'tax' => 0,
                 'total_charge'=> number_format((float)$total,2,'.','')
             ]);
@@ -131,7 +131,7 @@ class TagController extends Controller
                 'amount' => (int) $request->total_price * 100,
                 'currency' => 'usd',
                 'source' => $request->stripe_token,
-                'description' => 'Payment done for tag for user: ' . currentUser()->id .'('.$request->name.') and petcode: '.$petCode ,
+                'description' => 'Payment complete for:'. $request->name . ' - PETid ' . $petCode ,
                 'receipt_email' => $request->email
             ],
         ]);
@@ -163,7 +163,7 @@ class TagController extends Controller
         $order->amountPaid = $request->total_price;
         $order->taxAmount = 0;
         $order->shippingAmount = $request->shipping_charge;
-        $order->internalNotes = 'PETID tag order created for petcode '. $petCode . 'for user '.$request->name;
+        $order->internalNotes = 'Order created for PETid: '. $petCode . ' user: '.$request->name;
         $order->billTo = $address;
         $order->shipTo = $address;
         $order->items[] = $item;

@@ -42,8 +42,7 @@
                 @foreach($orders as $key=>$order)
                     <tr>
                         <td>{{++$key}}</td>
-                        <td>{{$order->user->name}}</td>
-                        <td>{{$order->created_at}}</td>
+                        <td>{{$order->user->name??'N/A'}}</td>
                         <td>{{Carbon\Carbon::parse($order->created_at)->diffForHumans()}}</td>
                     </tr>
                 @endforeach

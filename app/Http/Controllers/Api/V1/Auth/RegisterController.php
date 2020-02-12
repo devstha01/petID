@@ -134,27 +134,25 @@ class RegisterController extends Controller
     }
 
     public function registerViaApple(Request $request,JWTAuth $JWTAuth){
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:' . DBTable::USERS,
-        ]);
-
+        if (empty(request('provider_id'))){
+            return response()->json(['error' => 'User ID not found'], 401);
+        }
+    
         $user = User::create([
-            'name'=> ucwords($request->name),
-            'email'=> $request->email,
             'email_verified_at' => Carbon::now(),
-            'password' => bcrypt($request->email),
+            'password' => bcrypt($request->provider_id),
             'account_type' => 'paid',
             'provider' => 'Apple',
+            'provider_id' => $request->provider_id
         ]);
-
+    
         $user->roles()->sync([2]);
 
         // Create contact info
         $contactInfo = $this->contactInfoService->create([
             'user_id' => $user->id,
-            'name' => ucwords($user->name),
-            'email' => $user->email,
+            'name' => '',
+            'email' => '',
             'phone1' => '',
             'phone2' => '',
             'reward' => 0,
