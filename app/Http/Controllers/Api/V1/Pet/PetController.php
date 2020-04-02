@@ -69,7 +69,7 @@ class PetController extends Controller
         $pet = UserPet::create([
             'user_id' => currentUser()->id,
             'name' => ucwords($request->name),
-            'pet_code' => str_shuffle(substr(uniqid(), 0, 6)),
+            'pet_code' => $this->unique_pet_code(),
             'qr_code' => str_shuffle(substr(uniqid(), 0, 10)),
             'gender' => $request->gender,
             'color' => ucwords($request->color),
@@ -87,19 +87,19 @@ class PetController extends Controller
 
         $contacInfo = ContactInfo::where('user_id', $pet->user_id)->first();
 
-        $qrCode = storage_path('app/public/qrcode/' . $pet->qr_code . '.jpg');
-        // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
-        generateQRCode('www.pet-id.app/rfp/' . $pet->pet_code, $qrCode);
+        // $qrCode = storage_path('app/public/qrcode/' . $pet->qr_code . '.jpg');
+        // // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
+        // generateQRCode('www.pet-id.app/rfp/' . $pet->pet_code, $qrCode);
         
-        $backTag = $this->makeCurveQrImage($pet->qr_code, $pet->pet_code);  
-        $pet->update([
-            'back_tag'=> $backTag,
-        ]);
+        // $backTag = $this->makeCurveQrImage($pet->qr_code, $pet->pet_code);  
+        // $pet->update([
+        //     'back_tag'=> $backTag,
+        // ]);
 
-        $frontTag = $this->makeCurveImageWithPetName($pet->pet_code, $pet->name, $contacInfo->phone1, $contacInfo->phone2);
-        $pet->update([
-            'front_tag'=> $frontTag
-        ]);
+        // $frontTag = $this->makeCurveImageWithPetName($pet->pet_code, $pet->name, $contacInfo->phone1, $contacInfo->phone2);
+        // $pet->update([
+        //     'front_tag'=> $frontTag
+        // ]);
 
         $first = false;
         $petCount = UserPet::where('user_id',currentUser()->id)->count();
@@ -121,7 +121,32 @@ class PetController extends Controller
             'message' => 'failed to save pets. Something went wrong'
         ]);
     }
-
+    
+    private function unique_pet_code()
+    {
+        $seed = str_split('0123456789');
+        $seedalpha = str_split('abcdefghijlnoprstuvy');
+                     
+        shuffle($seed);
+        shuffle($seedalpha);
+        
+        $rand = '';
+        foreach (array_rand($seed, 6) as $key => $k){
+            if($key === 0)
+            {
+                $rand .= $seedalpha[$key];
+            }
+            else
+            {
+                $rand .= $seed[$k];
+            }
+            
+            
+        };
+        
+        return $rand;
+    }
+    
     public function updateMyPet(Request $request, $id)
     {
         $pet = UserPet::find($id);

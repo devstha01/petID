@@ -1,0 +1,61 @@
+.pet-img-container {
+    display: grid;
+    grid-row-gap: 5px;
+    clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+}
+
+.pet-img {
+    display: block;
+    max-width: 100%;
+}
+
+.small-img-container .pet-img {
+    display: inline-block;
+    max-width: 49.5%;
+}
+
+.pet-images-carousel {
+    display: none;
+}
+
+.form-title {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.form-subtitle {
+    font-style: italic;
+    color: #727272d3;
+}
+
+.form-control {
+    margin: 15px 5px;
+}
+
+.form-control::placeholder {
+    font-size: 0.85em;
+}
+
+#delete-pet-btn{
+    display: none;
+}
+
+@media screen and (max-width: 992px) {
+    .pet-img-container {
+        display: none;
+    }
+
+    .pet-images-carousel {
+        display: block;
+        max-width: 750px;
+        overflow: hidden;
+        margin: 30px 0;
+        clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+        cursor: grab;
+    }
+
+    .form-control {
+        max-width: 70%;
+        min-width: 260px;
+    }
+}

@@ -17,6 +17,8 @@ use App\Cloudsa9\Entities\Models\User\UserPet;
 use App\Cloudsa9\Entities\Models\User\DiscountCode;
 use App\Cloudsa9\Entities\Models\User\OrderTag;
 use App\Cloudsa9\Entities\Models\User\ContactInfo;
+use App\Cloudsa9\Entities\Models\User\Country;
+use App\Cloudsa9\Constants\DBTable;
 use PDF;
 use Image;
 use Carbon\Carbon;
@@ -194,6 +196,41 @@ class PagesController extends Controller
     public function getContact()
     {
         return view('front.modules.contact');
+    }
+	
+    public function getOnlineSignup1(Request $request)
+    {
+        $countries = Country::select('name','code')->get();
+        return view('front.modules.online-signup-step1',compact('countries',$countries));
+    }
+
+    public function postCreateStep1(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email'=>'required|string|email|max:255|unique:' . DBTable::USERS,
+            'password' => 'required|string|min:6|confirmed',
+            'address1'=>'required',
+            'address2'=>'required',
+            'city'=>'required',
+            'state'=>'required',
+            'zip_code'=>'required',
+            'country'=>'required',
+            'phone1'=>'required',
+            'phone2'=>'required'
+        ]);
+        $request->session()->put('account', $validatedData);
+        return redirect('/online-signup-step2');
+    }
+	
+	public function getOnlineSignup2()
+    {
+        return view('front.modules.online-signup-step2');
+    }
+	
+	public function checkout()
+    {
+        return view('front.modules.checkout');
     }
 
     /**
@@ -411,11 +448,239 @@ class PagesController extends Controller
     public function salesView($code)
     {
         if(DiscountCode::where('discount_code',$code)->count() > 0){
-            $orders = OrderTag::where('discount',$code)->get();
-            $usedCount = OrderTag::where('discount',$code)->count();
+            $orders = OrderTag::where('discount_code',$code)->get();
+        $usedCount = OrderTag::where('discount_code',$code)->count();
             return view('front.modules.sales-by-code', compact('orders','code','usedCount'));
         }
         return 404;
        
+    }
+    
+    public function createPetCode(){
+        // $seed = str_split('0123456789');
+        // $seedalpha = str_split('abcdefghijlnoprstuvy');
+                     
+        // shuffle($seed);
+        // shuffle($seedalpha);
+        
+        // $rand = '';
+        // foreach (array_rand($seed, 6) as $key => $k){
+        //     if($key === 0)
+        //     {
+        //         $rand .= $seedalpha[$key];
+        //     }
+        //     else
+        //     {
+        //         $rand .= $seed[$k];
+        //     }
+            
+            
+        // };
+        
+        // return $rand;
+        
+      $qrCode = storage_path('app/public/qrcode/269481e2cc.jpg');
+        // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
+     generateQRCode('www.pet-id.app/rfp/ic6010', $qrCode);
+     $backTag = $this->makeCurveQrImage('269481e2cc', 'ic6010');
+     $frontTag = $this->makeCurveImageWithPetName('ic6010', 'Elvis', '281-433-3298', '832-614-4513');
+     return response()->json([
+         'back_tag'=> $backTag,
+         'front_tag' => $frontTag
+     ]);
+    }
+    
+      function makeCurveQrImage($qr_code, $pet_code)
+    {
+
+        $im = imagecreate(300, 300);
+
+        $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $grey = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $txtcol = imagecolorallocate($im, 0x00, 0x00, 0x00);
+
+        $r = 120;
+        $cx = 150;
+        $cy = 150;
+         $txt1 = ' * P E T - I D . A P P / R F P / '.implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        //$txt1 = '* PET-ID.APP/RFP/'.implode('',str_split(strtoupper($pet_code))) . ' * PET-ID.APP/RFP/' . implode('',str_split(strtoupper($pet_code)));
+        $txt2 = '';
+        // $font1 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
+        $font1 = public_path('fonts/dejavu-sans/DejaVuSans-Bold.ttf');
+
+
+        $size = 14;
+        $s = 200;
+        $e = 120;
+        imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
+        $pad = 2;
+
+        $this->textOnArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt1, $font1, $size, $pad);
+        $pad = 6;
+        $s = 10;
+        $e = 55;
+        $this->textInsideArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt2, $font1, $size, $pad);
+
+        $img1 = Image::make($im);
+
+
+        $qrCode = storage_path('app/public/qrcode/' . $qr_code . '.jpg');
+
+        $insertQr = Image::make($qrCode)->resize(150, 150);
+        $img1->insert($insertQr, 'center');
+
+        $fileName = uniqid('', true);
+        $saveimg = storage_path('app/public/tag/image/' . $fileName . '.jpg');
+        $img1->save($saveimg);
+
+        return $fileName . '.jpg';
+    }
+
+    function makeCurveImageWithPetName($pet_code, $pet_name, $contct_no1, $contct_no2)
+    {
+        $im = imagecreate(300, 300);
+
+        $white = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $grey = imagecolorallocate($im, 0xFF, 0xFF, 0xFF);
+        $txtcol = imagecolorallocate($im, 0x00, 0x00, 0x00);
+
+        $r = 120;
+        $cx = 150;
+        $cy = 150;
+        $txt1 = ' * P E T - I D . A P P / R F P / '.implode(' ',str_split(strtoupper($pet_code))) . ' * P E T - I D . A P P / R F P / ' . implode(' ',str_split(strtoupper($pet_code)));
+        
+        //$txt1 = '* PET-ID.APP/RFP/'.implode('',str_split(strtoupper($pet_code))) . ' * PET-ID.APP/RFP/' . implode('',str_split(strtoupper($pet_code)));
+        $txt2 = '';
+        // $font2 = public_path('fonts/squada-one/SquadaOne-Regular.ttf');
+        // $font2 = public_path('fonts/Raleway/Raleway-Bold.ttf');
+        $font1 = public_path('fonts/dejavu-sans/DejaVuSans-Bold.ttf');
+
+        $size = 14;
+        $s = 200;
+        $e = 120;
+        imagearc($im, $cx, $cy, $r * 2, $r * 2, $s, $e, $grey);
+        $pad = 2;
+
+        $this->textOnArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt1, $font1, $size, $pad);
+        $pad = 6;
+        $s = 10;
+        $e = 55;
+        $this->textInsideArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt2, $font1, $size, $pad);
+
+        $img1 = Image::make($im);
+        $fileName = uniqid('', true);
+        $saveimg = storage_path('app/public/tag/image/demo' . $pet_code . '.jpg');
+        $img1->save($saveimg);
+
+        $img2 = Image::make(storage_path('app/public/tag/image/demo' . $pet_code . '.jpg'));
+
+        $textColor = '#000000';
+        
+        // $split_petname = explode(' ',$pet_name);
+        
+        // if(sizeof($split_petname) > 1)
+        // {
+        //     $img2->text(strtoupper($split_petname[0]), 150, 130, function ($font) use ($font1, $textColor) {
+        //         $font->file(($font1));
+        //         $font->size(34);
+        //         $font->color($textColor);
+        //         $font->align('center');
+        //     });
+        //     $img2->text(strtoupper($split_petname[1]), 150, 160, function ($font) use ($font1, $textColor) {
+        //         $font->file(($font1));
+        //         $font->size(34);
+        //         $font->color($textColor);
+        //         $font->align('center');
+        //     });
+        //     $img2->text($contct_no1, 150, 190, function ($font) use ($textColor, $font1) {
+        //         $font->file($font1);
+        //         $font->size(24);
+        //         $font->color($textColor);
+        //         $font->align('center');
+        //     });
+        //     $img2->text($contct_no2, 150, 220, function ($font) use ($textColor, $font1) {
+        //         $font->file($font1);
+        //         $font->size(24);
+        //         $font->color($textColor);
+        //         $font->align('center');
+        //     });
+        // }
+        // else{
+            $img2->text(strtoupper($pet_name), 150, 130, function ($font) use ($font1, $textColor) {
+                $font->file(($font1));
+                $font->size(30);
+                $font->color($textColor);
+                $font->align('center');
+            });
+            $img2->text($contct_no1, 150, 160, function ($font) use ($textColor, $font1) {
+                $font->file($font1);
+                $font->size(24);
+                $font->color($textColor);
+                $font->align('center');
+            });
+            $img2->text($contct_no2, 150, 190, function ($font) use ($textColor, $font1) {
+                $font->file($font1);
+                $font->size(24);
+                $font->color($textColor);
+                $font->align('center');
+            });
+        // }
+
+        
+
+        $fileName2 = uniqid('', true);
+        $saveimg2 = storage_path('app/public/tag/image/' . $fileName2 . '.jpg');
+        $img2->save($saveimg2);
+
+        unlink(storage_path('app/public/tag/image/demo' . $pet_code . '.jpg'));
+
+        return $fileName2 . '.jpg';
+    }
+
+    function textWidth($txt, $font, $size)
+    {
+        $bbox = imagettfbbox($size, 0, $font, $txt);
+        $w = abs($bbox[4] - $bbox[0]);
+        return $w;
+    }
+
+    function textOnArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt, $font, $size, $pad = 0)
+    {
+        $tlen = strlen($txt);
+        $arccentre = ($e + $s) / 2;
+        $total_width = $this->textWidth($txt, $font, $size) - ($tlen - 1) * $pad;
+        $textangle = rad2deg($total_width / $r);
+        $s = $arccentre - $textangle / 2;
+        $e = $arccentre + $textangle / 2;
+        for ($i = 0, $theta = deg2rad($s); $i < $tlen; $i++) {
+            $ch = $txt{
+                $i};
+            $tx = $cx + $r * cos($theta);
+            $ty = $cy + $r * sin($theta);
+            $dtheta = ($this->textWidth($ch, $font, $size)) / $r;
+            $angle = rad2deg(M_PI * 3 / 2 - ($dtheta / 2 + $theta));
+            imagettftext($im, $size, $angle, $tx, $ty, $txtcol, $font, $ch);
+            $theta += $dtheta;
+        }
+    }
+
+    function textInsideArc($im, $cx, $cy, $r, $s, $e, $txtcol, $txt, $font, $size, $pad = 0)
+    {
+        $tlen = strlen($txt);
+        $arccentre = ($e + $s) / 2;
+        $total_width = $this->textWidth($txt, $font, $size) + ($tlen - 1) * $pad;
+        $textangle = rad2deg($total_width / $r);
+        $s = $arccentre - $textangle / 2;
+        $e = $arccentre + $textangle / 2;
+        for ($i = 0, $theta = deg2rad($e); $i < $tlen; $i++) {
+            $ch = $txt{
+                $i};
+            $tx = $cx + $r * cos($theta);
+            $ty = $cy + $r * sin($theta);
+            $dtheta = ($this->textWidth($ch, $font, $size) + $pad) / $r;
+            $angle = rad2deg(M_PI / 2 - ($theta - $dtheta / 2));
+            imagettftext($im, $size, $angle, $tx, $ty, $txtcol, $font, $ch);
+            $theta -= $dtheta;
+        }
     }
 }

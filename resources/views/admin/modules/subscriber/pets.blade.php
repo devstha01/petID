@@ -52,6 +52,7 @@
                     <th>Image1</th>
                     <th>Image2</th>
                     <th>Created At</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -70,7 +71,9 @@
                             <img src="{{ url('pet/'.$pet->image2) }}" alt="" width="100px" /> 
                         </td>
                         <td>{{ $pet->created_at }}</td>
-                       
+                        <td>
+                            <a type="button" href="{{ route('admin.subscribers.order-tag', $pet->id) }}">Order Tag</a>
+                        </td>                       
                     </tr>
                 @endforeach
                 </tbody>

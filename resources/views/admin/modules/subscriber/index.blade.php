@@ -90,7 +90,8 @@
                                   style="position: absolute; will-change: transform; top: 0; left: 0; transform: translate3d(-33px, 26px, 0px);">
                                 <a class="dropdown-item" href="{{ route('admin.subscribers.edit', $subscriber->id) }}">
                                     <i class="la la-edit"></i> Edit Details</a>
-                                {{-- <a class="dropdown-item" href="#"><i class="la la-cog"></i> Change Password</a> --}}
+                                 
+                                <a class="dropdown-item" href="{{route('admin.subscribers.editpass',$subscriber->id)}}"><i class="la la-cog"></i> Change Password</a>
                                 <a class="dropdown-item" href="{{ route('admin.subscribers.pets', $subscriber->id) }}"><i class="la la-cog"></i> View Pets</a>
                               
                                 <!--<a class="dropdown-item" href="#"><i class="la la-history"></i> History</a>-->

@@ -15,7 +15,7 @@ class OrderTagController extends Controller
 {
     public function index()
     {
-        $orders = OrderTag::latest()->get();
+        $orders = OrderTag::latest()->paginate(20);
         return view('admin.modules.orders.index', compact('orders'));
     }
 

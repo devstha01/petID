@@ -48,6 +48,8 @@ Route::get('migrate-fresh',function(){
     echo 'done';
 });
 
+Route::get('update-pet-tag','Front\PagesController@createPetCode');
+
 
 Route::get('migrate',function(){
     \Artisan::call('migrate');
@@ -79,6 +81,13 @@ Route::get('/about-us', 'Front\PagesController@getAboutUs')->name('about-us');
 Route::get('/returns-and-shipping', 'Front\PagesController@getReturnsAndShipping')->name('returns-and-shipping');
 Route::get('/lost-pet-checklist', 'Front\PagesController@getLostPetChecklist')->name('lost-pet-checklist');
 
+//Web tag order and sign up
+Route::get('/online-signup-step1', 'Front\PagesController@getOnlineSignup1')->name('online-signup-step1');
+Route::post('/account/create-step1','Front\PagesController@postCreateStep1');
+Route::get('/online-signup-step2', 'Front\PagesController@getOnlineSignup2')->name('online-signup-step2');
+Route::post('/account/create-step2','Front\PagesController@postCreateStep2');
+Route::get('/checkout', 'Front\PagesController@checkout')->name('checkout');
+
 Route::get('/d', 'Front\PagesController@redirectToStore');
 
 Route::get('/influencer-sales/{code}','Front\PagesController@salesView');
@@ -99,7 +108,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::resource('/subscribers', 'SubscribersController');
         Route::get('subscriber-pets/{id}','SubscribersController@getPets')->name('subscribers.pets');
-
+        Route::get('subscriber/order-tag/{id}','SubscribersController@getPetTag')->name('subscribers.order-tag');
+        Route::post('subscriber/post-order-tag/{id}','SubscribersController@orderPetTag')->name('subscribers.post-order-tag');
+        Route::get('/subscriber/{id}/pass', 'SubscribersController@editPass')->name('subscribers.editpass');
+        Route::post('/subscriber/{id}/pass', 'SubscribersController@updatePass')->name('subscribers.updatepass');
         
         Route::get('pdf-tag','TagController@getNewPetTag');
 

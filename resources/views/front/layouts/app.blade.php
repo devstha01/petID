@@ -30,9 +30,17 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ asset('images/favicons/ms-icon-144x144.png') }}">
     <meta name="theme-color" content="#ffffff">
-	<link href="https://fonts.googleapis.com/css?family=Squada+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Squada+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <!-- FONT AWESOME -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
 	
@@ -55,6 +63,30 @@
 <script src="https://js.stripe.com/v2/"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="{{ asset('/slick-1.8.1/slick/slick.min.js') }}"></script>
+
+<script src="{{ asset('/js/custom-slick.js') }}"></script>
+<script src="{{ asset('js/add-delete-pet.js') }}"></script>
+
+<script>
+    //Stepwise form post
+$(document).ready(function() {
+    var name='', email='', phone1='';
+    $('#step2').hide();
+    $(".btn_second_step").click(function(e) {
+        var error = false;
+        $('#step1').hide();
+        setTimeout(function() {
+            $('#step2').fadeIn(100);
+        }, 300);
+        $(window).scrollTop(0);
+      return false;
+    });
+});
+</script>
+
 
 </body>
 </html>

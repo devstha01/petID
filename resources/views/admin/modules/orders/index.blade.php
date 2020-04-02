@@ -44,9 +44,9 @@
                 <tbody>
                 @foreach($orders as $key=>$order)
                     <tr>
-                        <td>{{++$key}}</td>
+                        <td> {{$key + $orders->firstItem()}} </td>
                         <td>{{$order->user->name??''}} <br> {{$order->user->email??''}}</td>
-                        <td>{{$order->pet->pet_code}}</td>
+                        <td>{{$order->pet->pet_code??''}}</td>
                         <td>{{$order->total_price}}</td>
                         <td>{{$order->tag_price}}</td>
                         <td>{{$order->discount}}</td>
@@ -57,6 +57,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{ $orders->links() }}
 
         </div>
     </div>
