@@ -42,6 +42,12 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.steps.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    
+
 
 	
 
@@ -69,6 +75,14 @@
 
 <script src="{{ asset('/js/custom-slick.js') }}"></script>
 <script src="{{ asset('js/add-delete-pet.js') }}"></script>
+
+
+<!-- <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>
+    <!-- <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script> -->
+    <script src="{{ asset('assets/js/jquery.steps.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
 
 <script>
     //Stepwise form post

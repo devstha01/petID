@@ -5,7 +5,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2020-04-03 20:02:21.
+    * Generated on 2020-04-03 23:46:59.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -49,7 +49,6 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
-        'Spatie\Newsletter\Newsletter' => \Spatie\Newsletter\Newsletter::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -253,7 +252,6 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
-        'Spatie\Newsletter\Newsletter' => \Spatie\Newsletter\Newsletter::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -457,7 +455,6 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
-        'Spatie\Newsletter\Newsletter' => \Spatie\Newsletter\Newsletter::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -661,7 +658,6 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
-        'Spatie\Newsletter\Newsletter' => \Spatie\Newsletter\Newsletter::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -865,7 +861,6 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
-        'Spatie\Newsletter\Newsletter' => \Spatie\Newsletter\Newsletter::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -1069,7 +1064,6 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
-        'Spatie\Newsletter\Newsletter' => \Spatie\Newsletter\Newsletter::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -1273,7 +1267,6 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
-        'Spatie\Newsletter\Newsletter' => \Spatie\Newsletter\Newsletter::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,
@@ -1477,7 +1470,6 @@ namespace PHPSTORM_META {
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
-        'Spatie\Newsletter\Newsletter' => \Spatie\Newsletter\Newsletter::class,
         'api.auth' => \Dingo\Api\Auth\Auth::class,
         'api.dispatcher' => \Dingo\Api\Dispatcher::class,
         'api.exception' => \Dingo\Api\Exception\Handler::class,

@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.7.28 on 2020-04-03 20:01:47.
+ * Generated for Laravel 5.7.28 on 2020-04-03 23:46:58.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -16554,195 +16554,6 @@ namespace SimpleSoftwareIO\QrCode\Facades {
  
 }
 
-namespace Spatie\Newsletter { 
-
-    /**
-     * 
-     *
-     */ 
-    class NewsletterFacade {
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function subscribe($email, $mergeFields = [], $listName = '', $options = [])
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->subscribe($email, $mergeFields, $listName, $options);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function subscribePending($email, $mergeFields = [], $listName = '', $options = [])
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->subscribePending($email, $mergeFields, $listName, $options);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function subscribeOrUpdate($email, $mergeFields = [], $listName = '', $options = [])
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->subscribeOrUpdate($email, $mergeFields, $listName, $options);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getMembers($listName = '', $parameters = [])
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->getMembers($listName, $parameters);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getMember($email, $listName = '')
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->getMember($email, $listName);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getMemberActivity($email, $listName = '')
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->getMemberActivity($email, $listName);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function hasMember($email, $listName = '')
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->hasMember($email, $listName);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function isSubscribed($email, $listName = '')
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->isSubscribed($email, $listName);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function unsubscribe($email, $listName = '')
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->unsubscribe($email, $listName);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function updateEmailAddress($currentEmailAddress, $newEmailAddress, $listName = '')
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->updateEmailAddress($currentEmailAddress, $newEmailAddress, $listName);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function delete($email, $listName = '')
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->delete($email, $listName);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function createCampaign($fromName, $replyTo, $subject, $html = '', $listName = '', $options = [], $contentOptions = [])
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->createCampaign($fromName, $replyTo, $subject, $html, $listName, $options, $contentOptions);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function updateContent($campaignId, $html, $options = [])
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->updateContent($campaignId, $html, $options);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getApi()
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->getApi();
-        }
-        
-        /**
-         * 
-         *
-         * @return array|false 
-         * @static 
-         */ 
-        public static function getLastError()
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->getLastError();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function lastActionSucceeded()
-        {
-                        /** @var \Spatie\Newsletter\Newsletter $instance */
-                        return $instance->lastActionSucceeded();
-        }
-         
-    }
- 
-}
-
 namespace Tymon\JWTAuth\Facades { 
 
     /**
@@ -20236,8 +20047,6 @@ namespace  {
     class Html extends \Collective\Html\HtmlFacade {}
 
     class QrCode extends \SimpleSoftwareIO\QrCode\Facades\QrCode {}
-
-    class Newsletter extends \Spatie\Newsletter\NewsletterFacade {}
 
     class JWTAuth extends \Tymon\JWTAuth\Facades\JWTAuth {}
 
