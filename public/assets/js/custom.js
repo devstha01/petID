@@ -3,11 +3,120 @@ $(document).ready(function() {
     var totPet = 1;
     form.validate({
         //errorPlacement: function errorPlacement(error, element) { element.before(error); },
-        // rules: {
-        //     confirm_password: {
-        //         equalTo: "#password"
-        //     }
-        // }
+        rules: {
+            email: {
+                required: true
+            },
+            password: {
+                required: true,
+                minlength: 5
+            },
+            confirm_password: {
+                equalTo: "#password"
+            },
+            name: {
+                required: true
+            },
+            address: {
+                required: true
+            },
+            city: {
+                required: true
+            },
+            state: {
+                required: true
+            },
+            zip_code: {
+                required: true
+            },
+            country: {
+                required: true
+            },
+            phone: {
+                required: true,
+                minlength: 9,
+                number: true
+            },
+            pet_name: {
+                required: true
+            },
+            color: {
+                required: true
+            },
+            breed: {
+                required: true
+            },
+            cardholder_name: {
+                required: true
+            },
+            cardholder_number: {
+                required: true,
+                minlength: 16
+            },
+            expiry_date: {
+                required: true
+            },
+            cvc: {
+                required: true,
+                minlength: 3
+            }
+        },
+        messages: {
+            email: {
+                required: "Please, provide your email address."
+            },
+            password: {
+                required: "Please, type in a password.",
+                minlength: "Password must be atleast 5 characters."
+            },
+            confirm_password: {
+                equalTo: "Please, confirm your password again."
+            },
+            name: {
+                required: "Please, provide your full name."
+            },
+            address: {
+                required: "Please, provide your address."
+            },
+            city: {
+                required: "Please, provide your city name."
+            },
+            state: {
+                required: "Please, provide your state name."
+            },
+            zip_code: {
+                required: "Please, provide your zip code."
+            },
+            country: {
+                required: "Please, provide your country name."
+            },
+            phone: {
+                required: "Please, provide your phone number.",
+                number: "Phone number must be numeric."
+            },
+            pet_name: {
+                required: "Please, provide your pet name."
+            },
+            color: {
+                required: "Please, provide the pet color."
+            },
+            breed: {
+                required: "Please, provide it's breed."
+            },
+            cardholder_name: {
+                required: "Please, provide the card name."
+            },
+            cardholder_number: {
+                required: "Please, provide the card number.",
+                minlength: "Card number has to be minimum of 16 digits."
+            },
+            expiry_month: {
+                required: "Please, provide expiry month."
+            },
+            cvc: {
+                required: "Please, provide the CVC number."
+            }
+        }
     });
     form.children("div").steps({
         headerTag: "div.step-heading",
@@ -53,7 +162,7 @@ $(document).ready(function() {
              </div>
              <div class="form-group">
                  <label for="gender">Gender *</label>
-                 <select name="gender[]" class="custom-select gender" required="" data-msg-required="Please, provide your child's gender">
+                 <select name="gender[]" class="custom-select gender" required="" data-msg-required="Please, provide your pet's gender">
                      <option value="">Please Gender</option>
                      <option value="male">Male</option>
                      <option value="female">Female</option>
@@ -122,7 +231,7 @@ $(document).ready(function() {
     });
 
     $('#date_expiry').datepicker({
-        format: 'yy-mm',
+        format: 'mm-yy',
         startDate: 'getDate'
     });
 

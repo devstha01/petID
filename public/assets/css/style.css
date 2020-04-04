@@ -451,16 +451,21 @@
         display: block;
     }
     
-    .pet-group {
-        margin: 0 0 20px;
+    .append-wrapper .pet-group {
         border-bottom: 1px solid rgba(204, 204, 204, 0.33);
-        padding: 0 0 30px;
+        padding-top: 20px;
     }
     
-    .pet-group:last-child {
-        margin: 0;
-        padding: 0;
+    .pet-group {
+        padding: 0 0 34px;
+    }
+    
+    .append-wrapper .pet-group:last-child {
         border-bottom: 0 solid rgba(204, 204, 204, 0.33);
+    }
+    
+    .append-wrapper .pet-group:first-child {
+        border-top: 1px solid rgba(204, 204, 204, 0.33);
     }
     
     .pet-add.form-heading {

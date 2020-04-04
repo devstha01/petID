@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email Address *</label>
-                                            <input type="text" placeholder="Email Address *" value="" name="email_address" class="form-control" id="email">
+                                            <input type="text" placeholder="Email Address *" value="" name="email" class="form-control" id="email">
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Password *</label>
@@ -84,7 +84,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="address_2">Address 2 *</label>
-                                            <input type="text" placeholder="Address 2 *" name="address_2" class="form-control controls" id="address_2">
+                                            <input type="text" placeholder="Address 2" name="address_2" class="form-control controls" id="address_2">
                                         </div>
                                         <div class="form-group">
                                             <label for="city">City *</label>
@@ -111,7 +111,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="s_phone">Secondary Phone *</label>
-                                            <input type="text" placeholder="Secondary Phone *" name="s_phone" class="form-control controls" id="s_phone">
+                                            <input type="text" placeholder="Secondary Phone" name="s_phone" class="form-control controls" id="s_phone">
                                         </div>
                                         
                                         <div class="form-heading mt-3">
@@ -224,7 +224,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="gender">Gender *</label>
-                                                    <select name="gender[]" class="custom-select gender" required="" id="gender" data-msg-required="Please, provide your child's gender">
+                                                    <select name="gender[]" class="custom-select gender" required="" id="gender" data-msg-required="Please, provide your pet's gender">
                                                         <option value="">Please Gender</option>
                                                         <option value="male">Male</option>
                                                         <option value="female">Female</option>
@@ -236,7 +236,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="breed">Breed *</label>
-                                                    <input type="text" placeholder="Breed *" name="city" class="form-control controls" id="breed">
+                                                    <input type="text" placeholder="Breed *" name="breed" class="form-control controls" id="breed">
                                                 </div>
                                                 <div class="form-group">
                                                 <div class="upload-wrap">
@@ -288,14 +288,14 @@
                                         <div class="form-group">
                                             <div class="purchase-content-inner">
                                                 <div class="licence-form-wrapp">
-                                                    <input id="cardholder-name" class="form-control" type="text" placeholder="Card Holder's Name">
-                                                    <input id="cardholder-number" class="form-control" type="text" placeholder="Card Number">
+                                                    <input id="cardholder-name" name="cardholder_name" class="form-control" type="text" placeholder="Card Holder's Name">
+                                                    <input id="cardholder-number" name="cardholder_number" class="form-control" type="text" placeholder="Card Number">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
-                                                            <input value="" type="text" name="date-expiry" placeholder="Expiry Date" required="" class="form-control"id="date_expiry">
+                                                            <input value="" type="text" name="date_expiry" placeholder="Expiry Date" required="" class="form-control"id="date_expiry">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <input value="" type="text" name="cvc"  placeholder="CVC" required="" class="form-control" id="cvc">
+                                                            <input value="" type="text" name="cvc" maxlength="4" placeholder="CVC" required="" class="form-control" id="cvc">
                                                         </div>
                                                     </div>
                                                 </div>
