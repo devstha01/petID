@@ -86,7 +86,8 @@ Route::get('/online-signup-step1', 'Front\PagesController@getOnlineSignup1')->na
 Route::post('/account/create-step1','Front\PagesController@postCreateStep1');
 Route::get('/online-signup-step2', 'Front\PagesController@getOnlineSignup2')->name('online-signup-step2');
 Route::post('/account/create-step2','Front\PagesController@postCreateStep2');
-Route::get('/checkout', 'Front\PagesController@checkout')->name('checkout');
+// Route::get('/checkout', 'Front\PagesController@checkout')->name('checkout');
+Route::get('/checkout', 'Front\OrderController@checkout')->name('checkout');
 
 Route::get('/d', 'Front\PagesController@redirectToStore');
 

@@ -653,8 +653,7 @@ class PagesController extends Controller
         $s = $arccentre - $textangle / 2;
         $e = $arccentre + $textangle / 2;
         for ($i = 0, $theta = deg2rad($s); $i < $tlen; $i++) {
-            $ch = $txt{
-                $i};
+            $ch = $txt[$i];
             $tx = $cx + $r * cos($theta);
             $ty = $cy + $r * sin($theta);
             $dtheta = ($this->textWidth($ch, $font, $size)) / $r;
@@ -673,8 +672,7 @@ class PagesController extends Controller
         $s = $arccentre - $textangle / 2;
         $e = $arccentre + $textangle / 2;
         for ($i = 0, $theta = deg2rad($e); $i < $tlen; $i++) {
-            $ch = $txt{
-                $i};
+            $ch = $txt[$i];
             $tx = $cx + $r * cos($theta);
             $ty = $cy + $r * sin($theta);
             $dtheta = ($this->textWidth($ch, $font, $size) + $pad) / $r;

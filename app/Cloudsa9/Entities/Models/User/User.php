@@ -7,7 +7,6 @@ use App\Cloudsa9\Entities\Mutators\User\UserMutator;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Cashier\Billable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
@@ -25,7 +24,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  */
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
-    use Notifiable, EntrustUserTrait, Billable, UserMutator, UserAccessor;
+    use Notifiable, EntrustUserTrait, UserMutator, UserAccessor;
 
     /**
      * The attributes that are mass assignable.
