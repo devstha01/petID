@@ -1,4 +1,4 @@
-.pet-img-container {
+/* .pet-img-container {
     display: grid;
     grid-row-gap: 5px;
     clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
@@ -58,4 +58,4 @@
         max-width: 70%;
         min-width: 260px;
     }
-}
+} */

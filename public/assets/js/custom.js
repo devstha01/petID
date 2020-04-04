@@ -10,6 +10,14 @@ form.validate({
 form.children("div").steps({
     headerTag: "div.step-heading",
     bodyTag: "section",
+    labels: {
+        current: "current step:",
+        pagination: "Pagination",
+        finish: "FINISH",
+        next: "NEXT STEP",
+        previous: "BACK",
+        loading: "Loading ..."
+    },
     transitionEffect: "fade",
     onStepChanging: function(event, currentIndex, newIndex) {
         form.validate().settings.ignore = ":disabled,:hidden";
@@ -66,3 +74,16 @@ $('.upload-wrap input[type=file]').change(function() {
         $('.uploadpreview.' + id).css('background-image', 'url(' + e.target.result + ')');
     }
 });
+
+$('.pet-slider').slick({
+    infinite: true
+});
+
+$('#date_expiry').datepicker({
+    format: 'yy-mm',
+    startDate: 'getDate'
+});
+
+$(document).ready(function() {
+    $('#cardholder-number').mask('0000 0000 0000 0000');
+})

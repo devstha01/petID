@@ -31,12 +31,26 @@
                                 <div class="row form-set">
                                     <div class="col-md-6 leftSide">
                                         <div class="pet-img-container">
-                                            <img src="assets/img/carousel/1.jpg" class="img-fluid" alt="pets pic">
+                                            <img src="assets/img/carousel/1.jpg" class="img-responsive" alt="pets pic">
                                             <div class="small-img-container">
-                                                <img src="assets/img/carousel/2.jpg" class="img-fluid" alt="pets pic">
-                                                <img src="assets/img/carousel/3.jpg" class="img-fluid" alt="pets pic">
+                                                <img src="assets/img/carousel/2.jpg" class="img-responsive" alt="pets pic">
+                                                <img src="assets/img/carousel/3.jpg" class="img-responsive" alt="pets pic">
                                             </div>
-                                            <img src="assets/img/carousel/4.jpg" class="img-fluid" alt="pets pic">
+                                            <img src="assets/img/carousel/4.jpg" class="img-responsive" alt="pets pic">
+                                        </div>
+                                        <div class="pet-slider">
+                                            <div class="item">
+                                                <img src="assets/img/carousel/1.jpg" class="img-responsive" alt="pets pic">
+                                            </div>
+                                            <div class="item">
+                                                <img src="assets/img/carousel/2.jpg" class="img-responsive" alt="pets pic">
+                                            </div>
+                                            <div class="item">
+                                                <img src="assets/img/carousel/3.jpg" class="img-responsive" alt="pets pic">
+                                            </div>
+                                            <div class="item">
+                                                <img src="assets/img/carousel/4.jpg" class="img-responsive" alt="pets pic">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 rightSide">
@@ -57,7 +71,7 @@
                                         </div>
                                     
                                         <div class="form-heading mt-3">
-                                            <h1>Pet recovery address and tag shipping info</h1>
+                                            <h1>Pet recovery: address and tag shipping info</h1>
                                         </div>
                                         
                                         <div class="form-group">
@@ -89,7 +103,7 @@
                                             <input type="text" placeholder="Country *" name="country" class="form-control controls" id="country">
                                         </div>
                                         <div class="form-heading mt-3">
-                                            <h1>Pet recovery Phone numbers</h1>
+                                            <h1>Pet recovery: Phone numbers</h1>
                                         </div>
                                         <div class="form-group">
                                             <label for="phone">Primary Phone *</label>
@@ -101,19 +115,23 @@
                                         </div>
                                         
                                         <div class="form-heading mt-3">
-                                            <h1>Pet recovery Offer Reward</h1>
+                                            <h1>Pet recovery: Offer Reward</h1>
                                             <div class="form-row reward_selection">
-                                                <div class="form-group col-lg-3 col-md-4 col-sm-3 col-4">
-                                                    <label class="checkbox-wrapper date-checkbox">Yes
-                                                    <input type="radio" class="memberyes" name="reward" value="yes" checked="checked">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-group col-lg-3 col-md-4 col-sm-3 col-4">
-                                                    <label class="checkbox-wrapper date-checkbox">No
-                                                        <input type="radio" class="memberno" name="reward" value="no">
-                                                        <span class="checkmark"></span>
-                                                    </label>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-3 col-sm-2">
+                                                            <label class="checkbox-wrapper date-checkbox">Yes
+                                                            <input type="radio" class="memberyes" name="reward" value="yes" checked="checked">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-2">
+                                                            <label class="checkbox-wrapper date-checkbox">No
+                                                                <input type="radio" class="memberno" name="reward" value="no">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,7 +139,7 @@
                                 </div>
                                 </section>
                                 <div class="step-heading">
-                                    <div class="img-wrapper"><img src="assets/img/user.png" alt=""></div>
+                                    <div class="img-wrapper"><img src="assets/img/dog.png" alt=""></div>
                                     <div class="title-wrapper">
                                         <h2>Step 2</h2>
                                         <p>Add Pets</p>
@@ -132,26 +150,71 @@
                                         <div class="col-md-6 rightSide">
                                             <div class="sales-wrapper">
                                                 <div class="img-wrapper">
-                                                    <img src="assets/img/two-tags.jpg" class="img-fluid" alt="">
+                                                    <img src="assets/img/two-tags.jpg" class="img-responsive" alt="">
                                                 </div>
                                                 <div class="sales-meta_desc">
-                                                    <h3>Tags</h3>
-                                                    <p>Tag material: Aluminum</p>
-                                                    <p>Tag material: Aluminum</p>
-                                                    <p>Tag material: Aluminum</p>
-                                                    <p>Tag material: Aluminum</p>
-                                                    <p>Tag material: Aluminum</p>
-                                                    <p>Tag material: Aluminum</p>
-                                                    <p>Tag material: Aluminum</p>
-                                                    <p>Tag material: Aluminum</p>
-                                                    <p>Tag material: Aluminum</p>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <h3>Product Name: ROCCO TAG</h3>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p>Tag material:</p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p>Aluminum</p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p>Tag Coating:</p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p>Hard Coat Anodized</p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p>Tag Diameter:</p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p>1.25"</p>    
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p>Tag Thickness:</p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p>0.07"</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-4">
+                                                            <p>Tag Weight:</p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p>4 grams</p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-4">
+                                                            <p>Tag Marking:</p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p>Laser Etched</p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p>Tag Saftey:</p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p>Verified lead tree</p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p>Manufactured In:</p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p>USA</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             
                                         </div>
                                         <div class="col-md-6 rightSide">
                                             <div class="form-heading pet-add">
-                                                <h1>Add Pet</h1>
+                                                <h1>About Pet</h1>
                                                 <a href="#" id="append_child">Add Another Pet <img src="assets/img/icons/plus_sir.svg" alt=""> </a>
                                             </div>
                                             <div class="pet-group">
@@ -176,13 +239,19 @@
                                                     <input type="text" placeholder="Breed *" name="city" class="form-control controls" id="breed">
                                                 </div>
                                                 <div class="form-group">
-                                                <div class="upload-wrap"><p class="head">input
-                                                    <div class="uploadpreview 01"></div>
+                                                <div class="upload-wrap">
+                                                    <p class="head">Upload Pet Image</p>
+                                                    <label for="01">
+                                                        <div class="uploadpreview 01"></div>
+                                                    </label>
                                                     <input id="01" type="file" accept="image/*">
-                                                </div></p>
+                                                </div>
 
-                                                <div class="upload-wrap"><p class="head">input
-                                                    <div class="uploadpreview 02"></div>
+                                                <div class="upload-wrap">
+                                                    <p class="head">Upload Pet Image</p>
+                                                    <label for="02">
+                                                        <div class="uploadpreview 02"></div>
+                                                    </label>
                                                     <input id="02" type="file" accept="image/*">
                                                 </div>
 
@@ -217,14 +286,19 @@
                                                     <input type="text" placeholder="Breed *" name="city" class="form-control controls" id="breed">
                                                 </div>
                                                 <div class="form-group">
-                                                <div class="upload-wrap"><p class="head">input
-                                                <div class="uploadpreview 03"></div>
-                                                <input id="03" type="file" accept="image/*">
-                                                </div></p>
+                                                <div class="upload-wrap"><p class="head">Upload Pet Image</p>
+                                                    <label for="03">
+                                                        <div class="uploadpreview 03"></div>
+                                                        
+                                                    </label>
+                                                    <input id="03" type="file" accept="image/*">
+                                                </div>
 
-                                                <div class="upload-wrap"><p class="head">input
-                                                <div class="uploadpreview 04"></div>
-                                                <input id="04" type="file" accept="image/*">
+                                                <div class="upload-wrap"><p class="head">Upload Pet Image</p>
+                                                    <label for="04">
+                                                        <div class="uploadpreview 04"></div>
+                                                    </label>
+                                                    <input id="04" type="file" accept="image/*">
                                                 </div>
 
                                                 </div>
@@ -233,7 +307,7 @@
                                     </div>
                                 </section>
                                     <div class="step-heading">
-                                        <div class="img-wrapper"><img src="assets/img/user.png" alt=""></div>
+                                        <div class="img-wrapper"><img src="assets/img/cart.png" alt=""></div>
                                         <div class="title-wrapper">
                                             <h2>Step 3</h2>
                                             <p>Payment Method</p>
@@ -247,8 +321,8 @@
                                         </div>
 
                                         <div class="total-cost-wrapper">
-                                            <h2>Total Children: <span>1</span></h2>
-                                            <h3>Total Billed Today: €<span>60</span></h3>
+                                            <h2>Total Pets: <span>1</span></h2>
+                                            <h3>Total Amount: €<span>60</span></h3>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -258,21 +332,17 @@
                                         <div class="form-group">
                                             <div class="purchase-content-inner">
                                                 <div class="licence-form-wrapp">
-                                                <input id="cardholder-name" class="form-control" type="text" placeholder="Card Holder's Name">
-                                            </div>
-                                            <div class="purchase-content-inner">
-                                                <div class="licence-form-wrapp">
-                                                <input id="cardholder-name" class="form-control" type="text" placeholder="Card Number">
-                                            </div>
-                                            <div class="purchase-content-inner">
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <input value="" type="text" name="date-expiry" placeholder="Expiry Date" required="" class="form-control"id="date_expiry">
+                                                    <input id="cardholder-name" class="form-control" type="text" placeholder="Card Holder's Name">
+                                                    <input id="cardholder-number" class="form-control" type="text" placeholder="Card Number">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <input value="" type="text" name="date-expiry" placeholder="Expiry Date" required="" class="form-control"id="date_expiry">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <input value="" type="text" name="cvc"  placeholder="CVC" required="" class="form-control" id="cvc">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    <input value="" type="text" name="cvc"  placeholder="CVC" required="" class="form-control" id="cvc">
-                                                </div>
-                                            </div>
                                             </div>
                                             <div class="form-group optional-billing-info">
                                                 <p>+ Add Optional Billing Information</p>
@@ -281,18 +351,19 @@
                                         </div>
                                     </div>
                                 </section>
-                            </div>
-                            <div class="thanks-wrapper">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="thanks-inner">
-                                            <h2>Congratulations!</h2>
-                                            <p>Your registration is complete and you will now be sent an email confirming all your booking confirmation details.</p>
-                                            <p>If you have any further queries please contact please contact us on <a href="call: 01422545">01422545</a>. For further information or email <a href="mailto:web.sdfsd@fs.com">web.sdfsd@fs.com</a> </p>
+                                <div class="thanks-wrapper">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="thanks-inner">
+                                                <h2>Congratulations!</h2>
+                                                <p>Your registration is complete and you will now be sent an email confirming all your booking confirmation details.</p>
+                                                <p>If you have any further queries please contact please contact us on <a href="call: 01422545">01422545</a>. For further information or email <a href="mailto:web.sdfsd@fs.com">web.sdfsd@fs.com</a> </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </form>
                     </div>
                 </div>
