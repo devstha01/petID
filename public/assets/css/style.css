@@ -607,7 +607,8 @@
         padding: 20px 15px 15px;
     }
     
-    .sales-meta_desc .col-md-8 {
+    .sales-meta_desc .col-md-8,
+    .sales-meta_desc .col-sm-8 {
         font-weight: 600;
     }
     
@@ -631,12 +632,12 @@
         position: relative;
     }
     
-    .upload-wrap label:after {
+    .upload-wrap label div:after {
         content: "\f040";
         font-family: 'FontAwesome';
         position: absolute;
         top: 12px;
-        right: 32px;
+        right: 3px;
         text-align: center;
         margin: auto;
         width: 25px;
@@ -699,5 +700,64 @@
         .pet-slider .slick-next {
             right: 10px;
             z-index: 9;
+        }
+    }
+    
+    @media(max-width: 767px) {
+        .wizard>.steps>ul>li {
+            width: 33.33%;
+        }
+        .wizard>.steps a,
+        .wizard>.steps a:hover,
+        .wizard>.steps a:active {
+            padding: 0;
+        }
+        .wizard>.content>.body .checkbox-wrapper.date-checkbox .checkmark {
+            left: 55px;
+            right: initial;
+        }
+        #contact .sales-meta_desc h3 {
+            font-size: 24px;
+            line-height: 28px;
+        }
+    }
+    
+    @media(max-width: 575px) {
+        #contact {
+            padding: 0;
+        }
+    }
+    
+    @media(max-width: 500px) {
+        .wizard>.steps>ul {
+            display: block;
+        }
+        .wizard>.steps>ul>li {
+            width: 50%;
+        }
+        .wizard>.steps>ul>li a {
+            margin-bottom: 15px;
+        }
+        .thanks-wrapper h2 {
+            font-size: 22px;
+            line-height: 26px;
+        }
+        .thanks-wrapper {
+            padding: 26px 15px 26px;
+        }
+        .thanks-wrapper p {
+            font-size: 16px;
+            line-height: 24px;
+            margin: 0 0 26px;
+        }
+    }
+    
+    @media(max-width: 480px) {
+        .upload-wrap {
+            width: 100%;
+        }
+        #contact .total-cost-wrapper h3 {
+            font-size: 25px;
+            line-height: 28px;
         }
     }

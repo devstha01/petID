@@ -119,13 +119,13 @@
                                             <div class="form-row reward_selection">
                                                 <div class="form-group">
                                                     <div class="row">
-                                                        <div class="col-md-3 col-sm-2">
+                                                        <div class="col-md-3 col-sm-2 col-xs-5">
                                                             <label class="checkbox-wrapper date-checkbox">Yes
                                                             <input type="radio" class="memberyes" name="reward" value="yes" checked="checked">
                                                                 <span class="checkmark"></span>
                                                             </label>
                                                         </div>
-                                                        <div class="col-md-3 col-sm-2">
+                                                        <div class="col-md-3 col-sm-2 col-xs-5">
                                                             <label class="checkbox-wrapper date-checkbox">No
                                                                 <input type="radio" class="memberno" name="reward" value="no">
                                                                 <span class="checkmark"></span>
@@ -154,57 +154,57 @@
                                                 </div>
                                                 <div class="sales-meta_desc">
                                                     <div class="row">
-                                                        <div class="col-md-12">
+                                                        <div class="col-sm-12">
                                                             <h3>Product Name: ROCCO TAG</h3>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-sm-4">
                                                             <p>Tag material:</p>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-sm-8">
                                                             <p>Aluminum</p>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-sm-4">
                                                             <p>Tag Coating:</p>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-sm-8">
                                                             <p>Hard Coat Anodized</p>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-sm-4">
                                                             <p>Tag Diameter:</p>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-sm-8">
                                                             <p>1.25"</p>    
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-sm-4">
                                                             <p>Tag Thickness:</p>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-sm-8">
                                                             <p>0.07"</p>
                                                         </div>
                                                         
-                                                        <div class="col-md-4">
+                                                        <div class="col-sm-4">
                                                             <p>Tag Weight:</p>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-sm-8">
                                                             <p>4 grams</p>
                                                         </div>
                                                         
-                                                        <div class="col-md-4">
+                                                        <div class="col-sm-4">
                                                             <p>Tag Marking:</p>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-sm-8">
                                                             <p>Laser Etched</p>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-sm-4">
                                                             <p>Tag Saftey:</p>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-sm-8">
                                                             <p>Verified lead tree</p>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-sm-4">
                                                             <p>Manufactured In:</p>
                                                         </div>
-                                                        <div class="col-md-8">
+                                                        <div class="col-sm-8">
                                                             <p>USA</p>
                                                         </div>
                                                     </div>
@@ -215,7 +215,7 @@
                                         <div class="col-md-6 rightSide">
                                             <div class="form-heading pet-add">
                                                 <h1>About Pet</h1>
-                                                <a href="#" id="append_child">Add Another Pet <img src="assets/img/icons/plus_sir.svg" alt=""> </a>
+                                                <a href="javascript:void(0);" id="append_pet">Add Another Pet <img src="assets/img/icons/plus_sir.svg" alt=""> </a>
                                             </div>
                                             <div class="pet-group">
                                                 <div class="form-group">
@@ -257,51 +257,7 @@
 
                                                 </div>
                                             </div>
-                                            <div class="pet-group">
-                                                
-                                                <div class="form-heading pet-add">
-                                                    <h1>About Pet #<span>2</span></h1>
-                                                    <a href="#" class="remove-appended">
-                                                        <img src="assets/img/icons/minus_sir.svg" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="pet_name">Pet Name *</label>
-                                                    <input type="text" placeholder="Pet Name *" name="pet_name" class="form-control controls" id="pet_name">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="gender">Gender *</label>
-                                                    <select name="gender[]" class="custom-select gender" required="" id="gender" data-msg-required="Please, provide your child's gender">
-                                                        <option value="">Please Gender</option>
-                                                        <option value="male">Male</option>
-                                                        <option value="female">Female</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="color">Color</label>
-                                                    <input type="text" placeholder="Color *" name="color" class="form-control controls" id="color">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="breed">Breed *</label>
-                                                    <input type="text" placeholder="Breed *" name="city" class="form-control controls" id="breed">
-                                                </div>
-                                                <div class="form-group">
-                                                <div class="upload-wrap"><p class="head">Upload Pet Image</p>
-                                                    <label for="03">
-                                                        <div class="uploadpreview 03"></div>
-                                                        
-                                                    </label>
-                                                    <input id="03" type="file" accept="image/*">
-                                                </div>
-
-                                                <div class="upload-wrap"><p class="head">Upload Pet Image</p>
-                                                    <label for="04">
-                                                        <div class="uploadpreview 04"></div>
-                                                    </label>
-                                                    <input id="04" type="file" accept="image/*">
-                                                </div>
-
-                                                </div>
+                                            <div class="append-wrapper">
                                             </div>
                                         </div>
                                     </div>
