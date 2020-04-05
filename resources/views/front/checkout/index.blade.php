@@ -21,7 +21,7 @@
                         <form id="contact" class="form-main" action="#">
                             <div>
                                 <div class="step-heading">
-                                    <div class="img-wrapper"><img src="assets/img/user.png" alt=""></div>
+                                    <div class="img-wrapper"><img src="{{ asset('assets/img/user.png') }}" alt=""></div>
                                     <div class="title-wrapper">
                                         <h2>Step 1</h2>
                                         <p>Create Account</p>
@@ -31,25 +31,25 @@
                                 <div class="row form-set">
                                     <div class="col-md-6 leftSide">
                                         <div class="pet-img-container">
-                                            <img src="assets/img/carousel/1.jpg" class="img-responsive" alt="pets pic">
+                                            <img src="{{ asset('assets/img/carousel/1.jpg') }}" class="img-responsive" alt="pets pic">
                                             <div class="small-img-container">
-                                                <img src="assets/img/carousel/2.jpg" class="img-responsive" alt="pets pic">
-                                                <img src="assets/img/carousel/3.jpg" class="img-responsive" alt="pets pic">
+                                                <img src="{{ asset('assets/img/carousel/2.jpg') }}" class="img-responsive" alt="pets pic">
+                                                <img src="{{ asset('assets/img/carousel/3.jpg') }}" class="img-responsive" alt="pets pic">
                                             </div>
-                                            <img src="assets/img/carousel/4.jpg" class="img-responsive" alt="pets pic">
+                                            <img src="{{ asset('assets/img/carousel/4.jpg') }}" class="img-responsive" alt="pets pic">
                                         </div>
                                         <div class="pet-slider">
                                             <div class="item">
-                                                <img src="assets/img/carousel/1.jpg" class="img-responsive" alt="pets pic">
+                                                <img src="{{ asset('assets/img/carousel/1.jpg') }}" class="img-responsive" alt="pets pic">
                                             </div>
                                             <div class="item">
-                                                <img src="assets/img/carousel/2.jpg" class="img-responsive" alt="pets pic">
+                                                <img src="{{ asset('assets/img/carousel/2.jpg') }}" class="img-responsive" alt="pets pic">
                                             </div>
                                             <div class="item">
-                                                <img src="assets/img/carousel/3.jpg" class="img-responsive" alt="pets pic">
+                                                <img src="{{ asset('assets/img/carousel/3.jpg') }}" class="img-responsive" alt="pets pic">
                                             </div>
                                             <div class="item">
-                                                <img src="assets/img/carousel/4.jpg" class="img-responsive" alt="pets pic">
+                                                <img src="{{ asset('assets/img/carousel/4.jpg') }}" class="img-responsive" alt="pets pic">
                                             </div>
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@
                                 </div>
                                 </section>
                                 <div class="step-heading">
-                                    <div class="img-wrapper"><img src="assets/img/dog.png" alt=""></div>
+                                    <div class="img-wrapper"><img src="{{ asset('assets/img/dog.png') }}" alt=""></div>
                                     <div class="title-wrapper">
                                         <h2>Step 2</h2>
                                         <p>Add Pets</p>
@@ -150,7 +150,7 @@
                                         <div class="col-md-6 rightSide">
                                             <div class="sales-wrapper">
                                                 <div class="img-wrapper">
-                                                    <img src="assets/img/two-tags.jpg" class="img-responsive" alt="">
+                                                    <img src="{{ asset('assets/img/two-tags.jpg') }}" class="img-responsive" alt="">
                                                 </div>
                                                 <div class="sales-meta_desc">
                                                     <div class="row">
@@ -215,7 +215,7 @@
                                         <div class="col-md-6 rightSide">
                                             <div class="form-heading pet-add">
                                                 <h1>About Pet</h1>
-                                                <a href="javascript:void(0);" id="append_pet">Add Another Pet <img src="assets/img/icons/plus_sir.svg" alt=""> </a>
+                                                <a href="javascript:void(0);" id="append_pet">Add Another Pet <img src="{{ asset('assets/img/icons/plus_sir.svg') }}" alt=""> </a>
                                             </div>
                                             <div class="pet-group">
                                                 <div class="form-group">
@@ -263,7 +263,7 @@
                                     </div>
                                 </section>
                                     <div class="step-heading">
-                                        <div class="img-wrapper"><img src="assets/img/cart.png" alt=""></div>
+                                        <div class="img-wrapper"><img src="{{ asset('assets/img/cart.png') }}" alt=""></div>
                                         <div class="title-wrapper">
                                             <h2>Step 3</h2>
                                             <p>Payment Method</p>
@@ -327,3 +327,7 @@
         </div>
     </div>
 @endsection
+
+@section('extra-js')
+
+@stop

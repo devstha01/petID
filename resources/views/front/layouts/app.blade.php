@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="{{ asset('slick-1.8.1/slick/slick-theme.css')}}"/>
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.steps.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
+    @yield('extra-css')
 
 </head>
 <body>
@@ -87,7 +87,7 @@
     <script src="{{ asset('assets/js/jquery.steps.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-
+    @yield('extra-js')
 <script>
     //Stepwise form post
 $(document).ready(function() {
