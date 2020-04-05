@@ -23,7 +23,7 @@
         "ramsey/uuid": "^3.8",
         "simplesoftwareio/simple-qrcode": "~2",
         "spatie/laravel-newsletter": "^4.2",
-        "stripe/stripe-php": "^7.28",
+        "cartalyst/stripe-laravel": "9.0.*",
         "tymon/jwt-auth": "^1.0.0-rc.3",
         "yajra/laravel-datatables": "1.0",
         "yajra/laravel-datatables-oracle": "~8.0",

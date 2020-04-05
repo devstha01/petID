@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.7.28 on 2020-04-03 23:46:58.
+ * Generated for Laravel 5.7.28 on 2020-04-05 03:14:55.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -14641,6 +14641,227 @@ namespace Aloha\Twilio\Support\Laravel {
  
 }
 
+namespace Cartalyst\Stripe\Laravel\Facades { 
+
+    /**
+     * 
+     *
+     */ 
+    class Stripe {
+        
+        /**
+         * Create a new Stripe API instance.
+         *
+         * @param string $apiKey
+         * @param string $apiVersion
+         * @return \Cartalyst\Stripe\Stripe 
+         * @static 
+         */ 
+        public static function make($apiKey = null, $apiVersion = null)
+        {
+                        return \Cartalyst\Stripe\Stripe::make($apiKey, $apiVersion);
+        }
+        
+        /**
+         * Returns the current package version.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getVersion()
+        {
+                        return \Cartalyst\Stripe\Stripe::getVersion();
+        }
+        
+        /**
+         * Returns the Config repository instance.
+         *
+         * @return \Cartalyst\Stripe\ConfigInterface 
+         * @static 
+         */ 
+        public static function getConfig()
+        {
+                        /** @var \Cartalyst\Stripe\Stripe $instance */
+                        return $instance->getConfig();
+        }
+        
+        /**
+         * Sets the Config repository instance.
+         *
+         * @param \Cartalyst\Stripe\ConfigInterface $config
+         * @return \Cartalyst\Stripe\Stripe 
+         * @static 
+         */ 
+        public static function setConfig($config)
+        {
+                        /** @var \Cartalyst\Stripe\Stripe $instance */
+                        return $instance->setConfig($config);
+        }
+        
+        /**
+         * Returns the Stripe API key.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getApiKey()
+        {
+                        /** @var \Cartalyst\Stripe\Stripe $instance */
+                        return $instance->getApiKey();
+        }
+        
+        /**
+         * Sets the Stripe API key.
+         *
+         * @param string $apiKey
+         * @return \Cartalyst\Stripe\Stripe 
+         * @static 
+         */ 
+        public static function setApiKey($apiKey)
+        {
+                        /** @var \Cartalyst\Stripe\Stripe $instance */
+                        return $instance->setApiKey($apiKey);
+        }
+        
+        /**
+         * Returns the Stripe API version.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getApiVersion()
+        {
+                        /** @var \Cartalyst\Stripe\Stripe $instance */
+                        return $instance->getApiVersion();
+        }
+        
+        /**
+         * Sets the Stripe API version.
+         *
+         * @param string $apiVersion
+         * @return \Cartalyst\Stripe\Stripe 
+         * @static 
+         */ 
+        public static function setApiVersion($apiVersion)
+        {
+                        /** @var \Cartalyst\Stripe\Stripe $instance */
+                        return $instance->setApiVersion($apiVersion);
+        }
+        
+        /**
+         * Sets the idempotency key.
+         *
+         * @param string $idempotencyKey
+         * @return \Cartalyst\Stripe\Stripe 
+         * @static 
+         */ 
+        public static function idempotent($idempotencyKey)
+        {
+                        /** @var \Cartalyst\Stripe\Stripe $instance */
+                        return $instance->idempotent($idempotencyKey);
+        }
+        
+        /**
+         * Sets the account id.
+         *
+         * @param string $accountId
+         * @return \Cartalyst\Stripe\Stripe 
+         * @static 
+         */ 
+        public static function accountId($accountId)
+        {
+                        /** @var \Cartalyst\Stripe\Stripe $instance */
+                        return $instance->accountId($accountId);
+        }
+        
+        /**
+         * Returns the application's information.
+         *
+         * @return array|null 
+         * @static 
+         */ 
+        public static function getAppInfo()
+        {
+                        /** @var \Cartalyst\Stripe\Stripe $instance */
+                        return $instance->getAppInfo();
+        }
+        
+        /**
+         * Sets the application's information.
+         *
+         * @param string $appName
+         * @param string $appVersion
+         * @param string $appUrl
+         * @param string $appPartnerId
+         * @return \Cartalyst\Stripe\Stripe 
+         * @static 
+         */ 
+        public static function setAppInfo($appName, $appVersion = null, $appUrl = null, $appPartnerId = null)
+        {
+                        /** @var \Cartalyst\Stripe\Stripe $instance */
+                        return $instance->setAppInfo($appName, $appVersion, $appUrl, $appPartnerId);
+        }
+        
+        /**
+         * Returns the amount converter class and method name.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getAmountConverter()
+        {
+                        return \Cartalyst\Stripe\Stripe::getAmountConverter();
+        }
+        
+        /**
+         * Sets the amount converter class and method name.
+         *
+         * @param $amountConverter string
+         * @return void 
+         * @static 
+         */ 
+        public static function setAmountConverter($amountConverter)
+        {
+                        \Cartalyst\Stripe\Stripe::setAmountConverter($amountConverter);
+        }
+        
+        /**
+         * Disables the amount converter.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function disableAmountConverter()
+        {
+                        \Cartalyst\Stripe\Stripe::disableAmountConverter();
+        }
+        
+        /**
+         * Returns the default amount converter.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getDefaultAmountConverter()
+        {
+                        return \Cartalyst\Stripe\Stripe::getDefaultAmountConverter();
+        }
+        
+        /**
+         * Sets the default amount converter;
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function setDefaultAmountConverter()
+        {
+                        \Cartalyst\Stripe\Stripe::setDefaultAmountConverter();
+        }
+         
+    }
+ 
+}
+
 namespace Dingo\Api\Facade { 
 
     /**
@@ -16548,6 +16769,195 @@ namespace SimpleSoftwareIO\QrCode\Facades {
         {
                         /** @var \SimpleSoftwareIO\QrCode\BaconQrCodeGenerator $instance */
                         return $instance->encoding($encoding);
+        }
+         
+    }
+ 
+}
+
+namespace Spatie\Newsletter { 
+
+    /**
+     * 
+     *
+     */ 
+    class NewsletterFacade {
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function subscribe($email, $mergeFields = [], $listName = '', $options = [])
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->subscribe($email, $mergeFields, $listName, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function subscribePending($email, $mergeFields = [], $listName = '', $options = [])
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->subscribePending($email, $mergeFields, $listName, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function subscribeOrUpdate($email, $mergeFields = [], $listName = '', $options = [])
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->subscribeOrUpdate($email, $mergeFields, $listName, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getMembers($listName = '', $parameters = [])
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->getMembers($listName, $parameters);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getMember($email, $listName = '')
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->getMember($email, $listName);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getMemberActivity($email, $listName = '')
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->getMemberActivity($email, $listName);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function hasMember($email, $listName = '')
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->hasMember($email, $listName);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function isSubscribed($email, $listName = '')
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->isSubscribed($email, $listName);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function unsubscribe($email, $listName = '')
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->unsubscribe($email, $listName);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function updateEmailAddress($currentEmailAddress, $newEmailAddress, $listName = '')
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->updateEmailAddress($currentEmailAddress, $newEmailAddress, $listName);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function delete($email, $listName = '')
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->delete($email, $listName);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function createCampaign($fromName, $replyTo, $subject, $html = '', $listName = '', $options = [], $contentOptions = [])
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->createCampaign($fromName, $replyTo, $subject, $html, $listName, $options, $contentOptions);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function updateContent($campaignId, $html, $options = [])
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->updateContent($campaignId, $html, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getApi()
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->getApi();
+        }
+        
+        /**
+         * 
+         *
+         * @return array|false 
+         * @static 
+         */ 
+        public static function getLastError()
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->getLastError();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function lastActionSucceeded()
+        {
+                        /** @var \Spatie\Newsletter\Newsletter $instance */
+                        return $instance->lastActionSucceeded();
         }
          
     }
@@ -20036,6 +20446,8 @@ namespace  {
 
     class Twilio extends \Aloha\Twilio\Support\Laravel\Facade {}
 
+    class Stripe extends \Cartalyst\Stripe\Laravel\Facades\Stripe {}
+
     class API extends \Dingo\Api\Facade\API {}
 
     class Image extends \Intervention\Image\Facades\Image {}
@@ -20047,6 +20459,8 @@ namespace  {
     class Html extends \Collective\Html\HtmlFacade {}
 
     class QrCode extends \SimpleSoftwareIO\QrCode\Facades\QrCode {}
+
+    class Newsletter extends \Spatie\Newsletter\NewsletterFacade {}
 
     class JWTAuth extends \Tymon\JWTAuth\Facades\JWTAuth {}
 
