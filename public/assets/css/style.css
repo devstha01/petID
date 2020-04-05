@@ -559,7 +559,7 @@
     .inner-banner {
         min-height: 448px;
         background-repeat: no-repeat;
-        background-position: 0 0;
+        background-position: center center;
         background-size: cover;
     }
     
