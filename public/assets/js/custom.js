@@ -206,7 +206,6 @@ $(document).ready(function() {
         setTimeout(function() {
             $('.remove-appended').on('click', function() {
                 $(this).parents().eq(1).remove();
-                totPet--;
             })
 
             $('.upload-wrap input[type=file]').change(function() {
