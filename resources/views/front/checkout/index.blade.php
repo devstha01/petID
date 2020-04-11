@@ -13,6 +13,12 @@
 @endsection
 
 @section('content')
+<div class="loading-wrapper">
+    <div class="inner-spin-wrapper">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <span>Please Wait...</span>
+    </div>
+</div>
 <div class="body-content">
     <div class="inner-banner" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.92), rgba(217, 207, 207, 0.72)), url(assets/img/carousel/3_.jpg)">
         <div class="container">

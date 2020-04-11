@@ -12,7 +12,7 @@ $(document).ready(function() {
                 required: true,
                 minlength: 5
             },
-            confirm_password: {
+            password_confirmation: {
                 equalTo: "#password"
             },
             name: {
@@ -70,7 +70,7 @@ $(document).ready(function() {
                 required: "Please, type in a password.",
                 minlength: "Password must be atleast 5 characters."
             },
-            confirm_password: {
+            password_confirmation: {
                 equalTo: "Please, confirm your password again."
             },
             name: {
@@ -132,18 +132,18 @@ $(document).ready(function() {
         },
         transitionEffect: "fade",
         onStepChanging: function(event, currentIndex, newIndex) {
-            
+
             // Allways allow previous action even if the current form is not valid!
             if (currentIndex > newIndex) {
                 return true;
             }
 
             form.validate().settings.ignore = ":disabled,:hidden";
-            if(form.valid() && newIndex == 1 && trigger == 0){
+            if (form.valid() && newIndex == 1 && trigger == 0) {
                 trigger++;
                 $("#add-pet").trigger('click')
             }
-            if(form.valid() && newIndex == 2){
+            if (form.valid() && newIndex == 2) {
                 var country = $("select[name='country']").val();
                 var zip_code = $("input[name='zip_code']").val();
                 var totalPets = $('.pet-group').length;
@@ -152,16 +152,16 @@ $(document).ready(function() {
 
                 $.ajax({
                     type: 'GET',
-                    url: "/calculate-charge?country="+country+"&zip_code="+zip_code+"&totalPets="+totalPets,
+                    url: "/calculate-charge?country=" + country + "&zip_code=" + zip_code + "&totalPets=" + totalPets,
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
-                        
-                        $('#total-amount').text('€'+data)
+                    success: function(data) {
+
+                        $('#total-amount').text('€' + data)
                     },
-                        
+
                 });
-                
+
             }
 
             return form.valid();
@@ -171,14 +171,14 @@ $(document).ready(function() {
             return form.valid();
         },
         onFinished: function(event, currentIndex) {
-            alert('Loading ...')
+            $('.loading-wrapper').show();
             var date_expiry = $("input[name='date_expiry']").val().split('-');
             Stripe.card.createToken({
-                  number: $("input[name='card_holder']").val(),
-                  cvc: $("input[name='cvc']").val(),
-                  exp_month: date_expiry[0],
-                  exp_year: date_expiry[1],
-                  address_zip: $("input[name='zip_code']").val() 
+                number: $("input[name='card_holder']").val(),
+                cvc: $("input[name='cvc']").val(),
+                exp_month: date_expiry[0],
+                exp_year: date_expiry[1],
+                address_zip: $("input[name='zip_code']").val()
             }, stripeResponseHandler);
         }
     });
@@ -189,61 +189,59 @@ $(document).ready(function() {
         $form.find('.payment-errors').text('');
 
         if (response.error) { // Problem!
-
-          // Show the errors on the form
-          $form.find('.payment-errors').text(response.error.message);
-          $form.find('button').prop('disabled', false); // Re-enable submission
+            $('.loading-wrapper').hide();
+            // Show the errors on the form
+            $form.find('.payment-errors').html('<p>' + response.error.message + '</p>');
+            $form.find('button').prop('disabled', false); // Re-enable submission
 
         } else { // Token was created!
-
-          // Get the token ID:
-          var token = response.id;
-          // Insert the token into the form so it gets submitted to the server:
-          // $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-          var postData = {
-            name: $("input[name='name']").val(),
-            email: $("input[name='email']").val(),
-            password: $("input[name='password']").val(),
-            password_confirmation: $("input[name='password_confirmation']").val(),
-            city: $("input[name='city']").val(),
-            address: $("input[name='address']").val(),
-            zip_code: $("input[name='zip_code']").val(),
-            state: $("input[name='state']").val(),
-            country: $("select[name='country']").val(),
-            reward: $("input[name='reward']").val(),
-            phone: $("input[name='phone']").val(),
-            s_phone: $("input[name='s_phone']").val(),
-            pets: $("[name^='pets']").serialize(),
-            stripe_token: token,
-          };
-
+            // Get the token ID:
+            var token = response.id;
+            // Insert the token into the form so it gets submitted to the server:
+            // $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+            var postData = {
+                name: $("input[name='name']").val(),
+                email: $("input[name='email']").val(),
+                password: $("input[name='password']").val(),
+                password_confirmation: $("input[name='password_confirmation']").val(),
+                city: $("input[name='city']").val(),
+                address: $("input[name='address']").val(),
+                zip_code: $("input[name='zip_code']").val(),
+                state: $("input[name='state']").val(),
+                country: $("select[name='country']").val(),
+                reward: $("input[name='reward']").val(),
+                phone: $("input[name='phone']").val(),
+                s_phone: $("input[name='s_phone']").val(),
+                pets: $("[name^='pets']").serialize(),
+                stripe_token: token,
+            };
             $('.alert-danger').html('');
             $('.alert-danger').hide();
-            
+
             $.ajax({
                 type: 'POST',
                 url: "/checkout",
                 data: postData,
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     if (data.status == 'success') {
                         $('.thanks-wrapper').show();
                         $('.actions').hide();
                         $('.steps ul li').addClass('disabled');
                     }
-                   
+
                 },
-                error: function (request, status, error) {
+                error: function(request, status, error) {
                     json = $.parseJSON(request.responseText);
-                    $.each(json.errors, function(key, value){
+                    $.each(json.errors, function(key, value) {
                         $('.alert-danger').show();
-                        $('.alert-danger').append('<p>'+value+'</p>');
+                        $('.alert-danger').append('<p>' + value + '</p>');
                     });
                 }
-                        
+
             });
-          // Submit the form:
-          //$form.get(0).submit();
+            // Submit the form:
+            //$form.get(0).submit();
         }
     }
 
