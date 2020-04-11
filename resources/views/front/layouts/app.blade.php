@@ -43,13 +43,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- 4TH APRIL, 2020 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/date-picker/datepicker.min.css')}}">
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"> -->
-    <link rel="stylesheet" href="{{ asset('slick-1.8.1/slick/slick.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('slick-1.8.1/slick/slick-theme.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('assets/css/jquery.steps.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    
     @yield('extra-css')
 
 </head>
@@ -66,7 +60,7 @@
     const stripe_key = "{{ config('services.stripe.key') }}";
 </script>
 
-<script src="https://js.stripe.com/v2/"></script>
+
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -75,18 +69,14 @@
 
 <!-- <script src="{{ asset('/js/custom-slick.js') }}"></script> -->
 <!-- <script src="{{ asset('js/add-delete-pet.js') }}"></script> -->
+<script type="text/javascript">
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+</script>
 
-<!-- APRIL 4TH, 2020 -->
-
-<!-- <script src="{{ asset('assets/js/jquery-3.4.1.min.js') }}"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>
-    <!-- <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script> -->
-    <script src="{{ asset('assets/date-picker/datepicker.min.js')}}"></script>
-    <script src="{{ asset('slick-1.8.1/slick/slick.min.js')}}"></script>
-    <script src="{{ asset('assets/js/jquery.steps.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
     @yield('extra-js')
 <script>
     //Stepwise form post

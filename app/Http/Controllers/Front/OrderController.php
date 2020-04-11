@@ -6,10 +6,22 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Domain\Api\V1\Services\Subscriber\ContactInfoService;
 use App\Domain\Api\V1\Services\User\UserService;
+use App\Cloudsa9\Entities\Models\User\Country;
+use App\Cloudsa9\Entities\Models\User\UserPet;
+use App\Cloudsa9\Entities\Models\User\DiscountCode;
+use App\Cloudsa9\Entities\Models\User\ContactInfo;
+use App\Cloudsa9\Entities\Models\User\OrderTag;
+use Stripe;
+use LaravelShipStation;
+use File;
+use Image;
+use \Carbon\Carbon;
 
 class OrderController extends Controller
 {
-	private $tagCost = 19.99;
+    private $unitPrice      = 19.99;
+    private $orderItem      = 'PETID TAG';
+    private $sku            = 'PETID-TAG';
 	 /**
      * @var UserService
      */
@@ -25,60 +37,159 @@ class OrderController extends Controller
         $this->contactInfoService = $contactInfoService;
     }
     public function checkout(){
-    	return view('front.checkout.index');
+        $countries = Country::pluck('name','code');
+    	return view('front.checkout.index',compact('countries'));
     }
 
     public function order(Request $request){
-    	$this->validateInput();
-    	// Create new user 
-        $request['name'] = ucwords($request->name);
-        $user = $this->userService->create(array_merge($request->all(), ['account_type' => 'paid']));
-
-        // Create contact info
-        $contactInfo = $this->contactInfoService->create([
-            'user_id' => $user->id,
-            'name' => ucwords($user->name),
-            'email' => $user->email,
-            'phone1' => $user->phone1,
-            'phone2' => $user->phone2,
-            'address1' => $user->address1,
-            'address2' => $user->address2,
-            'city' => $user->city,
-            'state' => $user->state,
-            'zip' => $user->zip,
-            'country' => $user->country,
-            'reward' => 0,
-            'message' => '',
+         
+        $this->validate( $request, [
+            'name'          => 'required|string|max:255',
+            'email'         => 'required|string|email|max:255|unique:users',
+            'password'      => 'required|string|min:6|confirmed',
+            'address'       => 'required|min:3',
+            'city'          => 'required|min:3',
+            'state'         => 'required|min:2',
+            'zip_code'      => 'required|min:3',
+            'country'       => 'required|min:2',
+            'phone'         => 'required|numeric|min:10',
+            'reward'        => 'required',
+        
         ]);
 
 
-        foreach ($pets as $key => $pet) {
-       
+    	// Create new user 
+        $request['name']    = ucwords($request->name);
+        $user               = $this->userService->create(array_merge($request->all(), ['account_type' => 'paid']));
+
+        // Create contact info
+        $contactInfo = $this->contactInfoService->create([
+            'user_id'       => $user->id,
+            'name'          => ucwords($user->name),
+            'email'         => $user->email,
+            'address1'      => ucwords($request->address),
+            'address2'      => ucwords($request->address_2),
+            'city'          => ucwords($request->city),
+            'state'         => ucwords($request->state),
+            'zip'           => $request->zip_code,
+            'country'       => ucwords($request->country),
+            'phone1'        => $request->phone,
+            'phone2'        => $request->s_phone,
+            'reward'        => ($request->reward == 'yes' ? 1 : 0),
+            'message'       => '',
+        ]);
+
+        $petsInput      =  [];
+        parse_str($request->pets, $petsInput);
+        $totalPets      = count($petsInput);
+        
+        $petsArr        = [];
+        $orderNotes     = '';
+        $i = 1;
+        foreach ($petsInput as $key => $input) {
+    
         	$pet = UserPet::create([
-	            'user_id' => $user->id,
-	            'name' => ucwords($pet->name),
-	            'pet_code' => $this->unique_pet_code(),
-	            'qr_code' => str_shuffle(substr(uniqid(), 0, 10)),
-	            'gender' => $pet->gender,
-	            'color' => ucwords($pet->color),
-	            'breed' => ucwords($pet->breed),
-	            'image1' => $pet->image1,
-	            'image2' => $pet->image2,
+	            'user_id'      => $user->id,
+	            'name'         => ucwords($input[$i]['name']),
+	            'pet_code'     => $this->unique_pet_code(),
+	            'qr_code'      => str_shuffle(substr(uniqid(), 0, 10)),
+	            'gender'       => $input[$i]['gender'],
+	            'color'        => ucwords($input[$i]['color']),
+	            'breed'        => ucwords($input[$i]['breed']),
+	            'image1'       => @$input[$i]['image1'],
+	            'image2'       => @$input[$i]['image2'],
 	            'status_verified_at' => Carbon::now()->toDateTimeString()
 	        ]);
-        	$this->orderTag($contactInfo,$pet);
+            $petsArr[]          = $pet;
+            $orderNotes         .= $pet->pet_code . ' user: '.$pet->name. " - ";
+            $this->_orderTag($contactInfo,$pet);
+            $i++;
         }
-        $this->calculateCharge($contactInfo, count($pets));
+
+        $shippingCharge       = $this->_calculateCharge($request->country,$request->zip_code);
+        $totalAmount          = $totalPets * $this->unitPrice + $shippingCharge;
+        try {
+            $stripe_token   = $request->get('stripe_token');
+
+            $stripe = Stripe::charges()->create([
+                'source'    => $stripe_token,
+                'currency'  => 'USD',
+                'amount'    => $totalAmount
+            ]);
+
+            $shipStation    = app(LaravelShipStation\ShipStation::class);
+
+            $address        = new LaravelShipStation\Models\Address();
+
+            $address->name          = ucwords($request->get('name'));
+            $address->street1       = ucwords($request->get('address'));
+            $address->city          = ucwords($request->get('city'));
+            $address->state         = ucwords($request->get('state'));
+            $address->postalCode    = $request->get('zip_code');
+            $address->country       = $request->country;
+            $address->phone         = $request->phone;
+
+            $item = new LaravelShipStation\Models\OrderItem();
+
+            $item->lineItemKey          = '1';
+            $item->sku                  = $this->sku;
+            $item->name                 = $this->orderItem;
+            $item->quantity             = $totalPets;
+            $item->unitPrice            = $this->unitPrice;
+            $item->warehouseLocation    = 'Warehouse A';
+
+            $order = new LaravelShipStation\Models\Order();
+
+            $order->orderNumber         = '1';
+            $order->orderDate           = Carbon::now()->format('Y-m-d');
+            $order->orderStatus         = 'awaiting_shipment';
+            $order->amountPaid          = $totalAmount;
+            $order->taxAmount           = '0.00';
+            $order->shippingAmount      = $shippingCharge;
+            $order->internalNotes       = 'Order created for PETid: '. $orderNotes;
+            $order->billTo              = $address;
+            $order->shipTo              = $address;
+            $order->items[]             = $item;
+            
+            $shipStation->orders->create($order);
+
+            foreach ($petsArr as $key=>$pet) { 
+
+                $order =  OrderTag::create([
+                    'user_id'           => $user->id,
+                    'email'             => $user->email,
+                    'pet_id'            => $pet->id,
+                    'total_price'       => $totalAmount,
+                    'tag_price'         => $this->unitPrice,
+                    'discount'          => 0,
+                    'shipping_charge'   => $shippingCharge,
+                    'discount_code'     => '',
+                    'address1'          => ucwords($contactInfo->address1),
+                    'address2'          => ucwords($contactInfo->address2),
+                    'city'              => ucwords($contactInfo->city),
+                    'state'             => ucwords($contactInfo->state),
+                    'zip_code'          => $contactInfo->zip_code,
+                    'country_code'      => $contactInfo->country,
+                    'stripe_token'      => $stripe_token
+                ]);
+            }
+
+            return ['status'=>'success'];
+            
+        } catch(\Stripe\Error\Card $e) {
+           dd($e->getMessage()); 
+        } catch (\Exception $e) {
+          dd($e->getMessage()); 
+        }
 
     }
 
-    private function orderTag($contacInfo,$pet){
- 
+    private function _orderTag($contacInfo,$pet){
      
-        $petCode = $pet->pet_code;
-        $contacInfo = ContactInfo::where('user_id', $pet->user_id)->first();
+        $petCode        = $pet->pet_code;
+        $contacInfo     = ContactInfo::where('user_id', $pet->user_id)->first();
         $qrCode = storage_path('app/public/qrcode/' . $pet->qr_code . '.jpg');
-        // generateQRCode('petid.app/rfp/' . $user->pet_code, $qrCode, $lockscreenInfo->lockscreen_color);
+
         generateQRCode('www.pet-id.app/rfp/' . $pet->pet_code, $qrCode);
         
         $backTag = $this->makeCurveQrImage($pet->qr_code, $pet->pet_code);  
@@ -90,89 +201,33 @@ class OrderController extends Controller
         $pet->update([
             'front_tag'=> $frontTag
         ]);
-
-        // $client = new \GuzzleHttp\Client;
-
-        // $headers = [
-        //     "Authorization" => "Bearer sk_live_dln4L38wMIDpzpill2FsEbof",
-        // ];
-
-        // $response = $client->request('POST','https://api.stripe.com/v1/charges', [
-        //     'headers' => $headers,
-        //     'form_params' => [
-        //         'amount' => (number_format($request->total_price, 2, '.', '') * 100),
-        //         'currency' => 'usd',
-        //         'source' => $request->stripe_token,
-        //         'description' => 'Payment complete for:'. $request->name . ' - PETid ' . $petCode ,
-        //         'receipt_email' => $request->email
-        //     ],
-        // ]);
-
-        $shipStation = app(\LaravelShipStation\ShipStation::class);
-
-        $address = new \LaravelShipStation\Models\Address();
-    
-        $address->name = ucwords($request->name);
-        $address->street1 = ucwords($request->address1);
-        $address->city = ucwords($request->city);
-        $address->state = ucwords($request->state);
-        $address->postalCode = $request->zip_code;
-        $address->country = $request->country_code;
-        $address->phone = currentUser()->contactInfo->phone1;
-    
-        $item = new \LaravelShipStation\Models\OrderItem();
-    
-        $item->sku = 'PETID-TAG';
-        $item->name = "PETID TAG";
-        $item->quantity = '1';
-        $item->unitPrice  = $request->tag_price;
-    
-        $order = new \LaravelShipStation\Models\Order();
-
-        $order->orderNumber = $petCode;
-        $order->orderDate = Carbon::now()->format('Y-m-d');
-        $order->orderStatus = 'awaiting_shipment';
-        $order->amountPaid = $request->total_price;
-        $order->taxAmount = 0;
-        $order->shippingAmount = $request->shipping_charge;
-        $order->internalNotes = 'Order created for PETid: '. $petCode . ' user: '.$request->name;
-        $order->billTo = $address;
-        $order->shipTo = $address;
-        $order->items[] = $item;
-
-        $data = $shipStation->orders->post($order, 'createorder');
-
-        $order =  OrderTag::create([
-            'user_id' => currentUser()->id,
-            'email' => $request->email,
-            'pet_id' => $request->pet_id,
-            'total_price' => $request->total_price,
-            'tag_price'=> $request->tag_price,
-            'discount'=>$request->discount,
-            'shipping_charge'=>$request->shipping_charge,
-            'discount_code' => $request->discount_code,
-            'address1'=>ucwords($request->address1),
-            'address2'=>ucwords($request->address2),
-            'city'=>ucwords($request->city),
-            'state'=>ucwords($request->state),
-            'zip_code'=>$request->zip_code,
-            'country_code'=>$request->country_code,
-            'stripe_token'=>$request->stripe_token
-        ]);
+        
     }
 
-    private function calculateCharge($contactInfo,$totalPets){
+   
+
+    public function calculateCharge(Request $request){
+        try{
+            $shippingCharge = $this->_calculateCharge($request->country,$request->zip_code);
+            $totalCharge          = $request->totalPets* $this->unitPrice + $shippingCharge;
+            return $totalCharge;
+        } catch(\Exception $e){
+            return 0;
+        }
+    }
+
+    private function _calculateCharge($country,$zip_code){
 	 	try{
             $ss = app(\LaravelShipStation\ShipStation::class);
             $weight = new \LaravelShipStation\Models\Weight();
             $weight->units = 'ounces';
             $weight->value = 2;
             $shipmentInfo = [
-                'carrierCode' => 'stamps_com',
-                'fromPostalCode' => 85087,
-                'toCountry' => $contactInfo->country,
-                'toPostalCode' =>$contactInfo->zip_code,
-                'weight' => $weight
+                'carrierCode'       => 'stamps_com',
+                'fromPostalCode'    => 85087,
+                'toCountry'         => $country,
+                'toPostalCode'      =>$zip_code,
+                'weight'            => $weight
             ];
     
             $rates = $ss->shipments->post(
@@ -181,32 +236,14 @@ class OrderController extends Controller
             );
           
             $shippingCharge = $rates[0]->shipmentCost;
-            $total = $totalPets* $this->tagCost + $shippingCharge;
             return $shippingCharge;
-        } catch(Exception $e){
+        } catch(\Exception $e){
             logger()->error($e);
             return response()->json([
                 'error' => true,
                 'message' => 'Unable to fetch shipping charge. Check message:' + $e,
             ]);
         }
-    }
-
-    protected function validateInput(){
-    	// $this->validate($request,[
-     //        'name'=>'required',
-     //        'pet_id'=>'required',
-     //        'total_price'=>'required',
-     //        'tag_price'=>'required',
-     //        'discount'=>'required',
-     //        'shipping_charge'=>'required',
-     //        'address1'=>'required',
-     //        // 'address2'=>'required',
-     //        'city'=>'required',
-     //        'state'=>'required',
-     //        'zip_code'=>'required',
-     //        'country_code'=>'required',
-     //    ]);
     }
 
     private function unique_pet_code()

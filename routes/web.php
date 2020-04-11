@@ -88,6 +88,8 @@ Route::get('/online-signup-step2', 'Front\PagesController@getOnlineSignup2')->na
 Route::post('/account/create-step2','Front\PagesController@postCreateStep2');
 // Route::get('/checkout', 'Front\PagesController@checkout')->name('checkout');
 Route::get('/checkout', 'Front\OrderController@checkout')->name('checkout');
+Route::post('/checkout', 'Front\OrderController@order')->name('payment');
+Route::get('/calculate-charge', 'Front\OrderController@calculateCharge')->name('calculate.charge');
 
 Route::get('/d', 'Front\PagesController@redirectToStore');
 

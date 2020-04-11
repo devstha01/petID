@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    var trigger = 0;
     var form = $("#contact");
     var totPet = 1;
     form.validate({
@@ -131,12 +132,38 @@ $(document).ready(function() {
         },
         transitionEffect: "fade",
         onStepChanging: function(event, currentIndex, newIndex) {
-            console.log(currentIndex, newIndex);
+            
             // Allways allow previous action even if the current form is not valid!
             if (currentIndex > newIndex) {
                 return true;
             }
+
             form.validate().settings.ignore = ":disabled,:hidden";
+            if(form.valid() && newIndex == 1 && trigger == 0){
+                trigger++;
+                $("#add-pet").trigger('click')
+            }
+            if(form.valid() && newIndex == 2){
+                var country = $("select[name='country']").val();
+                var zip_code = $("input[name='zip_code']").val();
+                var totalPets = $('.pet-group').length;
+                $('#total-pets').text(totalPets)
+                $('#total-amount').text('Calculating ...')
+
+                $.ajax({
+                    type: 'GET',
+                    url: "/calculate-charge?country="+country+"&zip_code="+zip_code+"&totalPets="+totalPets,
+                    data: {},
+                    dataType: 'json',
+                    success: function (data) {
+                        
+                        $('#total-amount').text('€'+data)
+                    },
+                        
+                });
+                
+            }
+
             return form.valid();
         },
         onFinishing: function(event, currentIndex) {
@@ -144,81 +171,82 @@ $(document).ready(function() {
             return form.valid();
         },
         onFinished: function(event, currentIndex) {
-            // alert("Submitted!");
-            $('.thanks-wrapper').show();
-            $('.actions').hide();
-            $('.steps ul li').addClass('disabled');
+            alert('Loading ...')
+            var date_expiry = $("input[name='date_expiry']").val().split('-');
+            Stripe.card.createToken({
+                  number: $("input[name='card_holder']").val(),
+                  cvc: $("input[name='cvc']").val(),
+                  exp_month: date_expiry[0],
+                  exp_year: date_expiry[1],
+                  address_zip: $("input[name='zip_code']").val() 
+            }, stripeResponseHandler);
         }
     });
 
-    $("#append_pet").click(function() {
-        totPet++;
-        var pet = $(`
-             <div class="pet-group">
-             <div class="form-heading pet-add">
-                 <h1>About Pet #<span>${totPet}</span></h1>
-                 <a href="#" class="remove-appended">
-                     <img src="assets/img/icons/minus_sir.svg" alt="">
-                 </a>
-             </div>
-             <div class="form-group">
-                 <label for="pet_name">Pet Name *</label>
-                 <input type="text" placeholder="Pet Name *" name="pet_name" class="form-control controls">
-             </div>
-             <div class="form-group">
-                 <label for="gender">Gender *</label>
-                 <select name="gender[]" class="custom-select gender" required="" data-msg-required="Please, provide your pet's gender">
-                     <option value="">Please Gender</option>
-                     <option value="male">Male</option>
-                     <option value="female">Female</option>
-                 </select>
-             </div>
-             <div class="form-group">
-                 <label for="color">Color</label>
-                 <input type="text" placeholder="Color *" name="color" class="form-control controls">
-             </div>
-             <div class="form-group">
-                 <label for="breed">Breed *</label>
-                 <input type="text" placeholder="Breed *" name="city" class="form-control controls">
-             </div>
-             <div class="form-group">
-                 <div class="upload-wrap"><p class="head">Upload Pet Image</p>
-                     <label for="img${totPet + 1}">
-                         <div class="uploadpreview img${totPet + 1}"></div>
-                         
-                     </label>
-                     <input id="img${totPet + 1}" type="file" accept="image/*">
-                 </div>
+    function stripeResponseHandler(status, response) {
+        // Grab the form:
+        var $form = $('#contact');
+        $form.find('.payment-errors').text('');
 
-                 <div class="upload-wrap"><p class="head">Upload Pet Image</p>
-                     <label for="img${totPet + 2}">
-                         <div class="uploadpreview img${totPet + 2}"></div>
-                     </label>
-                     <input id="img${totPet + 2}" type="file" accept="image/*">
-                 </div>
-             </div>
-         </div>`);
-        $(".append-wrapper").append(pet);
-    });
+        if (response.error) { // Problem!
 
-    // Remove Child
-    $("#append_pet").click(function() {
-        setTimeout(function() {
-            $('.remove-appended').on('click', function() {
-                $(this).parents().eq(1).remove();
-            })
+          // Show the errors on the form
+          $form.find('.payment-errors').text(response.error.message);
+          $form.find('button').prop('disabled', false); // Re-enable submission
 
-            $('.upload-wrap input[type=file]').change(function() {
-                var id = $(this).attr("id");
-                var newimage = new FileReader();
-                newimage.readAsDataURL(this.files[0]);
-                newimage.onload = function(e) {
-                    $('.uploadpreview.' + id).css('background-image', 'url(' + e.target.result + ')');
+        } else { // Token was created!
+
+          // Get the token ID:
+          var token = response.id;
+          // Insert the token into the form so it gets submitted to the server:
+          // $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+          var postData = {
+            name: $("input[name='name']").val(),
+            email: $("input[name='email']").val(),
+            password: $("input[name='password']").val(),
+            password_confirmation: $("input[name='password_confirmation']").val(),
+            city: $("input[name='city']").val(),
+            address: $("input[name='address']").val(),
+            zip_code: $("input[name='zip_code']").val(),
+            state: $("input[name='state']").val(),
+            country: $("select[name='country']").val(),
+            reward: $("input[name='reward']").val(),
+            phone: $("input[name='phone']").val(),
+            s_phone: $("input[name='s_phone']").val(),
+            pets: $("[name^='pets']").serialize(),
+            stripe_token: token,
+          };
+
+            $('.alert-danger').html('');
+            $('.alert-danger').hide();
+            
+            $.ajax({
+                type: 'POST',
+                url: "/checkout",
+                data: postData,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 'success') {
+                        $('.thanks-wrapper').show();
+                        $('.actions').hide();
+                        $('.steps ul li').addClass('disabled');
+                    }
+                   
+                },
+                error: function (request, status, error) {
+                    json = $.parseJSON(request.responseText);
+                    $.each(json.errors, function(key, value){
+                        $('.alert-danger').show();
+                        $('.alert-danger').append('<p>'+value+'</p>');
+                    });
                 }
+                        
             });
-        }, 1000);
+          // Submit the form:
+          //$form.get(0).submit();
+        }
+    }
 
-    });
 
 
     $('.upload-wrap input[type=file]').change(function() {
@@ -235,7 +263,7 @@ $(document).ready(function() {
     });
 
     $('#date_expiry').datepicker({
-        format: 'mm-yy',
+        format: 'mm-yyyy',
         startDate: 'getDate'
     });
 
