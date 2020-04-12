@@ -50,7 +50,7 @@ $(document).ready(function() {
             cardholder_name: {
                 required: true
             },
-            cardholder_number: {
+            card_holder: {
                 required: true,
                 minlength: 16
             },
@@ -224,7 +224,9 @@ $(document).ready(function() {
                 data: postData,
                 dataType: 'json',
                 success: function(data) {
+                    $('.loading-wrapper').hide();
                     if (data.status == 'success') {
+
                         $('.thanks-wrapper').show();
                         $('.actions').hide();
                         $('.steps ul li').addClass('disabled');
@@ -232,6 +234,7 @@ $(document).ready(function() {
 
                 },
                 error: function(request, status, error) {
+                    $('.loading-wrapper').hide();
                     json = $.parseJSON(request.responseText);
                     $.each(json.errors, function(key, value) {
                         $('.alert-danger').show();
