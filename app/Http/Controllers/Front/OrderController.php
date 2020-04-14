@@ -57,6 +57,17 @@ class OrderController extends Controller
         
         ]);
 
+        $petsInput      =  [];
+        parse_str($request->pets, $petsInput);
+        $totalPets      = count($petsInput);
+
+        try{
+            $shippingCharge       = $this->_calculateCharge($request->country,$request->zip_code);
+            $totalAmount          = $totalPets * $this->unitPrice + $shippingCharge;
+        }catch (\Exception $e) {
+            dd($e->getMessage()); 
+        }
+       
 
     	// Create new user 
         $request['name']    = ucwords($request->name);
@@ -79,9 +90,7 @@ class OrderController extends Controller
             'message'       => '',
         ]);
 
-        $petsInput      =  [];
-        parse_str($request->pets, $petsInput);
-        $totalPets      = count($petsInput);
+      
         
         $petsArr        = [];
         $orderNotes     = '';
@@ -106,8 +115,6 @@ class OrderController extends Controller
             $i++;
         }
 
-        $shippingCharge       = $this->_calculateCharge($request->country,$request->zip_code);
-        $totalAmount          = $totalPets * $this->unitPrice + $shippingCharge;
         try {
             $stripe_token   = $request->get('stripe_token');
 
@@ -210,9 +217,9 @@ class OrderController extends Controller
         try{
             $shippingCharge = $this->_calculateCharge($request->country,$request->zip_code);
             $totalCharge          = $request->totalPets* $this->unitPrice + $shippingCharge;
-            return $totalCharge;
+            return ['status'=>'success','data'=>$totalCharge];
         } catch(\Exception $e){
-            return 0;
+            return ['status'=>'failure','message'=>'Shipping not available for the selected address'];
         }
     }
 

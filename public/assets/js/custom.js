@@ -5,52 +5,43 @@ $(document).ready(function() {
     form.validate({
         //errorPlacement: function errorPlacement(error, element) { element.before(error); },
         rules: {
-            email: {
-                required: true
-            },
-            password: {
-                required: true,
-                minlength: 5
-            },
-            password_confirmation: {
-                equalTo: "#password"
-            },
-            name: {
-                required: true
-            },
-            address: {
-                required: true
-            },
-            city: {
-                required: true
-            },
-            state: {
-                required: true
-            },
-            zip_code: {
-                required: true
-            },
-            country: {
-                required: true
-            },
-            phone: {
-                required: true,
-                minlength: 9,
-                number: true
-            },
-            pet_name: {
-                required: true
-            },
-            color: {
-                required: true
-            },
-            breed: {
-                required: true
-            },
+            // email: {
+            //     required: true
+            // },
+            // password: {
+            //     required: true,
+            //     minlength: 5
+            // },
+            // password_confirmation: {
+            //     equalTo: "#password"
+            // },
+            // name: {
+            //     required: true
+            // },
+            // address: {
+            //     required: true
+            // },
+            // city: {
+            //     required: true
+            // },
+            // state: {
+            //     required: true
+            // },
+            // zip_code: {
+            //     required: true
+            // },
+            // country: {
+            //     required: true
+            // },
+            // phone: {
+            //     required: true,
+            //     minlength: 9,
+            //     number: true
+            // },
             cardholder_name: {
                 required: true
             },
-            card_holder: {
+            card_number: {
                 required: true,
                 minlength: 16
             },
@@ -95,19 +86,10 @@ $(document).ready(function() {
                 required: "Please, provide your phone number.",
                 number: "Phone number must be numeric."
             },
-            pet_name: {
-                required: "Please, provide your pet name."
-            },
-            color: {
-                required: "Please, provide the pet color."
-            },
-            breed: {
-                required: "Please, provide it's breed."
-            },
             cardholder_name: {
                 required: "Please, provide the card name."
             },
-            cardholder_number: {
+            card_number: {
                 required: "Please, provide the card number.",
                 minlength: "Card number has to be minimum of 16 digits."
             },
@@ -125,7 +107,7 @@ $(document).ready(function() {
         labels: {
             current: "current step:",
             pagination: "Pagination",
-            finish: "FINISH",
+            finish: "ORDER",
             next: "NEXT STEP",
             previous: "BACK",
             loading: "Loading ..."
@@ -144,20 +126,28 @@ $(document).ready(function() {
                 $("#add-pet").trigger('click')
             }
             if (form.valid() && newIndex == 2) {
+
                 var country = $("select[name='country']").val();
                 var zip_code = $("input[name='zip_code']").val();
                 var totalPets = $('.pet-group').length;
                 $('#total-pets').text(totalPets)
-                $('#total-amount').text('Calculating ...')
-
+                $('#shipping-message').text('Calculating ...')
+                $('#contact').find('a[href="#finish"]').parent('li').addClass('disabled');
+                $('#contact').find('a[href="#finish"]').parent('li').attr("aria-disabled","true");
                 $.ajax({
                     type: 'GET',
                     url: "/calculate-charge?country=" + country + "&zip_code=" + zip_code + "&totalPets=" + totalPets,
                     data: {},
                     dataType: 'json',
                     success: function(data) {
+                        if (data.status == 'success') {
+                            $('#contact').find('a[href="#finish"]').parent().removeClass('disabled');
+                            $('#shipping-message').html('Total Amount: <span id="total-amount">€' + data.data.toFixed(2) + '</span>')
+                        }else {
+                           
+                            $('#shipping-message').text(data.message)
 
-                        $('#total-amount').text('€' + data)
+                        }
                     },
 
                 });
@@ -167,6 +157,10 @@ $(document).ready(function() {
             return form.valid();
         },
         onFinishing: function(event, currentIndex) {
+            if ($('#contact').find('a[href="#finish"]').parent('li').hasClass('disabled')) {
+                return
+            }
+
             form.validate().settings.ignore = ":disabled";
             return form.valid();
         },
@@ -174,7 +168,7 @@ $(document).ready(function() {
             $('.loading-wrapper').show();
             var date_expiry = $("input[name='date_expiry']").val().split('-');
             Stripe.card.createToken({
-                number: $("input[name='card_holder']").val(),
+                number: $("input[name='card_number']").val(),
                 cvc: $("input[name='cvc']").val(),
                 exp_month: date_expiry[0],
                 exp_year: date_expiry[1],

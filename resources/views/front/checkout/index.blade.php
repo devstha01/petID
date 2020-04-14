@@ -318,7 +318,7 @@
 
                                     <div class="total-cost-wrapper">
                                         <h2>Total Pets: <span id="total-pets"></span></h2>
-                                        <h3>Total Amount: <span id="total-amount"></span></h3>
+                                        <h3 id="shipping-message">Total Amount: <span id="total-amount"></span></h3>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -331,7 +331,7 @@
                                         <div class="purchase-content-inner">
                                             <div class="licence-form-wrapp">
                                                 <input id="cardholder-name" name="cardholder_name" class="form-control" type="text" placeholder="Card Holder's Name">
-                                                <input id="cardholder-number" name="card_holder" class="form-control" type="text" placeholder="Card Number">
+                                                <input id="cardholder-number" name="card_number" class="form-control" type="text" placeholder="Card Number">
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
                                                         <input value="" type="text" name="date_expiry" placeholder="Expiry Date" required="" class="form-control"id="date_expiry">
@@ -396,11 +396,11 @@
 
     <div class="form-group">
         <label for="pet_name">Pet Name *</label>
-        <input type="text" placeholder="Pet Name *" name="pets[<%=row_id%>][name]" class="form-control controls" id="pet_name" required="">
+        <input type="text" placeholder="Pet Name *" name="pets[<%=row_id%>][name]" class="form-control controls" required="">
     </div>
     <div class="form-group">
         <label for="gender">Gender *</label>
-        <select name="pets[<%=row_id%>][gender]" class="custom-select gender" required="" id="gender">
+        <select name="pets[<%=row_id%>][gender]" class="custom-select gender" required="">
             <option value="">Please Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -408,11 +408,11 @@
     </div>
     <div class="form-group">
         <label for="color">Color</label>
-        <input type="text" placeholder="Color *" name="pets[<%=row_id%>][color]" class="form-control controls" id="color" required="">
+        <input type="text" placeholder="Color *" name="pets[<%=row_id%>][color]" class="form-control controls" required="">
     </div>
     <div class="form-group">
         <label for="breed">Breed *</label>
-        <input type="text" placeholder="Breed *" name="pets[<%=row_id%>][breed]" class="form-control controls" id="breed" required="">
+        <input type="text" placeholder="Breed *" name="pets[<%=row_id%>][breed]" class="form-control controls" required="">
     </div>
     <!-- <div class="form-group">
     <div class="upload-wrap">
