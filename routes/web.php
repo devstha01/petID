@@ -87,7 +87,7 @@ Route::post('/account/create-step1','Front\PagesController@postCreateStep1');
 Route::get('/online-signup-step2', 'Front\PagesController@getOnlineSignup2')->name('online-signup-step2');
 Route::post('/account/create-step2','Front\PagesController@postCreateStep2');
 // Route::get('/checkout', 'Front\PagesController@checkout')->name('checkout');
-Route::get('/checkout', 'Front\OrderController@checkout')->name('checkout');
+Route::get('/petid-quick-order', 'Front\OrderController@checkout')->name('checkout');
 Route::post('/checkout', 'Front\OrderController@order')->name('payment');
 Route::get('/calculate-charge', 'Front\OrderController@calculateCharge')->name('calculate.charge');
 
@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('/profile', 'ProfileController@postProfile')->name('profile.update');
 
         Route::resource('/subscribers', 'SubscribersController');
+        Route::get('no-tags-purchased-users','SubscribersController@usersWithNoTag')->name('no-tags-purchased-users');
         Route::get('subscriber-pets/{id}','SubscribersController@getPets')->name('subscribers.pets');
         Route::get('subscriber/order-tag/{id}','SubscribersController@getPetTag')->name('subscribers.order-tag');
         Route::post('subscriber/post-order-tag/{id}','SubscribersController@orderPetTag')->name('subscribers.post-order-tag');

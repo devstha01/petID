@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use File;
 use Image;
+use DB;
 
 
 class SubscribersController extends Controller
@@ -56,6 +57,23 @@ class SubscribersController extends Controller
         $subscribers = $this->accountService->all();
 
         return view('admin.modules.subscriber.index', ['subscribers' => $subscribers]);
+    }
+
+    public function usersWithNoTag(){
+        $subscribers = \DB::table('users')
+        ->select(
+            'users.id',
+            'name',
+            'email',
+            'created_at'
+        )
+        ->whereNotExists( function ($query) {
+            $query->select(DB::raw(1))
+            ->from('order_tags')
+            ->whereRaw('users.id = order_tags.user_id');
+        })->paginate(20);
+   
+        return view('admin.modules.subscriber.notag', ['subscribers' => $subscribers]);
     }
 
     /**

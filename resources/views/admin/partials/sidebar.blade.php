@@ -41,6 +41,13 @@
                                 <span class="m-menu__link-text">All Subscribers</span>
                             </a>
                         </li>
+                        <li class="m-menu__item{{ $route == 'admin.no-tags-purchased-users'  ? ' m-menu__item--active': null }}"
+                            aria-haspopup="true" m-menu-link-redirect="1">
+                            <a href="{{ route('admin.no-tags-purchased-users') }}" class="m-menu__link">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
+                                <span class="m-menu__link-text">No Tags User</span>
+                            </a>
+                        </li>
                         <li class="m-menu__item{{ $route == 'admin.subscribers.create'  ? ' m-menu__item--active': null }}"
                             aria-haspopup="true" m-menu-link-redirect="1">
                             <a href="{{ route('admin.subscribers.create') }}" class="m-menu__link ">
