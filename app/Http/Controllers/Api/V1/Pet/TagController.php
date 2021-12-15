@@ -139,7 +139,7 @@ class TagController extends Controller
         $client = new \GuzzleHttp\Client;
 
         $headers = [
-            "Authorization" => "Bearer sk_live_dln4L38wMIDpzpill2FsEbof",
+            "Authorization" => "Bearer key",
         ];
 
         $response = $client->request('POST','https://api.stripe.com/v1/charges', [
